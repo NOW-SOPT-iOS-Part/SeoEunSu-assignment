@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import SnapKit
 
 class LoginViewController: UIViewController {
 
     let label: UILabel = {
         let label = UILabel()
         label.text = " TEST "
-        label.font = .pretendard(.black, size: 40)
+        label.font = .pretendard(weight: 400, size: 40)
         return label
     }()
     
