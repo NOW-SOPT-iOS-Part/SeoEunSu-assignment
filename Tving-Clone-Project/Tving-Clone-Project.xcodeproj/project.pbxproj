@@ -24,6 +24,8 @@
 		A2D639822BCE38B3000DAE80 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D639812BCE38B3000DAE80 /* UIFont+.swift */; };
 		A2D639852BCE3C8A000DAE80 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A2D639842BCE3C8A000DAE80 /* SnapKit */; };
 		A2D639872BCE3C8A000DAE80 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = A2D639862BCE3C8A000DAE80 /* SnapKit-Dynamic */; };
+		A2D6398A2BCE40F9000DAE80 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = A2D639892BCE40F9000DAE80 /* Then */; };
+		A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D6398D2BCE9C65000DAE80 /* UITextField+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,7 @@
 		A2D639742BCE36D9000DAE80 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		A2D639752BCE36D9000DAE80 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		A2D639812BCE38B3000DAE80 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		A2D6398D2BCE9C65000DAE80 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +55,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2D639852BCE3C8A000DAE80 /* SnapKit in Frameworks */,
+				A2D6398A2BCE40F9000DAE80 /* Then in Frameworks */,
 				A2D639872BCE3C8A000DAE80 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				A2D639812BCE38B3000DAE80 /* UIFont+.swift */,
+				A2D6398D2BCE9C65000DAE80 /* UITextField+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 			packageProductDependencies = (
 				A2D639842BCE3C8A000DAE80 /* SnapKit */,
 				A2D639862BCE3C8A000DAE80 /* SnapKit-Dynamic */,
+				A2D639892BCE40F9000DAE80 /* Then */,
 			);
 			productName = "Tving-Clone-Project";
 			productReference = A2D639542BCE2FAE000DAE80 /* Tving-Clone-Project.app */;
@@ -180,6 +186,7 @@
 			mainGroup = A2D6394B2BCE2FAE000DAE80;
 			packageReferences = (
 				A2D639832BCE3C8A000DAE80 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				A2D639882BCE40F9000DAE80 /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = A2D639552BCE2FAE000DAE80 /* Products */;
 			projectDirPath = "";
@@ -219,6 +226,7 @@
 				A2D639822BCE38B3000DAE80 /* UIFont+.swift in Sources */,
 				A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */,
 				A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */,
+				A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */,
 				A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,6 +450,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		A2D639882BCE40F9000DAE80 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -454,6 +470,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A2D639832BCE3C8A000DAE80 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = "SnapKit-Dynamic";
+		};
+		A2D639892BCE40F9000DAE80 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2D639882BCE40F9000DAE80 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
