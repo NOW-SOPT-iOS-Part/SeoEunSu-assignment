@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
+/// 정규식 유형
 enum RegexType {
     case email
     case password
@@ -37,6 +38,7 @@ final class LoginViewController: UIViewController {
         )
         $0.addLeftPadding(width: 22)
         $0.delegate = self
+        $0.addTarget(self, action: #selector(checkTextFieldState), for: .editingChanged)
     }
     
     final private lazy var idXButton = UIButton().then {
@@ -58,6 +60,7 @@ final class LoginViewController: UIViewController {
         $0.addLeftPadding(width: 22)
         $0.isSecureTextEntry = true
         $0.delegate = self
+        $0.addTarget(self, action: #selector(checkTextFieldState), for: .editingChanged)
     }
     
     final private lazy var pwXButton = UIButton().then {
@@ -244,6 +247,10 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    /// 타입에 따라 정규식을 따르는지 확인한다.
+    /// - type : 확인하고 싶은 정규식 유형
+    /// - input : 정규식이 일치하는지 확인할 문자열
+    /// - return : 따르면 true, 따르지 않으면 false
     final private func isMatchRegex(type: RegexType, input: String) -> Bool {
         var regexPattern = ""
         switch type {
@@ -256,10 +263,31 @@ final class LoginViewController: UIViewController {
         return pred.evaluate(with: input)
     }
     
+    /// 로그인하기 버튼의 스타일을 isActivate 값에 따라 변경하는 함수
+    /// - isActivate가 true면 로그인하기 버튼을 활성화 스타일로 변경
+    /// - isActivate가 false면 로그인하기 버튼을 비활성화 스타일로 변경
+    final private func changeLoginButtonStyle(isActivate: Bool) {
+        loginButton.isEnabled = isActivate ? true : false
+        loginButton.backgroundColor = isActivate ? .red : .black
+        loginButton.layer.borderWidth = isActivate ? 0 : 1
+        loginButton.layer.borderColor = isActivate ? nil : UIColor.gray4.cgColor
+        loginButton.setAttributedTitle(
+            NSAttributedString(
+                string: "로그인하기",
+                attributes: [
+                    .font : UIFont.pretendard(weight: 600, size: 14),
+                    .foregroundColor : isActivate ? UIColor.white : UIColor.gray2
+                ]
+            ),
+            for: .normal
+        )
+    }
+    
     // MARK: - Actions
     
     /// 텍스트 필드 사이드에 있는 X 버튼 클릭 시 호출되는 함수
     /// - 해당 텍스트 필드의 내용을 지워준다.
+    /// - 내용 삭제 시 LoginButton이 비활성화 되어야 하기 때문에 changeLoginButtonStyle 함수를 false 값을 넣어 호출함.
     @objc
     final private func xButtonDidTap(_ sender: UIButton) {
         if sender.tag == 1 {
@@ -267,6 +295,7 @@ final class LoginViewController: UIViewController {
         } else {
             pwTextField.text = ""
         }
+        changeLoginButtonStyle(isActivate: false)
     }
     
     /// 비밀번호 텍스트 필드 사이드에 있는 Eye / Eye-Slash 버튼 클릭 시 호출되는 함수
@@ -299,6 +328,17 @@ final class LoginViewController: UIViewController {
             alert.addAction(action)
             self.present(alert, animated: true)
         }
+    }
+    
+    /// idTextField와 pwTextField의 상태를 확인하는 함수
+    /// - idTextField와 pwTextField의 값이 변할 때마다 호출된다
+    /// - 해당 텍스트 필드가 isEmpty인지 아닌지에 따라 LoginButton의 스타일이 달라지게 된다
+    @objc
+    final private func checkTextFieldState() {
+        guard let idText = idTextField.text else { return }
+        guard let pwText = pwTextField.text else { return }
+        
+        changeLoginButtonStyle(isActivate: !(idText.isEmpty) && !(pwText.isEmpty))
     }
 }
 
