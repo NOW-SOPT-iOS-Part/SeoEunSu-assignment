@@ -10,6 +10,11 @@ import UIKit
 import SnapKit
 import Then
 
+enum RegexType {
+    case email
+    case password
+}
+
 final class LoginViewController: UIViewController {
 
     // MARK: - Subviews
@@ -239,6 +244,18 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    final private func isMatchRegex(type: RegexType, input: String) -> Bool {
+        var regexPattern = ""
+        switch type {
+        case .email: 
+            regexPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        case .password:
+            regexPattern = "[A-Za-z0-9!_@$%^&+=]{8,20}"
+        }
+        let pred = NSPredicate(format:"SELF MATCHES %@", regexPattern)
+        return pred.evaluate(with: input)
+    }
+    
     // MARK: - Actions
     
     /// 텍스트 필드 사이드에 있는 X 버튼 클릭 시 호출되는 함수
@@ -262,15 +279,26 @@ final class LoginViewController: UIViewController {
     }
     
     /// 로그인하기 버튼 클릭 시 호출되는 함수
-    /// - 아이디 데이터 전달 및 화면 이동
+    /// - 1. 아이디 데이터 전달 및 화면 이동
+    /// - 2. 아이디 및 비밀번호 정규식 확인 및 에러 처리
     @objc
     final private func loginButtonDidTap(_ sender: UIButton) {
-        let welcomeVC = WelcomeViewController()
-        guard let idData = idTextField.text else { return }
-        welcomeVC.idData = idData
-        welcomeVC.modalPresentationStyle = .fullScreen
-        welcomeVC.modalTransitionStyle = .coverVertical
-        self.present(welcomeVC, animated: true)
+        if isMatchRegex(type: .email, input: idTextField.text ?? "") && isMatchRegex(type: .password, input: pwTextField.text ?? "") {
+            let welcomeVC = WelcomeViewController()
+            guard let idData = idTextField.text else { return }
+            welcomeVC.idData = idData
+            welcomeVC.modalPresentationStyle = .fullScreen
+            welcomeVC.modalTransitionStyle = .coverVertical
+            self.present(welcomeVC, animated: true)
+        } else {
+            let alert = UIAlertController(title: "정규식 에러", message: "이메일 또는 비밀번호의 형식이 올바르지 않습니다", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default) { _ in
+                self.idTextField.text = ""
+                self.pwTextField.text = ""
+            }
+            alert.addAction(action)
+            self.present(alert, animated: true)
+        }
     }
 }
 

@@ -60,7 +60,6 @@ final class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         
-        
         addSubview()
         setLayout()
     }
