@@ -21,6 +21,7 @@ final class LoginViewController: UIViewController {
     }
     
     final private lazy var idTextField = UITextField().then {
+        $0.tag = 1
         $0.textColor = .gray2
         $0.font = .pretendard(weight: 600, size: 15)
         $0.layer.cornerRadius = 3
@@ -33,6 +34,13 @@ final class LoginViewController: UIViewController {
         $0.delegate = self
     }
     
+    final private lazy var idXButton = UIButton().then {
+        $0.tag = 1
+        $0.setImage(.xCircle, for: .normal)
+        $0.addTarget(self, action: #selector(xButtonDidTap), for: .touchUpInside)
+        $0.isHidden = true
+    }
+    
     final private lazy var pwTextField = UITextField().then {
         $0.textColor = .gray2
         $0.font = .pretendard(weight: 600, size: 15)
@@ -43,7 +51,20 @@ final class LoginViewController: UIViewController {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray2]
         )
         $0.addLeftPadding(width: 22)
+        $0.isSecureTextEntry = true
         $0.delegate = self
+    }
+    
+    final private lazy var pwXButton = UIButton().then {
+        $0.setImage(.xCircle, for: .normal)
+        $0.addTarget(self, action: #selector(xButtonDidTap), for: .touchUpInside)
+        $0.isHidden = true
+    }
+    
+    final private lazy var pwEyeButton = UIButton().then {
+        $0.setImage(.eyeSlash, for: .normal)
+        $0.addTarget(self, action: #selector(eyeButtonDidTap), for: .touchUpInside)
+        $0.isHidden = true
     }
     
     final private let loginButton = UIButton().then {
@@ -150,7 +171,10 @@ final class LoginViewController: UIViewController {
         [
             idLoginLabel,
             idTextField,
+            idXButton,
             pwTextField,
+            pwXButton,
+            pwEyeButton,
             loginButton,
             findButtonStackView,
             guideButtonStackView
@@ -167,10 +191,25 @@ final class LoginViewController: UIViewController {
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(52)
         }
+        idXButton.snp.makeConstraints {
+            $0.centerY.equalTo(idTextField)
+            $0.right.equalTo(idTextField).offset(-20)
+            $0.width.height.equalTo(20)
+        }
         pwTextField.snp.makeConstraints {
             $0.top.equalTo(idTextField.snp.bottom).offset(7)
             $0.left.right.equalTo(idTextField)
             $0.height.equalTo(idTextField)
+        }
+        pwEyeButton.snp.makeConstraints {
+            $0.centerY.equalTo(pwTextField)
+            $0.right.equalTo(pwTextField).offset(-20)
+            $0.width.height.equalTo(20)
+        }
+        pwXButton.snp.makeConstraints {
+            $0.centerY.equalTo(pwEyeButton)
+            $0.right.equalTo(pwEyeButton.snp.left).offset(-16)
+            $0.width.height.equalTo(20)
         }
         loginButton.snp.makeConstraints {
             $0.top.equalTo(pwTextField.snp.bottom).offset(21)
@@ -189,23 +228,70 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    /// 텍스트필드 사이드에 있는 X 버튼과 Eye 버튼의 visibility를 변경한다.
+    final private func changeSideButtonVisibility(textField: UITextField) {
+        if textField.tag == 1 {
+            idXButton.isHidden = false
+        } else {
+            pwXButton.isHidden = false
+            pwEyeButton.isHidden = false
+        }
+    }
+    
     // MARK: - Actions
+    
+    /// 텍스트 필드 사이드에 있는 X 버튼 클릭 시 호출되는 함수
+    /// - 해당 텍스트 필드의 내용을 지워준다.
+    @objc
+    final private func xButtonDidTap(_ sender: UIButton) {
+        if sender.tag == 1 {
+            idTextField.text = ""
+        } else {
+            pwTextField.text = ""
+        }
+    }
+    
+    /// 비밀번호 텍스트 필드 사이드에 있는 Eye / Eye-Slash 버튼 클릭 시 호출되는 함수
+    /// - 1. 이미지를 변경한다. ( Eye -> Eye-Slash / Eye-Slash -> Eye )
+    /// - 2. 비밀번호 텍스트 필드의 security 여부를 변경한다.
+    @objc
+    final private func eyeButtonDidTap(_ sender: UIButton) {
+        pwEyeButton.setImage(pwTextField.isSecureTextEntry ? .eye : .eyeSlash, for: .normal)
+        pwTextField.isSecureTextEntry = !pwTextField.isSecureTextEntry
+    }
 }
 
 // MARK: - UITextFieldDelegate
 
 extension LoginViewController: UITextFieldDelegate {
-    /// 텍스트 필드 내용 수정을 시작할 때 호출되는 함수로,
-    /// border를 활성화해준다.
+    /// 텍스트 필드 내용 수정을 시작할 때 호출되는 함수
+    /// - 1. border를 활성화해준다.
+    /// - 2. 텍스트가 채워져 있으면 바로 사이드 버튼들의 visibility를 변경한다.
     final func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if !(textField.text ?? "").isEmpty {
+            changeSideButtonVisibility(textField: textField)
+        }
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.gray2.cgColor
         return true
     }
     
-    /// 텍스트 필드 내용 수정이 끝났을 때 호출되는 함수로,
-    /// border를 제거해준다.
+    /// 텍스트 필드 내용 수정 중일 때 호출되는 함수
+    /// - 사이드 버튼들의 visibility를 변경한다.
+    final func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        changeSideButtonVisibility(textField: textField)
+        return true
+    }
+    
+    /// 텍스트 필드 내용 수정이 끝났을 때 호출되는 함수
+    /// - border를 제거해준다.
     final func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.tag == 1 {
+            idXButton.isHidden = true
+        } else {
+            pwXButton.isHidden = true
+            pwEyeButton.isHidden = true
+        }
         textField.layer.borderWidth = 0
         textField.layer.borderColor = nil
     }
