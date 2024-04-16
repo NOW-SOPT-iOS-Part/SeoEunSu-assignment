@@ -26,6 +26,7 @@
 		A2D639872BCE3C8A000DAE80 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = A2D639862BCE3C8A000DAE80 /* SnapKit-Dynamic */; };
 		A2D6398A2BCE40F9000DAE80 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = A2D639892BCE40F9000DAE80 /* Then */; };
 		A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D6398D2BCE9C65000DAE80 /* UITextField+.swift */; };
+		A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D6398F2BCEBEC6000DAE80 /* WelcomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		A2D639752BCE36D9000DAE80 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		A2D639812BCE38B3000DAE80 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		A2D6398D2BCE9C65000DAE80 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		A2D6398F2BCEBEC6000DAE80 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				A2D6395B2BCE2FAE000DAE80 /* LoginViewController.swift */,
+				A2D6398F2BCEBEC6000DAE80 /* WelcomeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				A2D639822BCE38B3000DAE80 /* UIFont+.swift in Sources */,
 				A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */,
 				A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */,
+				A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */,
 				A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */,
 				A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */,
 			);

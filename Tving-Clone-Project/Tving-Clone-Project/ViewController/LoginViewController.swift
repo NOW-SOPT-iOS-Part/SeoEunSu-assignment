@@ -67,7 +67,7 @@ final class LoginViewController: UIViewController {
         $0.isHidden = true
     }
     
-    final private let loginButton = UIButton().then {
+    final private lazy var loginButton = UIButton().then {
         $0.backgroundColor = .black
         $0.layer.cornerRadius = 3
         $0.layer.borderWidth = 1
@@ -82,6 +82,7 @@ final class LoginViewController: UIViewController {
             ),
             for: .normal
         )
+        $0.addTarget(self, action: #selector(loginButtonDidTap), for: .touchUpInside)
     }
     
     final private let findIdButton = UIButton().then {
@@ -258,6 +259,18 @@ final class LoginViewController: UIViewController {
     final private func eyeButtonDidTap(_ sender: UIButton) {
         pwEyeButton.setImage(pwTextField.isSecureTextEntry ? .eye : .eyeSlash, for: .normal)
         pwTextField.isSecureTextEntry = !pwTextField.isSecureTextEntry
+    }
+    
+    /// 로그인하기 버튼 클릭 시 호출되는 함수
+    /// - 아이디 데이터 전달 및 화면 이동
+    @objc
+    final private func loginButtonDidTap(_ sender: UIButton) {
+        let welcomeVC = WelcomeViewController()
+        guard let idData = idTextField.text else { return }
+        welcomeVC.idData = idData
+        welcomeVC.modalPresentationStyle = .fullScreen
+        welcomeVC.modalTransitionStyle = .coverVertical
+        self.present(welcomeVC, animated: true)
     }
 }
 
