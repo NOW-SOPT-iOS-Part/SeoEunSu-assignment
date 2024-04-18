@@ -166,6 +166,11 @@ final class LoginViewController: UIViewController {
         $0.distribution = .equalSpacing
     }
     
+    /// Bottom Sheet가 present 될 때 추가되는 어두운 배경 뷰
+    final private let dimmedView = UIView().then {
+        $0.backgroundColor = .black.withAlphaComponent(0.5)
+    }
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -265,6 +270,21 @@ final class LoginViewController: UIViewController {
         return pred.evaluate(with: input)
     }
     
+    /// 배경에 dimmedView를 추가하는 함수
+    /// - 1. animate를 통해 서서히 추가되는 것 같은 효과 제공
+    /// - 2. animation 끝나면 서브뷰로 추가 및 레이아웃 설정
+    final private func addDimmedView() {
+        UIView.animate(withDuration: 0.3) {
+            self.dimmedView.alpha = 1.0
+        } completion: { [self] _ in
+            view.addSubview(dimmedView)
+            dimmedView.snp.makeConstraints {
+                $0.edges.equalToSuperview()
+            }
+        }
+    }
+    
+    
     // MARK: - Actions
     
     /// 텍스트 필드 사이드에 있는 X 버튼 클릭 시 호출되는 함수
@@ -324,9 +344,14 @@ final class LoginViewController: UIViewController {
     }
     
     /// 닉네임 만들러가기 버튼 클릭 시 호출되는 함수
+    /// - 1. 배경에 dimmedView 추가
+    /// - 2. Bottom Sheet VC를 present
     @objc
     final private func makeNicknameButtonDidTap() {
+        addDimmedView()
+        
         let bottomSheetVC = BottomSheetViewController()
+        bottomSheetVC.delegate = self
         bottomSheetVC.modalPresentationStyle = .overFullScreen
         self.present(bottomSheetVC, animated: true)
     }
@@ -365,5 +390,21 @@ extension LoginViewController: UITextFieldDelegate {
         }
         textField.layer.borderWidth = 0
         textField.layer.borderColor = nil
+    }
+}
+
+// MARK: - RemoveDimmedViewDelegate
+
+extension LoginViewController: RemoveDimmedViewDelegate {
+    
+    /// dimmedView를 제거하는 함수
+    /// - 1. animate를 통해 서서히 없어지는 것 같은 효과 제공
+    /// - 2. animation 끝나면 super view에서 진짜 제거
+    func removeDimmedView() {
+        UIView.animate(withDuration: 0.3) {
+            self.dimmedView.alpha = 0.0
+        } completion: { _ in
+            self.dimmedView.removeFromSuperview()
+        }
     }
 }

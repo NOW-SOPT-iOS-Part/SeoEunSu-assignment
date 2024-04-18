@@ -10,13 +10,21 @@ import UIKit
 import SnapKit
 import Then
 
+/// Bottom Sheet 뒤의 어두운 뷰 클릭 시 그 어두운 뷰를 제거해주는 프로토콜 선언
+/// 이 작업을 BottomSheetVC가 아닌 LoginVC가 해줄 것이기 때문에 Delegate Pattern을 사용함
+protocol RemoveDimmedViewDelegate: AnyObject {
+    /// LoginVC에 있는 dimmedView를 제거해주는 함수
+    func removeDimmedView()
+}
+
 class BottomSheetViewController: UIViewController {
     
-    // MARK: - Subviews
+    // MARK: - Variables
     
-    final private let dimmedView = UIView().then {
-        $0.backgroundColor = .black.withAlphaComponent(0.5)
-    }
+    /// 일(어두운 뷰 제거)을 시키기 위한 대리자 변수
+    weak var delegate: (RemoveDimmedViewDelegate)?
+    
+    // MARK: - Subviews
     
     final private let grabBarView = UIView().then {
         $0.backgroundColor = .white2
@@ -76,9 +84,17 @@ class BottomSheetViewController: UIViewController {
     
     // MARK: - Helpers
     
+    // 유저의 터치를 감지하는 함수
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        // 배경의 self.view 클릭 시 saveButtonDidTap 함수가 호출되도록 코드 작성
+        if let touch = touches.first, touch.view == self.view {
+            self.saveButtonDidTap()
+        }
+    }
+    
     final private func addSubview() {
         [
-            dimmedView,
             grabBarView,
             bottomSheetView,
             enterNicknameLabel,
@@ -88,9 +104,6 @@ class BottomSheetViewController: UIViewController {
     }
     
     final private func setLayout() {
-        dimmedView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
         bottomSheetView.snp.makeConstraints {
             $0.left.right.bottom.equalToSuperview()
             $0.height.equalTo(UIScreen.main.bounds.height / 2 + 20)
@@ -128,9 +141,11 @@ class BottomSheetViewController: UIViewController {
     }
     
     /// 저장하기 버튼 클릭 시 호출되는 함수
-    /// BottomSheet가 dismiss 된다
+    /// - 1. 배경의 어두운 뷰를 제거한다 => delegate를 통해 LoginVC에게 일을 시킴
+    /// - 2. BottomSheet를 dismiss
     @objc
     final private func saveButtonDidTap() {
+        delegate?.removeDimmedView()
         self.dismiss(animated: true)
     }
 }
