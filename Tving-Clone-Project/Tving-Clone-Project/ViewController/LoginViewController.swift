@@ -36,7 +36,7 @@ final class LoginViewController: UIViewController {
             string: "아이디",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray2]
         )
-        $0.addLeftPadding(width: 22)
+        $0.addSidePadding(width: 22)
         $0.delegate = self
         $0.addTarget(self, action: #selector(checkTextFieldState), for: .editingChanged)
     }
@@ -57,7 +57,7 @@ final class LoginViewController: UIViewController {
             string: "비밀번호",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray2]
         )
-        $0.addLeftPadding(width: 22)
+        $0.addSidePadding(width: 22)
         $0.isSecureTextEntry = true
         $0.delegate = self
         $0.addTarget(self, action: #selector(checkTextFieldState), for: .editingChanged)
@@ -90,6 +90,7 @@ final class LoginViewController: UIViewController {
             ),
             for: .normal
         )
+        $0.isEnabled = false
         $0.addTarget(self, action: #selector(loginButtonDidTap), for: .touchUpInside)
     }
     
@@ -142,7 +143,7 @@ final class LoginViewController: UIViewController {
         $0.textColor = .gray3
     }
     
-    final private let makeNicknameButton = UIButton().then {
+    final private lazy var makeNicknameButton = UIButton().then {
         $0.configuration = .plain()
         $0.setAttributedTitle(
             NSAttributedString(
@@ -155,6 +156,7 @@ final class LoginViewController: UIViewController {
             ),
             for: .normal
         )
+        $0.addTarget(self, action: #selector(makeNicknameButtonDidTap), for: .touchUpInside)
     }
     
     final private lazy var guideButtonStackView = UIStackView(arrangedSubviews: [guideLabel, makeNicknameButton]).then {
@@ -263,26 +265,6 @@ final class LoginViewController: UIViewController {
         return pred.evaluate(with: input)
     }
     
-    /// 로그인하기 버튼의 스타일을 isActivate 값에 따라 변경하는 함수
-    /// - isActivate가 true면 로그인하기 버튼을 활성화 스타일로 변경
-    /// - isActivate가 false면 로그인하기 버튼을 비활성화 스타일로 변경
-    final private func changeLoginButtonStyle(isActivate: Bool) {
-        loginButton.isEnabled = isActivate ? true : false
-        loginButton.backgroundColor = isActivate ? .red : .black
-        loginButton.layer.borderWidth = isActivate ? 0 : 1
-        loginButton.layer.borderColor = isActivate ? nil : UIColor.gray4.cgColor
-        loginButton.setAttributedTitle(
-            NSAttributedString(
-                string: "로그인하기",
-                attributes: [
-                    .font : UIFont.pretendard(weight: 600, size: 14),
-                    .foregroundColor : isActivate ? UIColor.white : UIColor.gray2
-                ]
-            ),
-            for: .normal
-        )
-    }
-    
     // MARK: - Actions
     
     /// 텍스트 필드 사이드에 있는 X 버튼 클릭 시 호출되는 함수
@@ -295,7 +277,7 @@ final class LoginViewController: UIViewController {
         } else {
             pwTextField.text = ""
         }
-        changeLoginButtonStyle(isActivate: false)
+        loginButton.activateButtonStyle(isActivate: false)
     }
     
     /// 비밀번호 텍스트 필드 사이드에 있는 Eye / Eye-Slash 버튼 클릭 시 호출되는 함수
@@ -338,7 +320,15 @@ final class LoginViewController: UIViewController {
         guard let idText = idTextField.text else { return }
         guard let pwText = pwTextField.text else { return }
         
-        changeLoginButtonStyle(isActivate: !(idText.isEmpty) && !(pwText.isEmpty))
+        loginButton.activateButtonStyle(isActivate: !(idText.isEmpty) && !(pwText.isEmpty))
+    }
+    
+    /// 닉네임 만들러가기 버튼 클릭 시 호출되는 함수
+    @objc
+    final private func makeNicknameButtonDidTap() {
+        let bottomSheetVC = BottomSheetViewController()
+        bottomSheetVC.modalPresentationStyle = .overFullScreen
+        self.present(bottomSheetVC, animated: true)
     }
 }
 
