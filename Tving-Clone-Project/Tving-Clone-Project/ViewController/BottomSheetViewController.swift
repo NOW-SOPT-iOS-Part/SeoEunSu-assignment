@@ -10,19 +10,20 @@ import UIKit
 import SnapKit
 import Then
 
-/// Bottom Sheet 뒤의 어두운 뷰 클릭 시 그 어두운 뷰를 제거해주는 프로토콜 선언
-/// 이 작업을 BottomSheetVC가 아닌 LoginVC가 해줄 것이기 때문에 Delegate Pattern을 사용함
-protocol RemoveDimmedViewDelegate: AnyObject {
-    /// LoginVC에 있는 dimmedView를 제거해주는 함수
+/// 해당 작업을 (BottomSheetVC가 아닌) LoginVC가 대신 해줄 것이기 때문에 Delegate Pattern을 사용
+protocol BottomSheetDelegate: AnyObject {
+    /// 배경 클릭 시 LoginVC에 속해있는 어두운 뷰(dimmedView)를 제거해주는 함수
     func removeDimmedView()
+    /// 닉네임 데이터를 LoginVC로 전달해주는 함수
+    func passUserData(nickname: String)
 }
 
 class BottomSheetViewController: UIViewController {
     
     // MARK: - Variables
     
-    /// 일(어두운 뷰 제거)을 시키기 위한 대리자 변수
-    weak var delegate: (RemoveDimmedViewDelegate)?
+    /// 다른 VC에게 일을 시키기 위한 대리자 변수
+    weak var delegate: (BottomSheetDelegate)?
     
     // MARK: - Subviews
     
@@ -87,9 +88,12 @@ class BottomSheetViewController: UIViewController {
     // 유저의 터치를 감지하는 함수
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        // 배경의 self.view 클릭 시 saveButtonDidTap 함수가 호출되도록 코드 작성
+        // 배경의 self.view 클릭 시 실행될 코드 작성
+        // 1. 뒤의 어두운 뷰(dimmedView) 제거
+        // 2. BottomSheetVC dismiss
         if let touch = touches.first, touch.view == self.view {
-            self.saveButtonDidTap()
+            delegate?.removeDimmedView()
+            self.dismiss(animated: true)
         }
     }
     
@@ -142,10 +146,13 @@ class BottomSheetViewController: UIViewController {
     
     /// 저장하기 버튼 클릭 시 호출되는 함수
     /// - 1. 배경의 어두운 뷰를 제거한다 => delegate를 통해 LoginVC에게 일을 시킴
-    /// - 2. BottomSheet를 dismiss
+    /// - 2. 닉네임 값을 전달한다 => delegate를 통해 LoginVC로 닉네임 데이터를 전달
+    /// - 3. BottomSheet를 dismiss
     @objc
     final private func saveButtonDidTap() {
+        guard let nickname = nicknameTextField.text else { return }
         delegate?.removeDimmedView()
+        delegate?.passUserData(nickname: nickname)
         self.dismiss(animated: true)
     }
 }

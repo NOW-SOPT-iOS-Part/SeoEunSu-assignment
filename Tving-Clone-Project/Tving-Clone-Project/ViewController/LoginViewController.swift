@@ -18,6 +18,10 @@ enum RegexType {
 
 final class LoginViewController: UIViewController {
 
+    // MARK: - Variables
+    
+    final private var nickname: String?
+    
     // MARK: - Subviews
     
     final private let idLoginLabel = UILabel().then {
@@ -284,6 +288,19 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    /// 경고 alert를 띄워주는 함수
+    /// - title: 경고창의 상단에 띄울 String 값
+    /// - message: 경고창 내용으로 띄울 String 값
+    /// - OK 버튼 클릭 시 id 및 pw의 텍스트 필드를 비워준다
+    final private func presentAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { _ in
+            self.idTextField.text = ""
+            self.pwTextField.text = ""
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true)
+    }
     
     // MARK: - Actions
     
@@ -310,25 +327,25 @@ final class LoginViewController: UIViewController {
     }
     
     /// 로그인하기 버튼 클릭 시 호출되는 함수
-    /// - 1. 아이디 데이터 전달 및 화면 이동
-    /// - 2. 아이디 및 비밀번호 정규식 확인 및 에러 처리
+    /// - 1. 아이디 및 비밀번호 정규식 확인 및 에러 처리
+    /// - 2. 닉네임 설정 여부 확인 및 에러 처리
+    /// - 3. 아이디, 닉네임 데이터 전달 및 화면 이동
     @objc
     final private func loginButtonDidTap(_ sender: UIButton) {
         if isMatchRegex(type: .email, input: idTextField.text ?? "") && isMatchRegex(type: .password, input: pwTextField.text ?? "") {
-            let welcomeVC = WelcomeViewController()
-            guard let idData = idTextField.text else { return }
-            welcomeVC.idData = idData
-            welcomeVC.modalPresentationStyle = .fullScreen
-            welcomeVC.modalTransitionStyle = .coverVertical
-            self.present(welcomeVC, animated: true)
-        } else {
-            let alert = UIAlertController(title: "정규식 에러", message: "이메일 또는 비밀번호의 형식이 올바르지 않습니다", preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default) { _ in
-                self.idTextField.text = ""
-                self.pwTextField.text = ""
+            guard let id = idTextField.text else { return }
+            if let nickname = nickname {
+                let welcomeVC = WelcomeViewController()
+                welcomeVC.id = id
+                welcomeVC.nickname = nickname
+                welcomeVC.modalPresentationStyle = .fullScreen
+                welcomeVC.modalTransitionStyle = .coverVertical
+                self.present(welcomeVC, animated: true)
+            } else {
+                presentAlert(title: "닉네임 미설정 에러", message: "닉네임을 먼저 설정해주세요!")
             }
-            alert.addAction(action)
-            self.present(alert, animated: true)
+        } else {
+            presentAlert(title: "정규식 에러", message: "이메일 또는 비밀번호의 형식을 다시 확인해주세요!")
         }
     }
     
@@ -393,9 +410,10 @@ extension LoginViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - RemoveDimmedViewDelegate
+// MARK: - BottomSheetDelegate
 
-extension LoginViewController: RemoveDimmedViewDelegate {
+// BottomSheetDelegate를 채택하여 BottomSheetVC가 시키는 일을 대신 한다
+extension LoginViewController: BottomSheetDelegate {
     
     /// dimmedView를 제거하는 함수
     /// - 1. animate를 통해 서서히 없어지는 것 같은 효과 제공
@@ -406,5 +424,10 @@ extension LoginViewController: RemoveDimmedViewDelegate {
         } completion: { _ in
             self.dimmedView.removeFromSuperview()
         }
+    }
+    
+    /// BottomSheetVC에서 입력받은 유저의 닉네임 데이터를 LoginVC의 nickname 변수에 저장하는 함수
+    func passUserData(nickname: String) {
+        self.nickname = nickname
     }
 }
