@@ -158,5 +158,18 @@ class BottomSheetViewController: UIViewController {
 }
 
 extension BottomSheetViewController: UITextFieldDelegate {
-//    text
+    /// 텍스트 필드 내용 수정을 시작할 때 호출되는 함수
+    /// - border를 활성화
+    final func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.black.cgColor
+        return true
+    }
+    
+    /// 텍스트 필드 내용 수정이 끝났을 때 호출되는 함수
+    /// - border 제거
+    final func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderWidth = 0
+        textField.layer.borderColor = nil
+    }
 }
