@@ -49,6 +49,10 @@ class BottomSheetViewController: UIViewController {
         $0.backgroundColor = .gray2
         $0.font = .pretendard(weight: 600, size: 14)
         $0.textColor = .gray4
+        $0.attributedPlaceholder = NSAttributedString(
+            string: "한글 2-10자로 설정해주세요",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray1]
+        )
         $0.layer.cornerRadius = 3
         $0.addSidePadding(width: 25)
         $0.delegate = self
@@ -146,14 +150,22 @@ class BottomSheetViewController: UIViewController {
     
     /// 저장하기 버튼 클릭 시 호출되는 함수
     /// - 1. 배경의 어두운 뷰를 제거한다 => delegate를 통해 LoginVC에게 일을 시킴
-    /// - 2. 닉네임 값을 전달한다 => delegate를 통해 LoginVC로 닉네임 데이터를 전달
-    /// - 3. BottomSheet를 dismiss
+    /// - 2. 닉네임 값 정규식 확인 및 에러 처리
+    /// - 3. 닉네임 값을 전달한다 => delegate를 통해 LoginVC로 닉네임 데이터를 전달
+    /// - 4. BottomSheet를 dismiss
     @objc
     final private func saveButtonDidTap() {
         guard let nickname = nicknameTextField.text else { return }
-        delegate?.removeDimmedView()
-        delegate?.passUserData(nickname: nickname)
-        self.dismiss(animated: true)
+        
+        if isMatchRegex(type: .nickname, input: nickname) {
+            delegate?.removeDimmedView()
+            delegate?.passUserData(nickname: nickname)
+            self.dismiss(animated: true)
+        } else {
+            presentAlert(title: "닉네임 정규식 에러", message: "닉네임 형식을 다시 확인해주세요!") {
+                self.nicknameTextField.text = ""
+            }
+        }
     }
 }
 
@@ -171,5 +183,12 @@ extension BottomSheetViewController: UITextFieldDelegate {
     final func textFieldDidEndEditing(_ textField: UITextField) {
         textField.layer.borderWidth = 0
         textField.layer.borderColor = nil
+    }
+    
+    /// 키보드의 return 키 클릭 시 호출되는 함수
+    /// - 키보드를 내려준다
+    final func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

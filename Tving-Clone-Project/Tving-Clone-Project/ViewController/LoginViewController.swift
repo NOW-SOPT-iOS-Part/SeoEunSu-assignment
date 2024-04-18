@@ -10,12 +10,6 @@ import UIKit
 import SnapKit
 import Then
 
-/// 정규식 유형
-enum RegexType {
-    case email
-    case password
-}
-
 final class LoginViewController: UIViewController {
 
     // MARK: - Variables
@@ -258,22 +252,6 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    /// 타입에 따라 정규식을 따르는지 확인한다.
-    /// - type : 확인하고 싶은 정규식 유형
-    /// - input : 정규식이 일치하는지 확인할 문자열
-    /// - return : 따르면 true, 따르지 않으면 false
-    final private func isMatchRegex(type: RegexType, input: String) -> Bool {
-        var regexPattern = ""
-        switch type {
-        case .email: 
-            regexPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        case .password:
-            regexPattern = "[A-Za-z0-9!_@$%^&+=]{8,20}"
-        }
-        let pred = NSPredicate(format:"SELF MATCHES %@", regexPattern)
-        return pred.evaluate(with: input)
-    }
-    
     /// 배경에 dimmedView를 추가하는 함수
     /// - 1. animate를 통해 서서히 추가되는 것 같은 효과 제공
     /// - 2. animation 끝나면 서브뷰로 추가 및 레이아웃 설정
@@ -286,20 +264,6 @@ final class LoginViewController: UIViewController {
                 $0.edges.equalToSuperview()
             }
         }
-    }
-    
-    /// 경고 alert를 띄워주는 함수
-    /// - title: 경고창의 상단에 띄울 String 값
-    /// - message: 경고창 내용으로 띄울 String 값
-    /// - OK 버튼 클릭 시 id 및 pw의 텍스트 필드를 비워준다
-    final private func presentAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default) { _ in
-            self.idTextField.text = ""
-            self.pwTextField.text = ""
-        }
-        alert.addAction(action)
-        self.present(alert, animated: true)
     }
     
     // MARK: - Actions
@@ -342,10 +306,16 @@ final class LoginViewController: UIViewController {
                 welcomeVC.modalTransitionStyle = .coverVertical
                 self.present(welcomeVC, animated: true)
             } else {
-                presentAlert(title: "닉네임 미설정 에러", message: "닉네임을 먼저 설정해주세요!")
+                presentAlert(title: "닉네임 미설정 에러", message: "닉네임을 먼저 설정해주세요!") {
+                    self.idTextField.text = ""
+                    self.pwTextField.text = ""
+                }
             }
         } else {
-            presentAlert(title: "정규식 에러", message: "이메일 또는 비밀번호의 형식을 다시 확인해주세요!")
+            presentAlert(title: "정규식 에러", message: "이메일 또는 비밀번호의 형식을 다시 확인해주세요!") {
+                self.idTextField.text = ""
+                self.pwTextField.text = ""
+            }
         }
     }
     
@@ -407,6 +377,13 @@ extension LoginViewController: UITextFieldDelegate {
         }
         textField.layer.borderWidth = 0
         textField.layer.borderColor = nil
+    }
+    
+    /// 키보드의 return 키 클릭 시 호출되는 함수
+    /// - 키보드를 내려준다
+    final func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
