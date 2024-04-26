@@ -14,7 +14,8 @@ final class WelcomeViewController: UIViewController {
     
     // MARK: - Variables
     
-    var idData: String = ""
+    var id: String = ""
+    var nickname: String = ""
     
     // MARK: - Subviews
     
@@ -28,7 +29,7 @@ final class WelcomeViewController: UIViewController {
         let lineheight = 37.0
         style.minimumLineHeight = lineheight
         $0.attributedText = NSAttributedString(
-            string: "\(idData)님\n반가워요!",
+            string: "\(nickname) 님\n반가워요!",
             attributes: [
                 .paragraphStyle: style
             ])
@@ -62,6 +63,8 @@ final class WelcomeViewController: UIViewController {
         
         addSubview()
         setLayout()
+        
+        print("당신의 id는 \(id)이고, nickname은 \(nickname)입니다!")
     }
     
     // MARK: - Helpers

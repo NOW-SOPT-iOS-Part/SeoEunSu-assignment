@@ -10,14 +10,12 @@ import UIKit
 import SnapKit
 import Then
 
-/// 정규식 유형
-enum RegexType {
-    case email
-    case password
-}
-
 final class LoginViewController: UIViewController {
 
+    // MARK: - Variables
+    
+    final private var nickname: String?
+    
     // MARK: - Subviews
     
     final private let idLoginLabel = UILabel().then {
@@ -27,7 +25,6 @@ final class LoginViewController: UIViewController {
     }
     
     final private lazy var idTextField = UITextField().then {
-        $0.tag = 1
         $0.textColor = .gray2
         $0.font = .pretendard(weight: 600, size: 15)
         $0.layer.cornerRadius = 3
@@ -36,13 +33,12 @@ final class LoginViewController: UIViewController {
             string: "아이디",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray2]
         )
-        $0.addLeftPadding(width: 22)
+        $0.addSidePadding(width: 22)
         $0.delegate = self
         $0.addTarget(self, action: #selector(checkTextFieldState), for: .editingChanged)
     }
     
     final private lazy var idXButton = UIButton().then {
-        $0.tag = 1
         $0.setImage(.xCircle, for: .normal)
         $0.addTarget(self, action: #selector(xButtonDidTap), for: .touchUpInside)
         $0.isHidden = true
@@ -57,7 +53,7 @@ final class LoginViewController: UIViewController {
             string: "비밀번호",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray2]
         )
-        $0.addLeftPadding(width: 22)
+        $0.addSidePadding(width: 22)
         $0.isSecureTextEntry = true
         $0.delegate = self
         $0.addTarget(self, action: #selector(checkTextFieldState), for: .editingChanged)
@@ -90,6 +86,7 @@ final class LoginViewController: UIViewController {
             ),
             for: .normal
         )
+        $0.isEnabled = false
         $0.addTarget(self, action: #selector(loginButtonDidTap), for: .touchUpInside)
     }
     
@@ -129,7 +126,7 @@ final class LoginViewController: UIViewController {
         )
     }
     
-    final private lazy var findButtonStackView = UIStackView(arrangedSubviews: [findIdButton, separatorView, findPwButton]).then {
+    final private lazy var findButtonStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 34
         $0.alignment = .center
@@ -142,7 +139,7 @@ final class LoginViewController: UIViewController {
         $0.textColor = .gray3
     }
     
-    final private let makeNicknameButton = UIButton().then {
+    final private lazy var makeNicknameButton = UIButton().then {
         $0.configuration = .plain()
         $0.setAttributedTitle(
             NSAttributedString(
@@ -155,13 +152,19 @@ final class LoginViewController: UIViewController {
             ),
             for: .normal
         )
+        $0.addTarget(self, action: #selector(makeNicknameButtonDidTap), for: .touchUpInside)
     }
     
-    final private lazy var guideButtonStackView = UIStackView(arrangedSubviews: [guideLabel, makeNicknameButton]).then {
+    final private lazy var guideButtonStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 30
         $0.alignment = .center
         $0.distribution = .equalSpacing
+    }
+    
+    /// Bottom Sheet가 present 될 때 추가되는 어두운 배경 뷰
+    final private let dimmedView = UIView().then {
+        $0.backgroundColor = .black.withAlphaComponent(0.5)
     }
     
     // MARK: - Life Cycle
@@ -188,6 +191,16 @@ final class LoginViewController: UIViewController {
             findButtonStackView,
             guideButtonStackView
         ].forEach { self.view.addSubview($0) }
+        
+        [
+            findIdButton,
+            separatorView,
+            findPwButton
+        ].forEach { self.findButtonStackView.addSubview($0) }
+        
+        [
+            guideLabel, makeNicknameButton
+        ].forEach { self.guideButtonStackView.addSubview($0) }
     }
     
     final private func setLayout() {
@@ -239,7 +252,7 @@ final class LoginViewController: UIViewController {
     
     /// 텍스트필드 사이드에 있는 X 버튼과 Eye 버튼의 visibility를 변경한다.
     final private func changeSideButtonVisibility(textField: UITextField) {
-        if textField.tag == 1 {
+        if textField == idTextField {
             idXButton.isHidden = false
         } else {
             pwXButton.isHidden = false
@@ -247,40 +260,18 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    /// 타입에 따라 정규식을 따르는지 확인한다.
-    /// - type : 확인하고 싶은 정규식 유형
-    /// - input : 정규식이 일치하는지 확인할 문자열
-    /// - return : 따르면 true, 따르지 않으면 false
-    final private func isMatchRegex(type: RegexType, input: String) -> Bool {
-        var regexPattern = ""
-        switch type {
-        case .email: 
-            regexPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        case .password:
-            regexPattern = "[A-Za-z0-9!_@$%^&+=]{8,20}"
+    /// 배경에 dimmedView를 추가하는 함수
+    /// - 1. animate를 통해 서서히 추가되는 것 같은 효과 제공
+    /// - 2. animation 끝나면 서브뷰로 추가 및 레이아웃 설정
+    final private func addDimmedView() {
+        UIView.animate(withDuration: 0.3) {
+            self.dimmedView.alpha = 1.0
+        } completion: { [self] _ in
+            view.addSubview(dimmedView)
+            dimmedView.snp.makeConstraints {
+                $0.edges.equalToSuperview()
+            }
         }
-        let pred = NSPredicate(format:"SELF MATCHES %@", regexPattern)
-        return pred.evaluate(with: input)
-    }
-    
-    /// 로그인하기 버튼의 스타일을 isActivate 값에 따라 변경하는 함수
-    /// - isActivate가 true면 로그인하기 버튼을 활성화 스타일로 변경
-    /// - isActivate가 false면 로그인하기 버튼을 비활성화 스타일로 변경
-    final private func changeLoginButtonStyle(isActivate: Bool) {
-        loginButton.isEnabled = isActivate ? true : false
-        loginButton.backgroundColor = isActivate ? .red : .black
-        loginButton.layer.borderWidth = isActivate ? 0 : 1
-        loginButton.layer.borderColor = isActivate ? nil : UIColor.gray4.cgColor
-        loginButton.setAttributedTitle(
-            NSAttributedString(
-                string: "로그인하기",
-                attributes: [
-                    .font : UIFont.pretendard(weight: 600, size: 14),
-                    .foregroundColor : isActivate ? UIColor.white : UIColor.gray2
-                ]
-            ),
-            for: .normal
-        )
     }
     
     // MARK: - Actions
@@ -290,12 +281,12 @@ final class LoginViewController: UIViewController {
     /// - 내용 삭제 시 LoginButton이 비활성화 되어야 하기 때문에 changeLoginButtonStyle 함수를 false 값을 넣어 호출함.
     @objc
     final private func xButtonDidTap(_ sender: UIButton) {
-        if sender.tag == 1 {
+        if sender == idXButton {
             idTextField.text = ""
         } else {
             pwTextField.text = ""
         }
-        changeLoginButtonStyle(isActivate: false)
+        loginButton.activateButtonStyle(isActivate: false)
     }
     
     /// 비밀번호 텍스트 필드 사이드에 있는 Eye / Eye-Slash 버튼 클릭 시 호출되는 함수
@@ -304,29 +295,35 @@ final class LoginViewController: UIViewController {
     @objc
     final private func eyeButtonDidTap(_ sender: UIButton) {
         pwEyeButton.setImage(pwTextField.isSecureTextEntry ? .eye : .eyeSlash, for: .normal)
-        pwTextField.isSecureTextEntry = !pwTextField.isSecureTextEntry
+        pwTextField.isSecureTextEntry.toggle()
     }
     
     /// 로그인하기 버튼 클릭 시 호출되는 함수
-    /// - 1. 아이디 데이터 전달 및 화면 이동
-    /// - 2. 아이디 및 비밀번호 정규식 확인 및 에러 처리
+    /// - 1. 아이디 및 비밀번호 정규식 확인 및 에러 처리
+    /// - 2. 닉네임 설정 여부 확인 및 에러 처리
+    /// - 3. 아이디, 닉네임 데이터 전달 및 화면 이동
     @objc
     final private func loginButtonDidTap(_ sender: UIButton) {
         if isMatchRegex(type: .email, input: idTextField.text ?? "") && isMatchRegex(type: .password, input: pwTextField.text ?? "") {
-            let welcomeVC = WelcomeViewController()
-            guard let idData = idTextField.text else { return }
-            welcomeVC.idData = idData
-            welcomeVC.modalPresentationStyle = .fullScreen
-            welcomeVC.modalTransitionStyle = .coverVertical
-            self.present(welcomeVC, animated: true)
+            guard let id = idTextField.text else { return }
+            if let nickname = nickname {
+                let welcomeVC = WelcomeViewController()
+                welcomeVC.id = id
+                welcomeVC.nickname = nickname
+                welcomeVC.modalPresentationStyle = .fullScreen
+                welcomeVC.modalTransitionStyle = .coverVertical
+                self.present(welcomeVC, animated: true)
+            } else {
+                presentAlert(title: "닉네임 미설정 에러", message: "닉네임을 먼저 설정해주세요!") {
+                    self.idTextField.text = ""
+                    self.pwTextField.text = ""
+                }
+            }
         } else {
-            let alert = UIAlertController(title: "정규식 에러", message: "이메일 또는 비밀번호의 형식이 올바르지 않습니다", preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default) { _ in
+            presentAlert(title: "정규식 에러", message: "이메일 또는 비밀번호의 형식을 다시 확인해주세요!") {
                 self.idTextField.text = ""
                 self.pwTextField.text = ""
             }
-            alert.addAction(action)
-            self.present(alert, animated: true)
         }
     }
     
@@ -338,7 +335,20 @@ final class LoginViewController: UIViewController {
         guard let idText = idTextField.text else { return }
         guard let pwText = pwTextField.text else { return }
         
-        changeLoginButtonStyle(isActivate: !(idText.isEmpty) && !(pwText.isEmpty))
+        loginButton.activateButtonStyle(isActivate: !(idText.isEmpty) && !(pwText.isEmpty))
+    }
+    
+    /// 닉네임 만들러가기 버튼 클릭 시 호출되는 함수
+    /// - 1. 배경에 dimmedView 추가
+    /// - 2. Bottom Sheet VC를 present
+    @objc
+    final private func makeNicknameButtonDidTap() {
+        addDimmedView()
+        
+        let bottomSheetVC = BottomSheetViewController()
+        bottomSheetVC.delegate = self
+        bottomSheetVC.modalPresentationStyle = .overFullScreen
+        self.present(bottomSheetVC, animated: true)
     }
 }
 
@@ -367,7 +377,7 @@ extension LoginViewController: UITextFieldDelegate {
     /// 텍스트 필드 내용 수정이 끝났을 때 호출되는 함수
     /// - border를 제거해준다.
     final func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.tag == 1 {
+        if textField == idTextField {
             idXButton.isHidden = true
         } else {
             pwXButton.isHidden = true
@@ -375,5 +385,34 @@ extension LoginViewController: UITextFieldDelegate {
         }
         textField.layer.borderWidth = 0
         textField.layer.borderColor = nil
+    }
+    
+    /// 키보드의 return 키 클릭 시 호출되는 함수
+    /// - 키보드를 내려준다
+    final func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+// MARK: - BottomSheetDelegate
+
+// BottomSheetDelegate를 채택하여 BottomSheetVC가 시키는 일을 대신 한다
+extension LoginViewController: BottomSheetDelegate {
+    
+    /// dimmedView를 제거하는 함수
+    /// - 1. animate를 통해 서서히 없어지는 것 같은 효과 제공
+    /// - 2. animation 끝나면 super view에서 진짜 제거
+    func removeDimmedView() {
+        UIView.animate(withDuration: 0.3) {
+            self.dimmedView.alpha = 0.0
+        } completion: { _ in
+            self.dimmedView.removeFromSuperview()
+        }
+    }
+    
+    /// BottomSheetVC에서 입력받은 유저의 닉네임 데이터를 LoginVC의 nickname 변수에 저장하는 함수
+    func passUserData(nickname: String) {
+        self.nickname = nickname
     }
 }

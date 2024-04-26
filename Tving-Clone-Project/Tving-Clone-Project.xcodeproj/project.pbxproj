@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */; };
+		A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289F2B92BD190ED00AF50BF /* UIButton+.swift */; };
+		A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */; };
 		A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D639572BCE2FAE000DAE80 /* AppDelegate.swift */; };
 		A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D639592BCE2FAE000DAE80 /* SceneDelegate.swift */; };
 		A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D6395B2BCE2FAE000DAE80 /* LoginViewController.swift */; };
@@ -23,13 +26,15 @@
 		A2D6397E2BCE36D9000DAE80 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A2D639752BCE36D9000DAE80 /* Pretendard-SemiBold.otf */; };
 		A2D639822BCE38B3000DAE80 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D639812BCE38B3000DAE80 /* UIFont+.swift */; };
 		A2D639852BCE3C8A000DAE80 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A2D639842BCE3C8A000DAE80 /* SnapKit */; };
-		A2D639872BCE3C8A000DAE80 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = A2D639862BCE3C8A000DAE80 /* SnapKit-Dynamic */; };
 		A2D6398A2BCE40F9000DAE80 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = A2D639892BCE40F9000DAE80 /* Then */; };
 		A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D6398D2BCE9C65000DAE80 /* UITextField+.swift */; };
 		A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D6398F2BCEBEC6000DAE80 /* WelcomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		A289F2B92BD190ED00AF50BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		A2D639542BCE2FAE000DAE80 /* Tving-Clone-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tving-Clone-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2D639572BCE2FAE000DAE80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2D639592BCE2FAE000DAE80 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +63,6 @@
 			files = (
 				A2D639852BCE3C8A000DAE80 /* SnapKit in Frameworks */,
 				A2D6398A2BCE40F9000DAE80 /* Then in Frameworks */,
-				A2D639872BCE3C8A000DAE80 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +113,7 @@
 			children = (
 				A2D6395B2BCE2FAE000DAE80 /* LoginViewController.swift */,
 				A2D6398F2BCEBEC6000DAE80 /* WelcomeViewController.swift */,
+				A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -134,6 +139,8 @@
 			children = (
 				A2D639812BCE38B3000DAE80 /* UIFont+.swift */,
 				A2D6398D2BCE9C65000DAE80 /* UITextField+.swift */,
+				A289F2B92BD190ED00AF50BF /* UIButton+.swift */,
+				A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -156,7 +163,6 @@
 			name = "Tving-Clone-Project";
 			packageProductDependencies = (
 				A2D639842BCE3C8A000DAE80 /* SnapKit */,
-				A2D639862BCE3C8A000DAE80 /* SnapKit-Dynamic */,
 				A2D639892BCE40F9000DAE80 /* Then */,
 			);
 			productName = "Tving-Clone-Project";
@@ -227,11 +233,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2D639822BCE38B3000DAE80 /* UIFont+.swift in Sources */,
+				A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */,
 				A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */,
 				A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */,
 				A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */,
+				A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */,
 				A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */,
 				A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */,
+				A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,11 +478,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A2D639832BCE3C8A000DAE80 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		A2D639862BCE3C8A000DAE80 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A2D639832BCE3C8A000DAE80 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 		A2D639892BCE40F9000DAE80 /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
