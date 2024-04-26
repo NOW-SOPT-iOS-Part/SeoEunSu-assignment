@@ -126,7 +126,7 @@ final class LoginViewController: UIViewController {
         )
     }
     
-    final private lazy var findButtonStackView = UIStackView().then {
+    final private lazy var findButtonStackView = UIStackView(arrangedSubviews: [findIdButton, separatorView, findPwButton]).then {
         $0.axis = .horizontal
         $0.spacing = 34
         $0.alignment = .center
@@ -155,7 +155,7 @@ final class LoginViewController: UIViewController {
         $0.addTarget(self, action: #selector(makeNicknameButtonDidTap), for: .touchUpInside)
     }
     
-    final private lazy var guideButtonStackView = UIStackView().then {
+    final private lazy var guideButtonStackView = UIStackView(arrangedSubviews: [guideLabel, makeNicknameButton]).then {
         $0.axis = .horizontal
         $0.spacing = 30
         $0.alignment = .center
@@ -192,15 +192,15 @@ final class LoginViewController: UIViewController {
             guideButtonStackView
         ].forEach { self.view.addSubview($0) }
         
-        [
-            findIdButton,
-            separatorView,
-            findPwButton
-        ].forEach { self.findButtonStackView.addSubview($0) }
-        
-        [
-            guideLabel, makeNicknameButton
-        ].forEach { self.guideButtonStackView.addSubview($0) }
+//        [
+//            findIdButton,
+//            separatorView,
+//            findPwButton
+//        ].forEach { self.findButtonStackView.addSubview($0) }
+//        
+//        [
+//            guideLabel, makeNicknameButton
+//        ].forEach { self.guideButtonStackView.addSubview($0) }
     }
     
     final private func setLayout() {

@@ -99,7 +99,9 @@ final class WelcomeViewController: UIViewController {
     /// 메인으로 버튼 클릭 시 호출되는 함수
     @objc
     final private func toMainButtonDidTap(_ sender: UIButton) {
-        print("메인으로~")
-        self.dismiss(animated: true)
+        let tabBarVC = TabBarController()
+        tabBarVC.modalPresentationStyle = .fullScreen
+        tabBarVC.modalTransitionStyle = .crossDissolve
+        self.present(tabBarVC, animated: true)
     }
 }
