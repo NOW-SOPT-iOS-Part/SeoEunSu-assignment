@@ -29,7 +29,7 @@ final class MainTableViewCell: UITableViewCell {
         let label = UILabel().then {
             $0.text = "전체보기"
             $0.font = .pretendard(weight: 500, size: 12)
-            $0.textColor = .gray2
+            $0.textColor = .gray9C
         }
         let button = UIButton().then {
             $0.setImage(.rightArrow, for: .normal)

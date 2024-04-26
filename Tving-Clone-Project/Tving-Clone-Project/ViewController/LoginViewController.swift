@@ -21,17 +21,17 @@ final class LoginViewController: UIViewController {
     final private let idLoginLabel = UILabel().then {
         $0.text = "TVING ID 로그인"
         $0.font = .pretendard(weight: 500, size: 23)
-        $0.textColor = .gray1
+        $0.textColor = .grayD6
     }
     
     final private lazy var idTextField = UITextField().then {
-        $0.textColor = .gray2
+        $0.textColor = .gray9C
         $0.font = .pretendard(weight: 600, size: 15)
         $0.layer.cornerRadius = 3
-        $0.backgroundColor = .gray4
+        $0.backgroundColor = .gray2E
         $0.attributedPlaceholder = NSAttributedString(
             string: "아이디",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray2]
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray9C]
         )
         $0.addSidePadding(width: 22)
         $0.delegate = self
@@ -45,13 +45,13 @@ final class LoginViewController: UIViewController {
     }
     
     final private lazy var pwTextField = UITextField().then {
-        $0.textColor = .gray2
+        $0.textColor = .gray9C
         $0.font = .pretendard(weight: 600, size: 15)
         $0.layer.cornerRadius = 3
-        $0.backgroundColor = .gray4
+        $0.backgroundColor = .gray2E
         $0.attributedPlaceholder = NSAttributedString(
             string: "비밀번호",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray2]
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray9C]
         )
         $0.addSidePadding(width: 22)
         $0.isSecureTextEntry = true
@@ -75,13 +75,13 @@ final class LoginViewController: UIViewController {
         $0.backgroundColor = .black
         $0.layer.cornerRadius = 3
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.gray4.cgColor
+        $0.layer.borderColor = UIColor.gray2E.cgColor
         $0.setAttributedTitle(
             NSAttributedString(
                 string: "로그인하기",
                 attributes: [
                     .font : UIFont.pretendard(weight: 600, size: 14),
-                    .foregroundColor : UIColor.gray2
+                    .foregroundColor : UIColor.gray9C
                 ]
             ),
             for: .normal
@@ -97,7 +97,7 @@ final class LoginViewController: UIViewController {
                 string: "아이디 찾기",
                 attributes: [
                     .font : UIFont.pretendard(weight: 600, size: 14),
-                    .foregroundColor : UIColor.gray2
+                    .foregroundColor : UIColor.gray9C
                 ]
             ),
             for: .normal
@@ -105,7 +105,7 @@ final class LoginViewController: UIViewController {
     }
     
     final private let separatorView = UIView().then {
-        $0.backgroundColor = .gray4
+        $0.backgroundColor = .gray2E
         $0.snp.makeConstraints {
             $0.width.equalTo(1)
             $0.height.equalTo(12)
@@ -119,7 +119,7 @@ final class LoginViewController: UIViewController {
                 string: "비밀번호 찾기",
                 attributes: [
                     .font : UIFont.pretendard(weight: 600, size: 14),
-                    .foregroundColor : UIColor.gray2
+                    .foregroundColor : UIColor.gray9C
                 ]
             ),
             for: .normal
@@ -136,7 +136,7 @@ final class LoginViewController: UIViewController {
     final private let guideLabel = UILabel().then {
         $0.text = "아직 계정이 없으신가요?"
         $0.font = .pretendard(weight: 600, size: 14)
-        $0.textColor = .gray3
+        $0.textColor = .gray62
     }
     
     final private lazy var makeNicknameButton = UIButton().then {
@@ -146,7 +146,7 @@ final class LoginViewController: UIViewController {
                 string: "닉네임 만들러가기",
                 attributes: [
                     .font : UIFont.pretendard(weight: 400, size: 14),
-                    .foregroundColor : UIColor.gray2,
+                    .foregroundColor : UIColor.gray9C,
                     .underlineStyle : NSUnderlineStyle.single.rawValue
                 ]
             ),
@@ -363,7 +363,7 @@ extension LoginViewController: UITextFieldDelegate {
             changeSideButtonVisibility(textField: textField)
         }
         textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.gray2.cgColor
+        textField.layer.borderColor = UIColor.gray9C.cgColor
         return true
     }
     

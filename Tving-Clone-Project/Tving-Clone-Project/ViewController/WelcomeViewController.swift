@@ -36,7 +36,7 @@ final class WelcomeViewController: UIViewController {
         $0.numberOfLines = 2
         $0.textAlignment = .center
         $0.font = .pretendard(weight: 700, size: 23)
-        $0.textColor = .gray1
+        $0.textColor = .grayD6
     }
     
     final private lazy var toMainButton = UIButton().then {

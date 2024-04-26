@@ -46,12 +46,12 @@ class BottomSheetViewController: UIViewController {
     }
     
     final private lazy var nicknameTextField = UITextField().then {
-        $0.backgroundColor = .gray2
+        $0.backgroundColor = .gray9C
         $0.font = .pretendard(weight: 600, size: 14)
-        $0.textColor = .gray4
+        $0.textColor = .gray2E
         $0.attributedPlaceholder = NSAttributedString(
             string: "한글 2-10자로 설정해주세요",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray1]
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.grayD6]
         )
         $0.layer.cornerRadius = 3
         $0.addSidePadding(width: 25)
@@ -63,13 +63,13 @@ class BottomSheetViewController: UIViewController {
         $0.backgroundColor = .black
         $0.layer.cornerRadius = 3
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.gray4.cgColor
+        $0.layer.borderColor = UIColor.gray2E.cgColor
         $0.setAttributedTitle(
             NSAttributedString(
                 string: "저장하기",
                 attributes: [
                     .font : UIFont.pretendard(weight: 600, size: 14),
-                    .foregroundColor : UIColor.gray2
+                    .foregroundColor : UIColor.gray9C
                 ]
             ),
             for: .normal
