@@ -20,7 +20,7 @@ final class WelcomeViewController: UIViewController {
     // MARK: - Subviews
     
     final private let tvingImageView = UIImageView().then {
-        $0.image = .tvingTitle
+        $0.image = .tvingTitleRed
     }
     
     final private lazy var welcomeLabel = UILabel().then {

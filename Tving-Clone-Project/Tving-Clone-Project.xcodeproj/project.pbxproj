@@ -10,6 +10,7 @@
 		A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */; };
 		A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289F2B92BD190ED00AF50BF /* UIButton+.swift */; };
 		A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */; };
+		A293D31B2BDC12E4007CA9DC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293D31A2BDC12E4007CA9DC /* MainViewController.swift */; };
 		A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D639572BCE2FAE000DAE80 /* AppDelegate.swift */; };
 		A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D639592BCE2FAE000DAE80 /* SceneDelegate.swift */; };
 		A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D6395B2BCE2FAE000DAE80 /* LoginViewController.swift */; };
@@ -35,6 +36,7 @@
 		A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		A289F2B92BD190ED00AF50BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		A293D31A2BDC12E4007CA9DC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A2D639542BCE2FAE000DAE80 /* Tving-Clone-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tving-Clone-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2D639572BCE2FAE000DAE80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2D639592BCE2FAE000DAE80 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				A2D6395B2BCE2FAE000DAE80 /* LoginViewController.swift */,
 				A2D6398F2BCEBEC6000DAE80 /* WelcomeViewController.swift */,
 				A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */,
+				A293D31A2BDC12E4007CA9DC /* MainViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */,
 				A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */,
 				A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */,
+				A293D31B2BDC12E4007CA9DC /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
