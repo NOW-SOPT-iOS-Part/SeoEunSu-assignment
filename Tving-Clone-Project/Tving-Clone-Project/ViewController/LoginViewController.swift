@@ -25,7 +25,6 @@ final class LoginViewController: UIViewController {
     }
     
     final private lazy var idTextField = UITextField().then {
-        $0.tag = 1
         $0.textColor = .gray2
         $0.font = .pretendard(weight: 600, size: 15)
         $0.layer.cornerRadius = 3
@@ -40,7 +39,6 @@ final class LoginViewController: UIViewController {
     }
     
     final private lazy var idXButton = UIButton().then {
-        $0.tag = 1
         $0.setImage(.xCircle, for: .normal)
         $0.addTarget(self, action: #selector(xButtonDidTap), for: .touchUpInside)
         $0.isHidden = true
@@ -244,7 +242,7 @@ final class LoginViewController: UIViewController {
     
     /// 텍스트필드 사이드에 있는 X 버튼과 Eye 버튼의 visibility를 변경한다.
     final private func changeSideButtonVisibility(textField: UITextField) {
-        if textField.tag == 1 {
+        if textField == idTextField {
             idXButton.isHidden = false
         } else {
             pwXButton.isHidden = false
@@ -273,7 +271,7 @@ final class LoginViewController: UIViewController {
     /// - 내용 삭제 시 LoginButton이 비활성화 되어야 하기 때문에 changeLoginButtonStyle 함수를 false 값을 넣어 호출함.
     @objc
     final private func xButtonDidTap(_ sender: UIButton) {
-        if sender.tag == 1 {
+        if sender == idXButton {
             idTextField.text = ""
         } else {
             pwTextField.text = ""
@@ -369,7 +367,7 @@ extension LoginViewController: UITextFieldDelegate {
     /// 텍스트 필드 내용 수정이 끝났을 때 호출되는 함수
     /// - border를 제거해준다.
     final func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.tag == 1 {
+        if textField == idTextField {
             idXButton.isHidden = true
         } else {
             pwXButton.isHidden = true
