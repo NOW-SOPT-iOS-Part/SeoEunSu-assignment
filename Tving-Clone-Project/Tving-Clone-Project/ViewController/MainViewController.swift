@@ -132,7 +132,6 @@ final class MainViewController: UIViewController {
         $0.backgroundColor = .black
         $0.delegate = self
         $0.dataSource = self
-        $0.isScrollEnabled = false
     }
     
     // MARK: - Life Cycles
@@ -206,7 +205,7 @@ final class MainViewController: UIViewController {
         }
         tabControlCollectionView.snp.makeConstraints {
             $0.top.equalTo(bufferView.snp.bottom)
-            $0.horizontalEdges.equalToSuperview().inset(18)
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(40)
         }
         posterScrollView.snp.makeConstraints {
