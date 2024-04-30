@@ -18,7 +18,7 @@ protocol BottomSheetDelegate: AnyObject {
     func passUserData(nickname: String)
 }
 
-class BottomSheetViewController: UIViewController {
+final class BottomSheetViewController: UIViewController {
     
     // MARK: - Variables
     
