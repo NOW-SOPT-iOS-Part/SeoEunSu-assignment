@@ -20,12 +20,12 @@ protocol BottomSheetDelegate: AnyObject {
 
 final class BottomSheetViewController: UIViewController {
     
-    // MARK: - Variables
+    // MARK: - Properties
     
     /// 다른 VC에게 일을 시키기 위한 대리자 변수
     weak var delegate: (BottomSheetDelegate)?
     
-    // MARK: - Subviews
+    // MARK: - Components
     
     final private let grabBarView = UIView().then {
         $0.backgroundColor = .white2

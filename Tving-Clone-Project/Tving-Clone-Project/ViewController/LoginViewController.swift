@@ -12,11 +12,11 @@ import Then
 
 final class LoginViewController: UIViewController {
 
-    // MARK: - Variables
+    // MARK: - Properties
     
     final private var nickname: String?
     
-    // MARK: - Subviews
+    // MARK: - Components
     
     final private let idLoginLabel = UILabel().then {
         $0.text = "TVING ID 로그인"

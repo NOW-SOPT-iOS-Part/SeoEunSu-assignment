@@ -10,11 +10,15 @@ import UIKit
 /// 하단 탭바
 final class TabBarController: UITabBarController {
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setDefaultTabBar()
     }
+    
+    // MARK: - Helpers
     
     /// 티빙의 기본 하단 탭바를 설정
     /// 홈, 공개예정, 검색, 기록 총 4개의 탭바로 구성한다

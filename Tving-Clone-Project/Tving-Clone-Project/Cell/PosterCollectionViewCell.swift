@@ -12,7 +12,11 @@ import SnapKit
 /// 프로그램 포스터 컬렉션뷰 셀
 final class PosterCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
     static let identifier = "PosterCollectionViewCell"
+    
+    // MARK: - Components
     
     private let posterImageView = UIImageView().then {
         $0.image = .signalPoster
@@ -24,6 +28,8 @@ final class PosterCollectionViewCell: UICollectionViewCell {
         $0.font = .pretendard(weight: 500, size: 10)
     }
     
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -33,6 +39,8 @@ final class PosterCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Helpers
     
     private func setLayout() {
         [

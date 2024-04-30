@@ -12,8 +12,12 @@ import SnapKit
 /// 티빙 라이브 프로그램 컬렉션뷰 셀
 final class LiveCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
     let ranking: Int = 1
     static let identifier = "LiveCollectionViewCell"
+    
+    // MARK: - Components
     
     private let liveImageView = UIImageView().then {
         $0.image = .queenOfTearLive
@@ -41,6 +45,8 @@ final class LiveCollectionViewCell: UICollectionViewCell {
         $0.font = .pretendard(weight: 400, size: 10)
     }
     
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayout()
@@ -49,6 +55,8 @@ final class LiveCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Helpers
     
     private func setLayout() {
         [

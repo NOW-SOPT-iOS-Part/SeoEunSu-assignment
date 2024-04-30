@@ -12,12 +12,12 @@ import Then
 
 final class WelcomeViewController: UIViewController {
     
-    // MARK: - Variables
+    // MARK: - Properties
     
     var id: String = ""
     var nickname: String = ""
     
-    // MARK: - Subviews
+    // MARK: - Components
     
     final private let tvingImageView = UIImageView().then {
         $0.image = .tvingTitleRed
