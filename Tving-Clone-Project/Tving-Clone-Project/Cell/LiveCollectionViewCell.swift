@@ -21,25 +21,28 @@ final class LiveCollectionViewCell: UICollectionViewCell {
     
     private let liveImageView = UIImageView().then {
         $0.image = .queenOfTearLive
+        $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 3
         $0.clipsToBounds = true
     }
     private lazy var rankingLabel = UILabel().then {
-        $0.text = "\(ranking)"
-        $0.textColor = .white
-        $0.font = UIFont.italicSystemFont(ofSize: 19)
+        $0.attributedText = NSMutableAttributedString(string: "\(ranking)", attributes: [
+            .font : UIFont.pretendard(weight: 700, size: 19),
+            .foregroundColor : UIColor.white,
+            .obliqueness : 0.3
+        ])
     }
     private lazy var channelLabel = UILabel().then {
         $0.text = "Mnet"
         $0.textColor = .white
         $0.font = .pretendard(weight: 400, size: 10)
     }
-    private lazy var programNameLabel = UILabel().then {
+    private lazy var titleLabel = UILabel().then {
         $0.text = "눈물의 여왕 16화"
         $0.textColor = .gray9C
         $0.font = .pretendard(weight: 400, size: 10)
     }
-    private lazy var percentLabel = UILabel().then {
+    private lazy var viewingRatingLabel = UILabel().then {
         $0.text = "80.0%"
         $0.textColor = .gray9C
         $0.font = .pretendard(weight: 400, size: 10)
@@ -63,8 +66,8 @@ final class LiveCollectionViewCell: UICollectionViewCell {
             liveImageView,
             rankingLabel,
             channelLabel,
-            programNameLabel,
-            percentLabel
+            titleLabel,
+            viewingRatingLabel
         ].forEach { contentView.addSubview($0) }
         
         liveImageView.snp.makeConstraints {
@@ -72,20 +75,30 @@ final class LiveCollectionViewCell: UICollectionViewCell {
             $0.height.equalTo(80)
         }
         rankingLabel.snp.makeConstraints {
+            $0.width.equalTo(15)
             $0.top.equalTo(liveImageView.snp.bottom).offset(8)
             $0.leading.equalTo(liveImageView).offset(6)
         }
         channelLabel.snp.makeConstraints {
-            $0.top.equalTo(rankingLabel).offset(3)
-            $0.leading.equalTo(rankingLabel.snp.trailing).offset(2)
+            $0.top.equalTo(rankingLabel).offset(2)
+            $0.leading.equalTo(rankingLabel.snp.trailing).offset(3)
         }
-        programNameLabel.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.top.equalTo(channelLabel.snp.bottom).offset(4)
             $0.leading.equalTo(channelLabel)
         }
-        percentLabel.snp.makeConstraints {
-            $0.top.equalTo(programNameLabel.snp.bottom).offset(4)
+        viewingRatingLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
             $0.leading.equalTo(channelLabel)
         }
+    }
+    
+    /// 더미 데이터를 뷰에 연결
+    func fetchData(model: LiveProgram) {
+        liveImageView.image = model.image
+        titleLabel.text = model.title
+        rankingLabel.text = model.ranking
+        channelLabel.text = model.channel
+        viewingRatingLabel.text = model.viewingRating + "%"
     }
 }

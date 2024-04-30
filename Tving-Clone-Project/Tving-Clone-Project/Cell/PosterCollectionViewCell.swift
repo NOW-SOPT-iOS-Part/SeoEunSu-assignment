@@ -57,4 +57,10 @@ final class PosterCollectionViewCell: UICollectionViewCell {
             $0.leading.equalToSuperview()
         }
     }
+    
+    /// 더미 데이터를 뷰에 연결
+    func fetchData(model: Poster) {
+        posterTitleLabel.text = model.name
+        posterImageView.image = model.image
+    }
 }

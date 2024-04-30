@@ -10,6 +10,10 @@
 		A2306D742BDF99CA00FD78D3 /* LiveCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */; };
 		A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */; };
 		A2306D782BDF99F800FD78D3 /* BaseballCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */; };
+		A2306D7A2BE11B1600FD78D3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D792BE11B1600FD78D3 /* HeaderView.swift */; };
+		A2306D7D2BE11C1B00FD78D3 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D7C2BE11C1B00FD78D3 /* Poster.swift */; };
+		A2306D7F2BE11C5200FD78D3 /* LiveProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D7E2BE11C5200FD78D3 /* LiveProgram.swift */; };
+		A2306D812BE11D2900FD78D3 /* BaseballSlogan.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D802BE11D2900FD78D3 /* BaseballSlogan.swift */; };
 		A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */; };
 		A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289F2B92BD190ED00AF50BF /* UIButton+.swift */; };
 		A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */; };
@@ -40,6 +44,10 @@
 		A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseballCollectionViewCell.swift; sourceTree = "<group>"; };
+		A2306D792BE11B1600FD78D3 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		A2306D7C2BE11C1B00FD78D3 /* Poster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
+		A2306D7E2BE11C5200FD78D3 /* LiveProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveProgram.swift; sourceTree = "<group>"; };
+		A2306D802BE11D2900FD78D3 /* BaseballSlogan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseballSlogan.swift; sourceTree = "<group>"; };
 		A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		A289F2B92BD190ED00AF50BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -85,8 +93,19 @@
 				A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */,
 				A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */,
 				A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */,
+				A2306D792BE11B1600FD78D3 /* HeaderView.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		A2306D7B2BE11BF500FD78D3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A2306D7C2BE11C1B00FD78D3 /* Poster.swift */,
+				A2306D7E2BE11C5200FD78D3 /* LiveProgram.swift */,
+				A2306D802BE11D2900FD78D3 /* BaseballSlogan.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A2D6394B2BCE2FAE000DAE80 = {
@@ -110,6 +129,7 @@
 			children = (
 				A2D6397F2BCE36E2000DAE80 /* Font */,
 				A2D6396B2BCE3678000DAE80 /* App */,
+				A2306D7B2BE11BF500FD78D3 /* Model */,
 				A2D6396C2BCE3681000DAE80 /* ViewController */,
 				A21172CB2BDC3F0400FEA8CA /* Cell */,
 				A2D639802BCE38A6000DAE80 /* Extensions */,
@@ -259,16 +279,20 @@
 				A2306D782BDF99F800FD78D3 /* BaseballCollectionViewCell.swift in Sources */,
 				A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */,
 				A293D31D2BDC161E007CA9DC /* TabBarController.swift in Sources */,
+				A2306D7D2BE11C1B00FD78D3 /* Poster.swift in Sources */,
+				A2306D812BE11D2900FD78D3 /* BaseballSlogan.swift in Sources */,
 				A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */,
 				A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */,
 				A2306D742BDF99CA00FD78D3 /* LiveCollectionViewCell.swift in Sources */,
 				A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */,
 				A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */,
 				A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */,
+				A2306D7A2BE11B1600FD78D3 /* HeaderView.swift in Sources */,
 				A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */,
 				A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */,
 				A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */,
 				A293D31B2BDC12E4007CA9DC /* MainViewController.swift in Sources */,
+				A2306D7F2BE11C5200FD78D3 /* LiveProgram.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

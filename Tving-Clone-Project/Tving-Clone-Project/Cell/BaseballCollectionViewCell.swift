@@ -42,4 +42,9 @@ final class BaseballCollectionViewCell: UICollectionViewCell {
             $0.edges.equalToSuperview()
         }
     }
+    
+    /// 더미 데이터를 뷰에 연결
+    func fetchData(model: BaseballSlogan) {
+        baseballImageView.image = model.image
+    }
 }

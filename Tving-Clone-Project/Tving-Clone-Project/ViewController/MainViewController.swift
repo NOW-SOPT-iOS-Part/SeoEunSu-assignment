@@ -18,7 +18,12 @@ final class MainViewController: UIViewController {
     let posterHeight = 498
     let numOfSection = 5
     let deviceWidth = UIScreen.main.bounds.width
+    
     let posterImages: [UIImage] = [.yournamePoster, .harryporterPoster, .doorPoster, .ringPoster]
+    let headers: [String] = ["티빙에서 꼭 봐야하는 콘텐츠", "인기 LIVE 채널", "1화 무료! 파라마운트+ 인기 시리즈", "", "서은수님이 시청하는 콘텐츠"]
+    let posters = Poster.dummyData()
+    let livePrograms = LiveProgram.dummyData()
+    let baseballSlogans = BaseballSlogan.dummyData()
     
     // MARK: - Components
     
@@ -82,13 +87,13 @@ final class MainViewController: UIViewController {
         $0.isUserInteractionEnabled = false
         $0.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     }
+    
     let config = UICollectionViewCompositionalLayoutConfiguration().then {
-        $0.interSectionSpacing = 90
+        $0.interSectionSpacing = 18
     }
-    lazy var layout = UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
-        
+    lazy var layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, _) -> NSCollectionLayoutSection? in
         return self.createSection(for: sectionIndex)
-    }
+    }, configuration: config)
     private lazy var mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
         $0.backgroundColor = .black
         $0.delegate = self
@@ -111,6 +116,8 @@ final class MainViewController: UIViewController {
         mainCollectionView.register(LiveCollectionViewCell.self, forCellWithReuseIdentifier: LiveCollectionViewCell.identifier)
         mainCollectionView.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.identifier)
         mainCollectionView.register(BaseballCollectionViewCell.self, forCellWithReuseIdentifier: BaseballCollectionViewCell.identifier)
+        mainCollectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                        withReuseIdentifier: HeaderView.identifier)
     }
     
     private func setLayout() {
@@ -172,9 +179,8 @@ final class MainViewController: UIViewController {
             $0.leading.equalToSuperview().offset(-23)
         }
         mainCollectionView.snp.makeConstraints {
-            $0.top.equalTo(pageControl.snp.bottom).offset(23)
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(500)
+            $0.top.equalTo(pageControl.snp.bottom).offset(25)
+            $0.leading.trailing.bottom.equalToSuperview().inset(15)
         }
     }
     
@@ -201,7 +207,14 @@ final class MainViewController: UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
         section.interGroupSpacing = 8
-
+        
+        // HeaderView의 자리를 SectionLayout 안에서 잡아주는 코드
+        section.boundarySupplementaryItems = [
+            NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30)),
+                elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        ]
+        
         return section
     }
     
@@ -216,6 +229,13 @@ final class MainViewController: UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
         section.interGroupSpacing = 7
+        
+        // HeaderView의 자리를 SectionLayout 안에서 잡아주는 코드
+        section.boundarySupplementaryItems = [
+            NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30)),
+                elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        ]
 
         return section
     }
@@ -230,7 +250,7 @@ final class MainViewController: UIViewController {
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 27, leading: 0, bottom: 30, trailing: 0)
         return section
     }
     
@@ -261,6 +281,17 @@ extension MainViewController: UIScrollViewDelegate {
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.identifier, for: indexPath) as! HeaderView
+            header.fetchData(headers[indexPath.section])
+            return header
+        default:
+            return UICollectionReusableView()
+        }
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         numOfSection
     }
@@ -273,12 +304,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         switch indexPath.section {
         case 0, 2, 4:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
+            cell.fetchData(model: posters[indexPath.row])
             return cell
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LiveCollectionViewCell.identifier, for: indexPath) as? LiveCollectionViewCell else { return UICollectionViewCell() }
+            cell.fetchData(model: livePrograms[indexPath.row])
             return cell
         case 3:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseballCollectionViewCell.identifier, for: indexPath) as? BaseballCollectionViewCell else { return UICollectionViewCell() }
+            cell.fetchData(model: baseballSlogans[indexPath.row])
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
