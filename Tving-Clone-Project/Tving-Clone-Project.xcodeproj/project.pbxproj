@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A21172CD2BDC3F1800FEA8CA /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21172CC2BDC3F1800FEA8CA /* MainTableViewCell.swift */; };
+		A2306D742BDF99CA00FD78D3 /* LiveCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */; };
+		A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */; };
+		A2306D782BDF99F800FD78D3 /* BaseballCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */; };
 		A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */; };
 		A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289F2B92BD190ED00AF50BF /* UIButton+.swift */; };
 		A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */; };
@@ -35,7 +37,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A21172CC2BDC3F1800FEA8CA /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCollectionViewCell.swift; sourceTree = "<group>"; };
+		A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
+		A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseballCollectionViewCell.swift; sourceTree = "<group>"; };
 		A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		A289F2B92BD190ED00AF50BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -78,7 +82,9 @@
 		A21172CB2BDC3F0400FEA8CA /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				A21172CC2BDC3F1800FEA8CA /* MainTableViewCell.swift */,
+				A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */,
+				A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */,
+				A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -250,16 +256,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2D639822BCE38B3000DAE80 /* UIFont+.swift in Sources */,
+				A2306D782BDF99F800FD78D3 /* BaseballCollectionViewCell.swift in Sources */,
 				A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */,
 				A293D31D2BDC161E007CA9DC /* TabBarController.swift in Sources */,
 				A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */,
 				A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */,
+				A2306D742BDF99CA00FD78D3 /* LiveCollectionViewCell.swift in Sources */,
 				A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */,
+				A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */,
 				A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */,
 				A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */,
 				A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */,
 				A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */,
-				A21172CD2BDC3F1800FEA8CA /* MainTableViewCell.swift in Sources */,
 				A293D31B2BDC12E4007CA9DC /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

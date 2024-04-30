@@ -16,6 +16,7 @@ final class MainViewController: UIViewController {
     // MARK: - Properties
     
     let posterHeight = 498
+    let numOfSection = 5
     let deviceWidth = UIScreen.main.bounds.width
     let posterImages: [UIImage] = [.yournamePoster, .harryporterPoster, .doorPoster, .ringPoster]
     
@@ -76,14 +77,19 @@ final class MainViewController: UIViewController {
     private let posterContentView = UIView()
     
     private lazy var pageControl = UIPageControl().then {
-        // Set the number of pages to page control.
         $0.numberOfPages = posterImages.count
-        // Set the current page.
         $0.currentPage = 0
         $0.isUserInteractionEnabled = false
+        $0.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     }
-    
-    private lazy var mainTableView = UITableView().then {
+    let config = UICollectionViewCompositionalLayoutConfiguration().then {
+        $0.interSectionSpacing = 90
+    }
+    lazy var layout = UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
+        
+        return self.createSection(for: sectionIndex)
+    }
+    private lazy var mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
         $0.backgroundColor = .black
         $0.delegate = self
         $0.dataSource = self
@@ -95,12 +101,17 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .black
-        setLayout()
         register()
-        pageControl.transform = CGAffineTransform(scaleX: 0.7, y: 0.7); //set value heres
+        setLayout()
     }
     
     // MARK: - Helpers
+    
+    private func register() {
+        mainCollectionView.register(LiveCollectionViewCell.self, forCellWithReuseIdentifier: LiveCollectionViewCell.identifier)
+        mainCollectionView.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.identifier)
+        mainCollectionView.register(BaseballCollectionViewCell.self, forCellWithReuseIdentifier: BaseballCollectionViewCell.identifier)
+    }
     
     private func setLayout() {
         self.view.addSubview(scrollView)
@@ -113,7 +124,7 @@ final class MainViewController: UIViewController {
             rightTopButtonStackView,
             posterScrollView,
             pageControl,
-            mainTableView
+            mainCollectionView
         ].forEach { contentView.addSubview($0) }
         [
             posterTitleLabel,
@@ -160,14 +171,67 @@ final class MainViewController: UIViewController {
             $0.top.equalTo(mainPosterImageView.snp.bottom).offset(45)
             $0.leading.equalToSuperview().offset(-23)
         }
-        mainTableView.snp.makeConstraints {
+        mainCollectionView.snp.makeConstraints {
             $0.top.equalTo(pageControl.snp.bottom).offset(23)
             $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(500)
         }
     }
     
-    private func register() {
-        mainTableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.identifier)
+    private func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection? {
+        switch sectionIndex {
+            case 0, 2, 4:
+                return createPosterItem(sectionIndex: sectionIndex)
+            case 1:
+                return createLiveItem()
+            case 3:
+                return createBaseballSloganItem()
+            default:
+            return createPosterItem(sectionIndex: sectionIndex)
+        }
+    }
+    
+    private func createPosterItem(sectionIndex: Int) -> NSCollectionLayoutSection? {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .estimated(170))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
+        section.interGroupSpacing = 8
+
+        return section
+    }
+    
+    private func createLiveItem() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4), heightDimension: .estimated(155))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.interItemSpacing = NSCollectionLayoutSpacing.flexible(7)
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
+        section.interGroupSpacing = 7
+
+        return section
+    }
+    
+    private func createBaseballSloganItem() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(58))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(0)
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
+        return section
     }
     
     // MARK: - Actions
@@ -180,9 +244,8 @@ extension MainViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        // When the number of scrolls is one page worth.
+        // 한 페이지만큼 스크롤 하면
         if fmod(posterScrollView.contentOffset.x, posterScrollView.frame.maxX) == 0 {
-            // Switch the location of the page.
             pageControl.currentPage = Int(posterScrollView.contentOffset.x / posterScrollView.frame.maxX)
             // 페이지 위치 변경
             let pageIndex = Int(posterScrollView.contentOffset.x / posterScrollView.frame.width)
@@ -194,13 +257,32 @@ extension MainViewController: UIScrollViewDelegate {
     }
 }
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        numOfSection
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.identifier, for: indexPath) as? MainTableViewCell else { return UITableViewCell() }
-        return cell
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch indexPath.section {
+        case 0, 2, 4:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
+            return cell
+        case 1:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LiveCollectionViewCell.identifier, for: indexPath) as? LiveCollectionViewCell else { return UICollectionViewCell() }
+            return cell
+        case 3:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseballCollectionViewCell.identifier, for: indexPath) as? BaseballCollectionViewCell else { return UICollectionViewCell() }
+            return cell
+        default:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
+            return cell
+        }
     }
 }

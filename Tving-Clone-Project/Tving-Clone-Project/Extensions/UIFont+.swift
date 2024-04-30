@@ -44,4 +44,13 @@ extension UIFont {
             return UIFont.init(name: PretendardType.regular.rawValue, size: size) ?? UIFont()
         }
     }
+    
+    func withTraits(traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
+        if let descriptor = fontDescriptor.withSymbolicTraits(traits) {
+            // Initialize a new instance of UIFont with desired symbolic trait if exists
+            return UIFont(descriptor: descriptor, size: self.pointSize)
+        }
+        // Fall back to default version of the font
+        return self
+    }
 }
