@@ -12,31 +12,37 @@ import Then
 
 class HeaderView: UICollectionReusableView {
     
+    // MARK: - Properties
+    
     static let identifier = "HeaderView"
     
-    let titleLabel = UILabel().then {
+    // MARK: - Components
+    
+    private let titleLabel = UILabel().then {
         $0.text = ""
         $0.font = .pretendard(weight: 600, size: 15)
         $0.textColor = .white
     }
     
-    let fullViewLabel = UILabel().then {
+    private let fullViewLabel = UILabel().then {
         $0.text = "전체보기"
         $0.font = .pretendard(weight: 500, size: 11)
         $0.textColor = .gray9C
     }
     
-    let fullViewButton = UIButton().then {
+    private let fullViewButton = UIButton().then {
         $0.setImage(.init(systemName: "chevron.right"), for: .normal)
         $0.tintColor = .gray9C
     }
     
-    lazy var fullViewStackView = UIStackView(arrangedSubviews: [fullViewLabel, fullViewButton]).then {
+    private lazy var fullViewStackView = UIStackView(arrangedSubviews: [fullViewLabel, fullViewButton]).then {
         $0.axis = .horizontal
         $0.alignment = .center
         $0.distribution = .equalSpacing
         $0.spacing = 0
     }
+    
+    // MARK: - Init
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,6 +54,8 @@ class HeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Helpers
+    
     private func setLayout() {
         [
             titleLabel,
@@ -57,9 +65,6 @@ class HeaderView: UICollectionReusableView {
         titleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
         }
-//        fullViewLabel.snp.makeConstraints {
-//            $0.centerY.equalTo(titleLabel)
-//        }
         fullViewButton.snp.makeConstraints {
             $0.size.equalTo(10)
         }

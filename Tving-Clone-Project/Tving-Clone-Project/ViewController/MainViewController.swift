@@ -10,17 +10,28 @@ import UIKit
 import SnapKit
 import Then
 
+struct Tab {
+    let name: String
+    let width: CGFloat
+}
+
 /// 티빙 메인 화면
 final class MainViewController: UIViewController {
     
     // MARK: - Properties
     
     let posterHeight = 498
-    let numOfSection = 5
     let deviceWidth = UIScreen.main.bounds.width
     
     let posterImages: [UIImage] = [.yournamePoster, .harryporterPoster, .doorPoster, .ringPoster]
     let headers: [String] = ["티빙에서 꼭 봐야하는 콘텐츠", "인기 LIVE 채널", "1화 무료! 파라마운트+ 인기 시리즈", "", "서은수님이 시청하는 콘텐츠"]
+    let tabs: [Tab] = [
+        Tab(name: "홈", width: 15),
+        Tab(name: "실시간", width: 55),
+        Tab(name: "TV프로그램", width: 85),
+        Tab(name: "영화", width: 35),
+        Tab(name: "파라마운트+", width: 90)
+    ]
     let posters = Poster.dummyData()
     let livePrograms = LiveProgram.dummyData()
     let baseballSlogans = BaseballSlogan.dummyData()
@@ -32,6 +43,7 @@ final class MainViewController: UIViewController {
         $0.showsVerticalScrollIndicator = false
         $0.delegate = self
     }
+    
     private let contentView = UIView()
     
     private let tvingTopLogoImageView = UIImageView().then {
@@ -54,6 +66,22 @@ final class MainViewController: UIViewController {
         $0.spacing = 10
     }
     
+    private let bufferView = UIView().then {
+        $0.backgroundColor = .none
+    }
+    
+    private let flowLayout = UICollectionViewFlowLayout().then {
+        $0.scrollDirection = .horizontal
+        $0.minimumInteritemSpacing = 28
+    }
+    
+    private lazy var tabControlCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
+        $0.tag = 1
+        $0.delegate = self
+        $0.dataSource = self
+        $0.backgroundColor = .none
+    }
+    
     private lazy var mainPosterImageView = UIImageView().then {
         $0.image = posterImages[pageControl.currentPage]
         $0.contentMode = .scaleAspectFill
@@ -63,6 +91,7 @@ final class MainViewController: UIViewController {
         $0.text = "너의 이름은"
         $0.textColor = .white
         $0.font = .pretendard(weight: 700, size: 25)
+        $0.isHidden = true
     }
     
     private let posterDetailLabel = UILabel().then {
@@ -71,6 +100,7 @@ final class MainViewController: UIViewController {
         $0.font = .pretendard(weight: 400, size: 17)
         $0.lineBreakMode = .byTruncatingTail
         $0.numberOfLines = 2
+        $0.isHidden = true
     }
     
     private lazy var posterScrollView = UIScrollView().then {
@@ -78,7 +108,9 @@ final class MainViewController: UIViewController {
         $0.showsVerticalScrollIndicator = false
         $0.isPagingEnabled = true
         $0.delegate = self
+        $0.isScrollEnabled = false
     }
+    
     private let posterContentView = UIView()
     
     private lazy var pageControl = UIPageControl().then {
@@ -91,13 +123,16 @@ final class MainViewController: UIViewController {
     let config = UICollectionViewCompositionalLayoutConfiguration().then {
         $0.interSectionSpacing = 18
     }
-    lazy var layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, _) -> NSCollectionLayoutSection? in
+    
+    lazy var compositionalLayout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, _) -> NSCollectionLayoutSection? in
         return self.createSection(for: sectionIndex)
     }, configuration: config)
-    private lazy var mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
+    
+    private lazy var mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout).then {        $0.tag = 2
         $0.backgroundColor = .black
         $0.delegate = self
         $0.dataSource = self
+        $0.isScrollEnabled = false
     }
     
     // MARK: - Life Cycles
@@ -113,6 +148,7 @@ final class MainViewController: UIViewController {
     // MARK: - Helpers
     
     private func register() {
+        tabControlCollectionView.register(TabControlCollectionViewCell.self, forCellWithReuseIdentifier: TabControlCollectionViewCell.identifier)
         mainCollectionView.register(LiveCollectionViewCell.self, forCellWithReuseIdentifier: LiveCollectionViewCell.identifier)
         mainCollectionView.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.identifier)
         mainCollectionView.register(BaseballCollectionViewCell.self, forCellWithReuseIdentifier: BaseballCollectionViewCell.identifier)
@@ -121,7 +157,11 @@ final class MainViewController: UIViewController {
     }
     
     private func setLayout() {
-        self.view.addSubview(scrollView)
+        [
+            scrollView,
+            bufferView
+        ].forEach { self.view.addSubview($0) }
+        
         scrollView.addSubview(contentView)
         posterScrollView.addSubview(posterContentView)
         
@@ -129,6 +169,7 @@ final class MainViewController: UIViewController {
             mainPosterImageView,
             tvingTopLogoImageView,
             rightTopButtonStackView,
+            tabControlCollectionView,
             posterScrollView,
             pageControl,
             mainCollectionView
@@ -138,6 +179,11 @@ final class MainViewController: UIViewController {
             posterDetailLabel
         ].forEach { posterContentView.addSubview($0) }
         
+        bufferView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.equalTo(80)
+        }
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -157,6 +203,11 @@ final class MainViewController: UIViewController {
         rightTopButtonStackView.snp.makeConstraints {
             $0.centerY.equalTo(tvingTopLogoImageView)
             $0.trailing.equalToSuperview().inset(20)
+        }
+        tabControlCollectionView.snp.makeConstraints {
+            $0.top.equalTo(bufferView.snp.bottom)
+            $0.horizontalEdges.equalToSuperview().inset(18)
+            $0.height.equalTo(40)
         }
         posterScrollView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
@@ -258,9 +309,21 @@ final class MainViewController: UIViewController {
     
 }
 
+// MARK: - UIScrollViewDelegate
+
 extension MainViewController: UIScrollViewDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print(scrollView.contentOffset.y, bufferView.frame.minY)
+        
+        // sticky 타이밍을 계산
+        // 야매로 구현함 ㅎㅎ
+        let shouldShowSticky = scrollView.contentOffset.y >= bufferView.frame.minY
+        bufferView.backgroundColor = shouldShowSticky ? .black : .none
+        tabControlCollectionView.backgroundColor = shouldShowSticky ? .black : .none
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -293,30 +356,64 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        numOfSection
+        if collectionView.tag == 1 {
+            1
+        } else {
+            5
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        if collectionView.tag == 1 {
+            return tabs.count
+        } else {
+            switch section {
+            case 0, 2, 4:
+                return posters.count
+            case 1:
+                return livePrograms.count
+            case 3:
+                return baseballSlogans.count
+            default:
+                return posters.count
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch indexPath.section {
-        case 0, 2, 4:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
-            cell.fetchData(model: posters[indexPath.row])
+        if collectionView.tag == 1 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabControlCollectionViewCell.identifier, for: indexPath) as? TabControlCollectionViewCell else { return UICollectionViewCell() }
+            cell.fetchData(model: tabs[indexPath.row])
             return cell
-        case 1:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LiveCollectionViewCell.identifier, for: indexPath) as? LiveCollectionViewCell else { return UICollectionViewCell() }
-            cell.fetchData(model: livePrograms[indexPath.row])
-            return cell
-        case 3:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseballCollectionViewCell.identifier, for: indexPath) as? BaseballCollectionViewCell else { return UICollectionViewCell() }
-            cell.fetchData(model: baseballSlogans[indexPath.row])
-            return cell
-        default:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
-            return cell
+        } else {
+            switch indexPath.section {
+            case 0, 2, 4:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
+                cell.fetchData(model: posters[indexPath.row])
+                return cell
+            case 1:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LiveCollectionViewCell.identifier, for: indexPath) as? LiveCollectionViewCell else { return UICollectionViewCell() }
+                cell.fetchData(model: livePrograms[indexPath.row])
+                return cell
+            case 3:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseballCollectionViewCell.identifier, for: indexPath) as? BaseballCollectionViewCell else { return UICollectionViewCell() }
+                cell.fetchData(model: baseballSlogans[indexPath.row])
+                return cell
+            default:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
+                return cell
+            }
+        }
+    }
+}
+
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView.tag == 1 {
+            return CGSize(width: tabs[indexPath.row].width, height: 37)
+        } else {
+            return CGSize()
         }
     }
 }
