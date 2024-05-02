@@ -52,10 +52,6 @@ final class TabControlCollectionViewCell: UICollectionViewCell {
             tabNameLabel,
             bottomView
         ].forEach { contentView.addSubview($0) }
-        
-        contentView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
         tabNameLabel.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
         }

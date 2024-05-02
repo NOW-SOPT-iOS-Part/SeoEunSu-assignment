@@ -73,6 +73,7 @@ final class MainViewController: UIViewController {
     private let flowLayout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
         $0.minimumInteritemSpacing = 28
+        $0.sectionInset = .init(top: 0, left: 20, bottom: 0, right: 0)
     }
     
     private lazy var tabControlCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
