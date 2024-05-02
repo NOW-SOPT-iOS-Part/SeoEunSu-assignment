@@ -325,9 +325,9 @@ extension MainViewController: UIScrollViewDelegate {
             bufferView.backgroundColor = shouldShowSticky ? .black : .none
             tabControlCollectionView.backgroundColor = shouldShowSticky ? .black : .none
             bufferView.snp.updateConstraints {
-                $0.top.equalTo(view.snp.top).offset(shouldShowSticky ? -30 : 0)
+                $0.top.equalToSuperview()
                 $0.width.equalToSuperview()
-                $0.height.equalTo(80)
+                $0.height.equalTo(shouldShowSticky ? 40 : 80)
             }
         }
     }
