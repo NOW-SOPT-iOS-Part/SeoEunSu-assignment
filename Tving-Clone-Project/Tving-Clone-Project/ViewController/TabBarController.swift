@@ -7,6 +7,30 @@
 
 import UIKit
 
+/// 탭바 타이틀 타입
+enum TabBarTitleType: String {
+    case home = "홈"
+    case soon = "공개예정"
+    case search = "검색"
+    case record = "기록"
+}
+
+/// 탭바 클릭 안 됐을 때 이미지 타입
+enum TabBarUnselectedImgNameType: String {
+    case home = "home"
+    case soon = "video"
+    case search = "magnifyingglass"
+    case record = "clock"
+}
+
+/// 탭바 클릭됐을 때 이미지 타입
+enum TabBarselectedImgNameType: String {
+    case home = "home.fill"
+    case soon = "video.fill"
+    case search = "magnifyingglass"
+    case record = "clock.fill"
+}
+
 /// 하단 탭바
 final class TabBarController: UITabBarController {
     
@@ -16,30 +40,58 @@ final class TabBarController: UITabBarController {
         super.viewDidLoad()
         self.tabBar.barTintColor = .black
         
-        setDefaultTabBar()
+        createDefaultTabBar()
     }
     
     // MARK: - Helpers
     
-    /// 티빙의 기본 하단 탭바를 설정
-    /// 홈, 공개예정, 검색, 기록 총 4개의 탭바로 구성한다
-    private func setDefaultTabBar() {
+    /// 티빙의 기본 하단 탭바를 생성
+    /// 홈, 공개예정, 검색, 기록 총 4개의 탭바로 구성
+    private func createDefaultTabBar() {
         let mainVC = MainViewController()
-        addTabBar(title: "홈", tabImg: UIImage(systemName: "house"), tabUnselectedImg: UIImage(systemName: "house.fill"), vc: mainVC)
+        configTabBar(
+            title: .home,
+            tabImgName: .home,
+            tabUnselectedImgName: .home,
+            vc: mainVC
+        )
         let secondVC = UIViewController()
-        addTabBar(title: "공개예정", tabImg: UIImage(systemName: "video"), tabUnselectedImg: UIImage(systemName: "video.fill"), vc: secondVC)
+        configTabBar(
+            title: .soon,
+            tabImgName: .soon,
+            tabUnselectedImgName: .soon,
+            vc: secondVC
+        )
         let thirdVC = UIViewController()
-        addTabBar(title: "검색", tabImg: UIImage(systemName: "magnifyingglass"), tabUnselectedImg: UIImage(systemName: "magnifyingglass"), vc: thirdVC)
+        configTabBar(
+            title: .search,
+            tabImgName: .search,
+            tabUnselectedImgName: .search,
+            vc: thirdVC
+        )
         let fourthVC = UIViewController()
-        addTabBar(title: "기록", tabImg: UIImage(systemName: "clock"), tabUnselectedImg: UIImage(systemName: "clock.fill"), vc: fourthVC)
+        configTabBar(
+            title: .record,
+            tabImgName: .record,
+            tabUnselectedImgName: .record,
+            vc: fourthVC
+        )
         
         self.viewControllers = [mainVC, secondVC, thirdVC, fourthVC]
     }
     
-    /// 탭바 추가
-    /// 하단 탭바에 버튼을 추가해준다
-    private func addTabBar(title: String, tabImg: UIImage?, tabUnselectedImg: UIImage?, vc: UIViewController) {
-        vc.title = title
-        vc.tabBarItem = UITabBarItem(title: title, image: tabImg, selectedImage: tabUnselectedImg)
+    /// 탭바 설정
+    private func configTabBar(
+        title: TabBarTitleType,
+        tabImgName: TabBarselectedImgNameType,
+        tabUnselectedImgName: TabBarUnselectedImgNameType,
+        vc: UIViewController
+    ) {
+        vc.title = title.rawValue
+        vc.tabBarItem = UITabBarItem(
+            title: title.rawValue,
+            image: UIImage(systemName: tabImgName.rawValue),
+            selectedImage: UIImage(systemName: tabImgName.rawValue)
+        )
     }
 }
