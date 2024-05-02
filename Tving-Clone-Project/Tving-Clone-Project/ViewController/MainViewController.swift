@@ -109,7 +109,6 @@ final class MainViewController: UIViewController {
         $0.showsVerticalScrollIndicator = false
         $0.isPagingEnabled = true
         $0.delegate = self
-        $0.isScrollEnabled = false
     }
     
     private let posterContentView = UIView()
@@ -319,11 +318,18 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         print(scrollView.contentOffset.y, bufferView.frame.minY)
         
-        // sticky 타이밍을 계산
-        // 야매로 구현함 ㅎㅎ
-        let shouldShowSticky = scrollView.contentOffset.y >= bufferView.frame.minY
-        bufferView.backgroundColor = shouldShowSticky ? .black : .none
-        tabControlCollectionView.backgroundColor = shouldShowSticky ? .black : .none
+        if scrollView == self.scrollView {
+            // sticky 타이밍을 계산
+            // 야매로 구현함 ㅎㅎ
+            let shouldShowSticky = scrollView.contentOffset.y >= bufferView.frame.minY
+            bufferView.backgroundColor = shouldShowSticky ? .black : .none
+            tabControlCollectionView.backgroundColor = shouldShowSticky ? .black : .none
+            bufferView.snp.updateConstraints {
+                $0.top.equalTo(view.snp.top).offset(shouldShowSticky ? -30 : 0)
+                $0.width.equalToSuperview()
+                $0.height.equalTo(80)
+            }
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
