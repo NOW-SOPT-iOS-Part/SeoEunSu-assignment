@@ -237,17 +237,17 @@ final class MainViewController: UIViewController {
     private func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection? {
         switch sectionIndex {
             case 0, 2, 4:
-                return createPosterItem(sectionIndex: sectionIndex)
+                return createPosterItem()
             case 1:
                 return createLiveItem()
             case 3:
                 return createBaseballSloganItem()
             default:
-            return createPosterItem(sectionIndex: sectionIndex)
+            return createPosterItem()
         }
     }
     
-    private func createPosterItem(sectionIndex: Int) -> NSCollectionLayoutSection? {
+    private func createPosterItem() -> NSCollectionLayoutSection? {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
