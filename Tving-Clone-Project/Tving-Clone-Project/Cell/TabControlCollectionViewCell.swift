@@ -23,6 +23,7 @@ final class TabControlCollectionViewCell: UICollectionViewCell {
         $0.textColor = .white
         $0.font = .pretendard(weight: 400, size: 17)
     }
+    
     private lazy var bottomView = UIView().then {
         $0.backgroundColor = .white
     }

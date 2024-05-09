@@ -21,7 +21,6 @@ final class LiveCollectionViewCell: UICollectionViewCell {
     // MARK: - Components
     
     private let liveImageView = UIImageView().then {
-        $0.image = .queenOfTearLive
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 3
         $0.clipsToBounds = true
@@ -34,17 +33,14 @@ final class LiveCollectionViewCell: UICollectionViewCell {
         ])
     }
     private lazy var channelLabel = UILabel().then {
-        $0.text = "Mnet"
         $0.textColor = .white
         $0.font = .pretendard(weight: 400, size: 10)
     }
     private lazy var titleLabel = UILabel().then {
-        $0.text = "눈물의 여왕 16화"
         $0.textColor = .gray9C
         $0.font = .pretendard(weight: 400, size: 10)
     }
     private lazy var viewingRatingLabel = UILabel().then {
-        $0.text = "80.0%"
         $0.textColor = .gray9C
         $0.font = .pretendard(weight: 400, size: 10)
     }

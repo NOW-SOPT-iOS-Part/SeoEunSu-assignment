@@ -20,11 +20,9 @@ final class PosterCollectionViewCell: UICollectionViewCell {
     // MARK: - Components
     
     private let posterImageView = UIImageView().then {
-        $0.image = .signalPoster
         $0.layer.cornerRadius = 3
     }
     private lazy var posterTitleLabel = UILabel().then {
-        $0.text = "시그널"
         $0.textColor = .gray9C
         $0.font = .pretendard(weight: 500, size: 10)
     }

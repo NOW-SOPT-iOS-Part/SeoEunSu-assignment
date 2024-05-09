@@ -19,9 +19,7 @@ final class BaseballCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Components
     
-    private let baseballImageView = UIImageView().then {
-        $0.image = .bearsSloganBlack
-    }
+    private let baseballImageView = UIImageView()
     
     // MARK: - Init
     
