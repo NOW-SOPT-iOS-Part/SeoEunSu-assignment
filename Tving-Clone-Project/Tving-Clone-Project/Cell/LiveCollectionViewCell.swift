@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Then
 
 /// 티빙 라이브 프로그램 컬렉션뷰 셀
 final class LiveCollectionViewCell: UICollectionViewCell {

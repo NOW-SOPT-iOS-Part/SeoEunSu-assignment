@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Then
 
 /// 상단의 탭(홈, 실시간, ...) 컬렉션뷰
 final class TabControlCollectionViewCell: UICollectionViewCell {

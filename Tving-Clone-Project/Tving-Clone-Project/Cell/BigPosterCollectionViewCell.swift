@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Then
 
 /// 맨 위에 제일 크게 있는 프로그램 포스터 컬렉션뷰 셀
 final class BigPosterCollectionViewCell: UICollectionViewCell {

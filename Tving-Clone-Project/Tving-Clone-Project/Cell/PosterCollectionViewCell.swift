@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Then
 
 /// 프로그램 포스터 컬렉션뷰 셀
 final class PosterCollectionViewCell: UICollectionViewCell {
