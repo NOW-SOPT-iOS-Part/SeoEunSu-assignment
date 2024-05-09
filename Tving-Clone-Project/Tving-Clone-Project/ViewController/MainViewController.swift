@@ -20,11 +20,17 @@ final class MainViewController: UIViewController {
     
     // MARK: - Properties
     
-    let posterHeight = 498
+    let bigPosterHeight = 730.0
     let deviceWidth = UIScreen.main.bounds.width
     
-    let posterImages: [UIImage] = [.yournamePoster, .harryporterPoster, .doorPoster, .ringPoster]
-    let headers: [String] = ["티빙에서 꼭 봐야하는 콘텐츠", "인기 LIVE 채널", "1화 무료! 파라마운트+ 인기 시리즈", "", "서은수님이 시청하는 콘텐츠"]
+    let headers: [String] = [
+        "",
+        "티빙에서 꼭 봐야하는 콘텐츠",
+        "인기 LIVE 채널",
+        "1화 무료! 파라마운트+ 인기 시리즈",
+        "",
+        "서은수님이 시청하는 콘텐츠"
+    ]
     let tabs: [Tab] = [
         Tab(name: "홈", width: 15),
         Tab(name: "실시간", width: 55),
@@ -32,7 +38,8 @@ final class MainViewController: UIViewController {
         Tab(name: "영화", width: 35),
         Tab(name: "파라마운트+", width: 90)
     ]
-    let posters = Poster.dummyData()
+    let bigPosters = Poster.dummyDataForBig()
+    let posters = Poster.dummyDataForSmall()
     let livePrograms = LiveProgram.dummyData()
     let baseballSlogans = BaseballSlogan.dummyData()
     
@@ -42,6 +49,7 @@ final class MainViewController: UIViewController {
         $0.showsHorizontalScrollIndicator = false
         $0.showsVerticalScrollIndicator = false
         $0.delegate = self
+        $0.isScrollEnabled = false
     }
     
     private let contentView = UIView()
@@ -83,43 +91,6 @@ final class MainViewController: UIViewController {
         $0.backgroundColor = .none
     }
     
-    private lazy var mainPosterImageView = UIImageView().then {
-        $0.image = posterImages[pageControl.currentPage]
-        $0.contentMode = .scaleAspectFill
-    }
-    
-    private let posterTitleLabel = UILabel().then {
-        $0.text = "너의 이름은"
-        $0.textColor = .white
-        $0.font = .pretendard(weight: 700, size: 25)
-        $0.isHidden = true
-    }
-    
-    private let posterDetailLabel = UILabel().then {
-        $0.text = "sdfdsfdsfdsf\n아랑라ㅘ저로ㅓ동라ㅏㅇㄹ"
-        $0.textColor = .white
-        $0.font = .pretendard(weight: 400, size: 17)
-        $0.lineBreakMode = .byTruncatingTail
-        $0.numberOfLines = 2
-        $0.isHidden = true
-    }
-    
-    private lazy var posterScrollView = UIScrollView().then {
-        $0.showsHorizontalScrollIndicator = false
-        $0.showsVerticalScrollIndicator = false
-        $0.isPagingEnabled = true
-        $0.delegate = self
-    }
-    
-    private let posterContentView = UIView()
-    
-    private lazy var pageControl = UIPageControl().then {
-        $0.numberOfPages = posterImages.count
-        $0.currentPage = 0
-        $0.isUserInteractionEnabled = false
-        $0.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-    }
-    
     let config = UICollectionViewCompositionalLayoutConfiguration().then {
         $0.interSectionSpacing = 18
     }
@@ -128,7 +99,8 @@ final class MainViewController: UIViewController {
         return self.createSection(for: sectionIndex)
     }, configuration: config)
     
-    private lazy var mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout).then {        $0.tag = 2
+    private lazy var mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout).then {        
+        $0.tag = 2
         $0.backgroundColor = .black
         $0.delegate = self
         $0.dataSource = self
@@ -148,13 +120,22 @@ final class MainViewController: UIViewController {
     
     private func register() {
         tabControlCollectionView.register(TabControlCollectionViewCell.self, forCellWithReuseIdentifier: TabControlCollectionViewCell.identifier)
+        mainCollectionView.register(BigPosterCollectionViewCell.self, forCellWithReuseIdentifier: BigPosterCollectionViewCell.identifier)
         mainCollectionView.register(LiveCollectionViewCell.self, forCellWithReuseIdentifier: LiveCollectionViewCell.identifier)
         mainCollectionView.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.identifier)
         mainCollectionView.register(BaseballCollectionViewCell.self, forCellWithReuseIdentifier: BaseballCollectionViewCell.identifier)
-        mainCollectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                        withReuseIdentifier: HeaderView.identifier)
+        mainCollectionView.register(
+            HeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: HeaderView.identifier
+        )
+        mainCollectionView.register(
+            FooterView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: FooterView.identifier
+        )
     }
-    
+
     private func setLayout() {
         [
             scrollView,
@@ -162,92 +143,77 @@ final class MainViewController: UIViewController {
         ].forEach { self.view.addSubview($0) }
         
         scrollView.addSubview(contentView)
-        posterScrollView.addSubview(posterContentView)
         
         [
-            mainPosterImageView,
+            mainCollectionView,
             tvingTopLogoImageView,
             rightTopButtonStackView,
-            tabControlCollectionView,
-            posterScrollView,
-            pageControl,
-            mainCollectionView
+            tabControlCollectionView
         ].forEach { contentView.addSubview($0) }
-        [
-            posterTitleLabel,
-            posterDetailLabel
-        ].forEach { posterContentView.addSubview($0) }
         
-        bufferView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.width.equalToSuperview()
-            $0.height.equalTo(80)
-        }
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         contentView.snp.makeConstraints {
-            $0.edges.width.equalToSuperview()
-            $0.height.equalTo(1000)
+            $0.edges.width.height.equalToSuperview()
         }
-        
-        mainPosterImageView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(posterHeight)
+        bufferView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.equalTo(104)
         }
         tvingTopLogoImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(5)
+            $0.top.equalToSuperview().inset(58)
             $0.leading.equalToSuperview().inset(20)
         }
         rightTopButtonStackView.snp.makeConstraints {
             $0.centerY.equalTo(tvingTopLogoImageView)
             $0.trailing.equalToSuperview().inset(20)
         }
+        mainCollectionView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         tabControlCollectionView.snp.makeConstraints {
-            $0.top.equalTo(bufferView.snp.bottom)
+            $0.top.equalTo(tvingTopLogoImageView.snp.bottom).offset(15)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(40)
-        }
-        posterScrollView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(posterHeight)
-        }
-        posterContentView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.width.greaterThanOrEqualTo(Int(deviceWidth) * posterImages.count)
-        }
-        posterTitleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(20)
-            $0.bottom.equalTo(mainPosterImageView).offset(-70)
-        }
-        posterDetailLabel.snp.makeConstraints {
-            $0.leading.equalTo(posterTitleLabel)
-            $0.top.equalTo(posterTitleLabel.snp.bottom).offset(15)
-        }
-        pageControl.snp.makeConstraints {
-            $0.top.equalTo(mainPosterImageView.snp.bottom).offset(45)
-            $0.leading.equalToSuperview().offset(-23)
-        }
-        mainCollectionView.snp.makeConstraints {
-            $0.top.equalTo(pageControl.snp.bottom).offset(25)
-            $0.leading.trailing.bottom.equalToSuperview().inset(15)
         }
     }
     
     private func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection? {
         switch sectionIndex {
-            case 0, 2, 4:
-                return createPosterItem()
-            case 1:
-                return createLiveItem()
-            case 3:
+            case 0:
+                return createBigPosterSection()
+            case 2:
+                return createLiveSection()
+            case 4:
                 return createBaseballSloganItem()
-            default:
-            return createPosterItem()
+            default: // 1, 3, 5
+                return createPosterSection()
         }
     }
     
-    private func createPosterItem() -> NSCollectionLayoutSection? {
+    /// 맨 위의 큰 크기의 포스터 섹션 부분 만드는 함수
+    private func createBigPosterSection() -> NSCollectionLayoutSection? {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.7))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(bigPosterHeight + 100))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .paging // 페이징
+        
+        // FooterView의 자리를 SectionLayout 안에서 잡아주는 코드
+        section.boundarySupplementaryItems = [
+            NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40)), elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+        ]
+        
+        return section
+    }
+    
+    /// 작은 크기의 포스터 섹션 부분 만드는 함수
+    private func createPosterSection() -> NSCollectionLayoutSection? {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
@@ -257,7 +223,8 @@ final class MainViewController: UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
         section.interGroupSpacing = 8
-        
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
+
         // HeaderView의 자리를 SectionLayout 안에서 잡아주는 코드
         section.boundarySupplementaryItems = [
             NSCollectionLayoutBoundarySupplementaryItem(
@@ -268,7 +235,8 @@ final class MainViewController: UIViewController {
         return section
     }
     
-    private func createLiveItem() -> NSCollectionLayoutSection {
+    /// 라이브 프로그램 섹션 부분 만드는 함수
+    private func createLiveSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
@@ -279,7 +247,8 @@ final class MainViewController: UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
         section.interGroupSpacing = 7
-        
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
+
         // HeaderView의 자리를 SectionLayout 안에서 잡아주는 코드
         section.boundarySupplementaryItems = [
             NSCollectionLayoutBoundarySupplementaryItem(
@@ -290,6 +259,7 @@ final class MainViewController: UIViewController {
         return section
     }
     
+    /// 야구 슬로건 섹션 부분 만드는 함수
     private func createBaseballSloganItem() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -300,7 +270,8 @@ final class MainViewController: UIViewController {
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
-        section.contentInsets = NSDirectionalEdgeInsets(top: 27, leading: 0, bottom: 30, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 27, leading: 15, bottom: 30, trailing: 15)
+        
         return section
     }
     
@@ -318,37 +289,41 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         print(scrollView.contentOffset.y, bufferView.frame.minY)
         
-        if scrollView == self.scrollView {
+        if scrollView == self.mainCollectionView {
             // sticky 타이밍을 계산
             // 야매로 구현함 ㅎㅎ
             let shouldShowSticky = scrollView.contentOffset.y >= bufferView.frame.minY
-            bufferView.backgroundColor = shouldShowSticky ? .black : .none
-            tabControlCollectionView.backgroundColor = shouldShowSticky ? .black : .none
-            bufferView.snp.updateConstraints {
-                $0.top.equalToSuperview()
-                $0.width.equalToSuperview()
-                $0.height.equalTo(shouldShowSticky ? 40 : 80)
+            UIView.animate(withDuration: 0.3) { [self] in
+                bufferView.backgroundColor = shouldShowSticky ? .black : .none
+                tabControlCollectionView.backgroundColor = shouldShowSticky ? .black : .none
+                bufferView.snp.updateConstraints {
+                    $0.top.equalToSuperview()
+                    $0.width.equalToSuperview()
+                    $0.height.equalTo(shouldShowSticky ? 40 : 80)
+                }
             }
         }
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        // 한 페이지만큼 스크롤 하면
-        if fmod(posterScrollView.contentOffset.x, posterScrollView.frame.maxX) == 0 {
-            pageControl.currentPage = Int(posterScrollView.contentOffset.x / posterScrollView.frame.maxX)
-            // 페이지 위치 변경
-            let pageIndex = Int(posterScrollView.contentOffset.x / posterScrollView.frame.width)
-            pageControl.currentPage = pageIndex
-
-            // mainPosterImageView의 이미지 업데이트
-            mainPosterImageView.image = posterImages[pageIndex]
-        }
-    }
+    
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        if scrollView == mainCollectionView.sec {
+//            // 한 페이지만큼 스크롤 하면
+//            if fmod(scrollView.contentOffset.x, posterScrollView.frame.maxX) == 0 {
+//                pageControl.currentPage = Int(posterScrollView.contentOffset.x / posterScrollView.frame.maxX)
+//                // 페이지 위치 변경
+//                let pageIndex = Int(posterScrollView.contentOffset.x / posterScrollView.frame.width)
+//                pageControl.currentPage = pageIndex
+//
+//                // mainPosterImageView의 이미지 업데이트
+//                mainPosterImageView.image = posterImages[pageIndex]
+//            }
+//        }
 }
 
-// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
@@ -356,6 +331,10 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.identifier, for: indexPath) as! HeaderView
             header.fetchData(headers[indexPath.section])
             return header
+        case UICollectionView.elementKindSectionFooter:
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FooterView.identifier, for: indexPath) as! FooterView
+            footer.config(num: bigPosters.count)
+            return footer
         default:
             return UICollectionReusableView()
         }
@@ -365,7 +344,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView.tag == 1 {
             1
         } else {
-            5
+            6
         }
     }
     
@@ -374,13 +353,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return tabs.count
         } else {
             switch section {
-            case 0, 2, 4:
-                return posters.count
-            case 1:
+            case 0:
+                return bigPosters.count
+            case 2:
                 return livePrograms.count
-            case 3:
+            case 4:
                 return baseballSlogans.count
-            default:
+            default: // 1, 3, 5
                 return posters.count
             }
         }
@@ -393,25 +372,42 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         } else {
             switch indexPath.section {
-            case 0, 2, 4:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
-                cell.fetchData(model: posters[indexPath.row])
+            case 0:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BigPosterCollectionViewCell.identifier, for: indexPath) as? BigPosterCollectionViewCell else { return UICollectionViewCell() }
+                cell.fetchData(model: bigPosters[indexPath.row])
                 return cell
-            case 1:
+            case 2:
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LiveCollectionViewCell.identifier, for: indexPath) as? LiveCollectionViewCell else { return UICollectionViewCell() }
                 cell.fetchData(model: livePrograms[indexPath.row])
                 return cell
-            case 3:
+            case 4:
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseballCollectionViewCell.identifier, for: indexPath) as? BaseballCollectionViewCell else { return UICollectionViewCell() }
                 cell.fetchData(model: baseballSlogans[indexPath.row])
                 return cell
-            default:
+            default: // 1, 3, 5
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
+                cell.fetchData(model: posters[indexPath.row])
                 return cell
             }
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if collectionView == mainCollectionView && indexPath.section == 0 {
+            if let footers = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionFooter) as? [FooterView],
+               let footer = footers.first {
+                let currentPage = indexPath.row
+                footer.changePageControl(page: currentPage)
+            }
+        }
+    }
 }
+
+// MARK: - UICollectionViewDelegate
+
+extension MainViewController: UICollectionViewDelegate { }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     

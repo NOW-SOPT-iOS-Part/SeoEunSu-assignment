@@ -20,6 +20,8 @@
 		A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */; };
 		A293D31B2BDC12E4007CA9DC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293D31A2BDC12E4007CA9DC /* MainViewController.swift */; };
 		A293D31D2BDC161E007CA9DC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293D31C2BDC161E007CA9DC /* TabBarController.swift */; };
+		A2AC32222BE56F5E0010903A /* BigPosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC32212BE56F5E0010903A /* BigPosterCollectionViewCell.swift */; };
+		A2AC32242BE572B40010903A /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC32232BE572B40010903A /* FooterView.swift */; };
 		A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D639572BCE2FAE000DAE80 /* AppDelegate.swift */; };
 		A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D639592BCE2FAE000DAE80 /* SceneDelegate.swift */; };
 		A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D6395B2BCE2FAE000DAE80 /* LoginViewController.swift */; };
@@ -55,6 +57,8 @@
 		A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		A293D31A2BDC12E4007CA9DC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A293D31C2BDC161E007CA9DC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		A2AC32212BE56F5E0010903A /* BigPosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPosterCollectionViewCell.swift; sourceTree = "<group>"; };
+		A2AC32232BE572B40010903A /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		A2D639542BCE2FAE000DAE80 /* Tving-Clone-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tving-Clone-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2D639572BCE2FAE000DAE80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2D639592BCE2FAE000DAE80 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,10 +97,12 @@
 			isa = PBXGroup;
 			children = (
 				A2306D822BE12E6E00FD78D3 /* TabControlCollectionViewCell.swift */,
+				A2AC32212BE56F5E0010903A /* BigPosterCollectionViewCell.swift */,
 				A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */,
 				A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */,
 				A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */,
 				A2306D792BE11B1600FD78D3 /* HeaderView.swift */,
+				A2AC32232BE572B40010903A /* FooterView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -288,10 +294,12 @@
 				A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */,
 				A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */,
 				A2306D742BDF99CA00FD78D3 /* LiveCollectionViewCell.swift in Sources */,
+				A2AC32222BE56F5E0010903A /* BigPosterCollectionViewCell.swift in Sources */,
 				A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */,
 				A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */,
 				A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */,
 				A2306D7A2BE11B1600FD78D3 /* HeaderView.swift in Sources */,
+				A2AC32242BE572B40010903A /* FooterView.swift in Sources */,
 				A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */,
 				A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */,
 				A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */,
