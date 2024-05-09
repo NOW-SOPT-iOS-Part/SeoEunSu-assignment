@@ -17,7 +17,7 @@ enum TabBarTitleType: String {
 
 /// 탭바 클릭 안 됐을 때 이미지 타입
 enum TabBarUnselectedImgNameType: String {
-    case home = "home"
+    case home = "house"
     case soon = "video"
     case search = "magnifyingglass"
     case record = "clock"
@@ -25,7 +25,7 @@ enum TabBarUnselectedImgNameType: String {
 
 /// 탭바 클릭됐을 때 이미지 타입
 enum TabBarselectedImgNameType: String {
-    case home = "home.fill"
+    case home = "house.fill"
     case soon = "video.fill"
     case search = "magnifyingglass"
     case record = "clock.fill"
