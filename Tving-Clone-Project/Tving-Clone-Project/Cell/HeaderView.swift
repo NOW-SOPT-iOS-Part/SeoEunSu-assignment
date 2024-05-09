@@ -57,10 +57,10 @@ class HeaderView: UICollectionReusableView {
     // MARK: - Helpers
     
     private func setLayout() {
-        [
+        addSubviews(
             titleLabel,
             fullViewStackView
-        ].forEach { addSubview($0) }
+        )
         
         titleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()

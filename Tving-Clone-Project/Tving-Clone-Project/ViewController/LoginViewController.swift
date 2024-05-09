@@ -180,7 +180,7 @@ final class LoginViewController: UIViewController {
     // MARK: - Helpers
     
     final private func addSubview() {
-        [
+        self.view.addSubviews(
             idLoginLabel,
             idTextField,
             idXButton,
@@ -190,17 +190,7 @@ final class LoginViewController: UIViewController {
             loginButton,
             findButtonStackView,
             guideButtonStackView
-        ].forEach { self.view.addSubview($0) }
-        
-//        [
-//            findIdButton,
-//            separatorView,
-//            findPwButton
-//        ].forEach { self.findButtonStackView.addSubview($0) }
-//        
-//        [
-//            guideLabel, makeNicknameButton
-//        ].forEach { self.guideButtonStackView.addSubview($0) }
+        )
     }
     
     final private func setLayout() {

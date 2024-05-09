@@ -70,11 +70,11 @@ final class WelcomeViewController: UIViewController {
     // MARK: - Helpers
     
     final private func addSubview() {
-        [
+        self.view.addSubviews(
             tvingImageView,
             welcomeLabel,
             toMainButton
-        ].forEach { self.view.addSubview($0) }
+        )
     }
     
     final private func setLayout() {

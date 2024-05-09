@@ -102,13 +102,13 @@ final class BottomSheetViewController: UIViewController {
     }
     
     final private func addSubview() {
-        [
+        self.view.addSubviews(
             grabBarView,
             bottomSheetView,
             enterNicknameLabel,
             nicknameTextField,
             saveButton
-        ].forEach { view.addSubview($0) }
+        )
     }
     
     final private func setLayout() {

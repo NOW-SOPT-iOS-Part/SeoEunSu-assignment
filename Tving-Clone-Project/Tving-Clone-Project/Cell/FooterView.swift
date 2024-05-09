@@ -41,9 +41,7 @@ class FooterView: UICollectionReusableView {
     // MARK: - Helpers
     
     private func setLayout() {
-        [
-            pageControl
-        ].forEach { addSubview($0) }
+        addSubviews(pageControl)
         pageControl.snp.makeConstraints {
             $0.top.equalToSuperview().inset(10)
             $0.bottom.equalToSuperview()

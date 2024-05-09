@@ -62,13 +62,13 @@ final class LiveCollectionViewCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func setLayout() {
-        [
+        contentView.addSubviews(
             liveImageView,
             rankingLabel,
             channelLabel,
             titleLabel,
             viewingRatingLabel
-        ].forEach { contentView.addSubview($0) }
+        )
         
         liveImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()

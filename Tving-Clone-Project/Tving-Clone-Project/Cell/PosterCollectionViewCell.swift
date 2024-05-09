@@ -43,10 +43,10 @@ final class PosterCollectionViewCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func setLayout() {
-        [
+        contentView.addSubviews(
             posterImageView,
             posterTitleLabel
-        ].forEach { contentView.addSubview($0) }
+        )
         
         posterImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()

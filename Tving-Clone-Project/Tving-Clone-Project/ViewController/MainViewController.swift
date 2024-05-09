@@ -135,21 +135,21 @@ final class MainViewController: UIViewController {
             withReuseIdentifier: FooterView.identifier
         )
     }
-
+    
     private func setLayout() {
-        [
+        self.view.addSubviews(
             scrollView,
             bufferView
-        ].forEach { self.view.addSubview($0) }
+        )
         
         scrollView.addSubview(contentView)
         
-        [
+        self.contentView.addSubviews(
             mainCollectionView,
             tvingTopLogoImageView,
             rightTopButtonStackView,
             tabControlCollectionView
-        ].forEach { contentView.addSubview($0) }
+        )
         
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()

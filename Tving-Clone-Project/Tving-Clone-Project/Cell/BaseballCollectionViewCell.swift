@@ -36,8 +36,7 @@ final class BaseballCollectionViewCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func setLayout() {
-        contentView.addSubview(baseballImageView)
-        
+        contentView.addSubviews(baseballImageView)
         baseballImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

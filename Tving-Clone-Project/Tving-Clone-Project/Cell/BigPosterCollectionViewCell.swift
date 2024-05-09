@@ -49,11 +49,11 @@ final class BigPosterCollectionViewCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func setLayout() {
-        [
+        contentView.addSubviews(
             posterImageView,
             posterTitleLabel,
             posterExplainLabel
-        ].forEach { contentView.addSubview($0) }
+        )
         
         posterImageView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(-45)

@@ -48,10 +48,10 @@ final class TabControlCollectionViewCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func setLayout() {
-        [
+        contentView.addSubviews(
             tabNameLabel,
             bottomView
-        ].forEach { contentView.addSubview($0) }
+        )
         tabNameLabel.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
         }
