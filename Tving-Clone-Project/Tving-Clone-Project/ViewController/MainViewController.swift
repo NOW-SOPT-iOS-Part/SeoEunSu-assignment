@@ -138,29 +138,15 @@ final class MainViewController: UIViewController {
     
     private func setLayout() {
         self.view.addSubviews(
-            scrollView,
-            bufferView
-        )
-        
-        scrollView.addSubview(contentView)
-        
-        self.contentView.addSubviews(
             mainCollectionView,
             tvingTopLogoImageView,
             rightTopButtonStackView,
+            bufferView,
             tabControlCollectionView
         )
         
-        scrollView.snp.makeConstraints {
+        mainCollectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-        }
-        contentView.snp.makeConstraints {
-            $0.edges.width.height.equalToSuperview()
-        }
-        bufferView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.width.equalToSuperview()
-            $0.height.equalTo(104)
         }
         tvingTopLogoImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(58)
@@ -170,11 +156,13 @@ final class MainViewController: UIViewController {
             $0.centerY.equalTo(tvingTopLogoImageView)
             $0.trailing.equalToSuperview().inset(20)
         }
-        mainCollectionView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        bufferView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.equalTo(94)
         }
         tabControlCollectionView.snp.makeConstraints {
-            $0.top.equalTo(tvingTopLogoImageView.snp.bottom).offset(15)
+            $0.top.equalTo(bufferView.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(40)
         }
@@ -293,32 +281,22 @@ extension MainViewController: UIScrollViewDelegate {
             // sticky 타이밍을 계산
             // 야매로 구현함 ㅎㅎ
             let shouldShowSticky = scrollView.contentOffset.y >= bufferView.frame.minY
+            // top에 있는 뷰들 숨김
+            tvingTopLogoImageView.isHidden = shouldShowSticky
+            rightTopButtonStackView.isHidden = shouldShowSticky
+            
+            // 애니메이션 적용에서 자연스럽게
             UIView.animate(withDuration: 0.3) { [self] in
                 bufferView.backgroundColor = shouldShowSticky ? .black : .none
                 tabControlCollectionView.backgroundColor = shouldShowSticky ? .black : .none
                 bufferView.snp.updateConstraints {
                     $0.top.equalToSuperview()
                     $0.width.equalToSuperview()
-                    $0.height.equalTo(shouldShowSticky ? 40 : 80)
+                    $0.height.equalTo(shouldShowSticky ? 40 : 94)
                 }
             }
         }
     }
-    
-    
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        if scrollView == mainCollectionView.sec {
-//            // 한 페이지만큼 스크롤 하면
-//            if fmod(scrollView.contentOffset.x, posterScrollView.frame.maxX) == 0 {
-//                pageControl.currentPage = Int(posterScrollView.contentOffset.x / posterScrollView.frame.maxX)
-//                // 페이지 위치 변경
-//                let pageIndex = Int(posterScrollView.contentOffset.x / posterScrollView.frame.width)
-//                pageControl.currentPage = pageIndex
-//
-//                // mainPosterImageView의 이미지 업데이트
-//                mainPosterImageView.image = posterImages[pageIndex]
-//            }
-//        }
 }
 
 // MARK: - UICollectionViewDataSource
