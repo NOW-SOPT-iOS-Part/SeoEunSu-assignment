@@ -15,10 +15,10 @@ struct BoxOfficeResModel: Codable {
 struct BoxOfficeResult: Codable {
     let boxofficeType: String
     let showRange: String
-    let dailyBoxOfficeList: [DailyBoxOfficeList]
+    let dailyBoxOfficeList: [DailyBoxOffice]
 }
 
-struct DailyBoxOfficeList: Codable {
+struct DailyBoxOffice: Codable {
     let rnum: String
     let rank: String
     let rankInten: String

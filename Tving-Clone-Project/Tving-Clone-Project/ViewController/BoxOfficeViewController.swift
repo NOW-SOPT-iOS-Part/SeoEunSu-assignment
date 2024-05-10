@@ -12,6 +12,12 @@ import Then
 
 class BoxOfficeViewController: UIViewController {
     
+    // MARK: - Properties
+    
+    private var boxOfficeData: [DailyBoxOffice] = []
+    
+    // MARK: - Components
+    
     private let titleLabel = UILabel().then {
         $0.text = "오늘의 박스 오피스 순위"
         $0.font = .pretendard(weight: 700, size: 25)
@@ -23,6 +29,8 @@ class BoxOfficeViewController: UIViewController {
         $0.delegate = self
         $0.dataSource = self
     }
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +70,8 @@ class BoxOfficeViewController: UIViewController {
             switch res {
             case .success(let data):
                 guard let data = data as? BoxOfficeResModel else { return }
+                self.boxOfficeData = data.boxOfficeResult.dailyBoxOfficeList
+                self.boxOfficeTableView.reloadData()
                 print("응답값! \(data)")
             case .requestError:
                 print("요청 오류 입니다")
@@ -82,14 +92,14 @@ class BoxOfficeViewController: UIViewController {
 
 extension BoxOfficeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        boxOfficeData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BoxOfficeTableViewCell.identifier) as? BoxOfficeTableViewCell else {
             return UITableViewCell()
         }
-        
+        cell.dataBind(boxOfficeData[indexPath.row])
         return cell
     }
 }

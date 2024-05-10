@@ -67,7 +67,7 @@ class BoxOfficeTableViewCell: UITableViewCell {
         }
         openDateLabel.snp.makeConstraints {
             $0.centerY.equalTo(movieTitleLabel)
-            $0.leading.equalTo(movieTitleLabel.snp.trailing).offset(15)
+            $0.leading.equalTo(movieTitleLabel.snp.trailing).offset(10)
         }
     }
 }
@@ -75,12 +75,9 @@ class BoxOfficeTableViewCell: UITableViewCell {
 // MARK: - Extension
 
 extension BoxOfficeTableViewCell {
-    
-//    func dataBind(_ chatData: BoxOfficeModel) {
-//        profileImageView.image = chatData.profileImg
-//        nicknameLabel.text = chatData.name
-//        locationLabel.text = chatData.place
-//        lastChatLabel.text = chatData.message
-//        contentImageView.image = chatData.itemImg
-//    }
+    func dataBind(_ boxOfficeData: DailyBoxOffice) {
+        rankLabel.text = boxOfficeData.rank
+        movieTitleLabel.text = boxOfficeData.movieNm
+        openDateLabel.text = boxOfficeData.openDt
+    }
 }
