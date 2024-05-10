@@ -8,6 +8,7 @@
 import UIKit
 
 extension UITextField {
+    
     /// 텍스트필드의 왼쪽과 오른쪽에 패딩을 추가하는 함수
     /// - width의 크기만큼 양쪽에 패딩을 준다
     final func addSidePadding(width: CGFloat) {

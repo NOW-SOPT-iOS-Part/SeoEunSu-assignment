@@ -12,15 +12,15 @@ import Then
 
 final class WelcomeViewController: UIViewController {
     
-    // MARK: - Variables
+    // MARK: - Properties
     
     var id: String = ""
     var nickname: String = ""
     
-    // MARK: - Subviews
+    // MARK: - Components
     
     final private let tvingImageView = UIImageView().then {
-        $0.image = .tvingTitle
+        $0.image = .tvingTitleRed
     }
     
     final private lazy var welcomeLabel = UILabel().then {
@@ -36,7 +36,7 @@ final class WelcomeViewController: UIViewController {
         $0.numberOfLines = 2
         $0.textAlignment = .center
         $0.font = .pretendard(weight: 700, size: 23)
-        $0.textColor = .gray1
+        $0.textColor = .grayD6
     }
     
     final private lazy var toMainButton = UIButton().then {
@@ -70,11 +70,11 @@ final class WelcomeViewController: UIViewController {
     // MARK: - Helpers
     
     final private func addSubview() {
-        [
+        self.view.addSubviews(
             tvingImageView,
             welcomeLabel,
             toMainButton
-        ].forEach { self.view.addSubview($0) }
+        )
     }
     
     final private func setLayout() {
@@ -99,7 +99,9 @@ final class WelcomeViewController: UIViewController {
     /// 메인으로 버튼 클릭 시 호출되는 함수
     @objc
     final private func toMainButtonDidTap(_ sender: UIButton) {
-        print("메인으로~")
-        self.dismiss(animated: true)
+        let tabBarVC = TabBarController()
+        tabBarVC.modalPresentationStyle = .fullScreen
+        tabBarVC.modalTransitionStyle = .crossDissolve
+        self.present(tabBarVC, animated: true)
     }
 }

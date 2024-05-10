@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "signalPoster.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

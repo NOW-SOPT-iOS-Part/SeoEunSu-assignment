@@ -16,13 +16,13 @@ extension UIButton {
         self.isEnabled = isActivate ? true : false
         self.backgroundColor = isActivate ? .red : .black
         self.layer.borderWidth = isActivate ? 0 : 1
-        self.layer.borderColor = isActivate ? nil : UIColor.gray4.cgColor
+        self.layer.borderColor = isActivate ? nil : UIColor.gray2E.cgColor
         self.setAttributedTitle(
             NSAttributedString(
                 string: self.titleLabel?.text ?? "",
                 attributes: [
                     .font : UIFont.pretendard(weight: 600, size: 14),
-                    .foregroundColor : isActivate ? UIColor.white : UIColor.gray2
+                    .foregroundColor : isActivate ? UIColor.white : UIColor.gray9C
                 ]
             ),
             for: .normal
