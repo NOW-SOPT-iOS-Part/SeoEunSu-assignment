@@ -55,12 +55,12 @@ final class TabBarController: UITabBarController {
             tabUnselectedImgName: .home,
             vc: mainVC
         )
-        let secondVC = UIViewController()
+        let boxOfficeVC = BoxOfficeViewController()
         configTabBar(
             title: .soon,
             tabImgName: .soon,
             tabUnselectedImgName: .soon,
-            vc: secondVC
+            vc: boxOfficeVC
         )
         let thirdVC = UIViewController()
         configTabBar(
@@ -77,7 +77,7 @@ final class TabBarController: UITabBarController {
             vc: fourthVC
         )
         
-        self.viewControllers = [mainVC, secondVC, thirdVC, fourthVC]
+        self.viewControllers = [mainVC, boxOfficeVC, thirdVC, fourthVC]
     }
     
     /// 탭바 설정

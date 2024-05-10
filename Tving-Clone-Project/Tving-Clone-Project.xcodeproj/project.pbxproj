@@ -21,6 +21,10 @@
 		A293D31B2BDC12E4007CA9DC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293D31A2BDC12E4007CA9DC /* MainViewController.swift */; };
 		A293D31D2BDC161E007CA9DC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293D31C2BDC161E007CA9DC /* TabBarController.swift */; };
 		A29F9C942BED75AA0030F957 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9C932BED75AA0030F957 /* UIView+.swift */; };
+		A29F9C962BEDB4A30030F957 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9C952BEDB4A30030F957 /* Secret.swift */; };
+		A29F9C982BEDB5CD0030F957 /* BoxOfficeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9C972BEDB5CD0030F957 /* BoxOfficeViewController.swift */; };
+		A29F9C9A2BEDB7480030F957 /* BoxOfficeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9C992BEDB7480030F957 /* BoxOfficeTableViewCell.swift */; };
+		A29F9C9C2BEDB7950030F957 /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9C9B2BEDB7950030F957 /* NSObject+.swift */; };
 		A2AC32222BE56F5E0010903A /* BigPosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC32212BE56F5E0010903A /* BigPosterCollectionViewCell.swift */; };
 		A2AC32242BE572B40010903A /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC32232BE572B40010903A /* FooterView.swift */; };
 		A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D639572BCE2FAE000DAE80 /* AppDelegate.swift */; };
@@ -59,6 +63,10 @@
 		A293D31A2BDC12E4007CA9DC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A293D31C2BDC161E007CA9DC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		A29F9C932BED75AA0030F957 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		A29F9C952BEDB4A30030F957 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
+		A29F9C972BEDB5CD0030F957 /* BoxOfficeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeViewController.swift; sourceTree = "<group>"; };
+		A29F9C992BEDB7480030F957 /* BoxOfficeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeTableViewCell.swift; sourceTree = "<group>"; };
+		A29F9C9B2BEDB7950030F957 /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		A2AC32212BE56F5E0010903A /* BigPosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2AC32232BE572B40010903A /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		A2D639542BCE2FAE000DAE80 /* Tving-Clone-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tving-Clone-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +113,7 @@
 				A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */,
 				A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */,
 				A2AC32232BE572B40010903A /* FooterView.swift */,
+				A29F9C992BEDB7480030F957 /* BoxOfficeTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -138,6 +147,7 @@
 		A2D639562BCE2FAE000DAE80 /* Tving-Clone-Project */ = {
 			isa = PBXGroup;
 			children = (
+				A29F9C952BEDB4A30030F957 /* Secret.swift */,
 				A2D6397F2BCE36E2000DAE80 /* Font */,
 				A2D6396B2BCE3678000DAE80 /* App */,
 				A2306D7B2BE11BF500FD78D3 /* Model */,
@@ -168,6 +178,7 @@
 				A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */,
 				A293D31C2BDC161E007CA9DC /* TabBarController.swift */,
 				A293D31A2BDC12E4007CA9DC /* MainViewController.swift */,
+				A29F9C972BEDB5CD0030F957 /* BoxOfficeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -196,6 +207,7 @@
 				A289F2B92BD190ED00AF50BF /* UIButton+.swift */,
 				A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */,
 				A29F9C932BED75AA0030F957 /* UIView+.swift */,
+				A29F9C9B2BEDB7950030F957 /* NSObject+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -301,12 +313,16 @@
 				A2AC32222BE56F5E0010903A /* BigPosterCollectionViewCell.swift in Sources */,
 				A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */,
 				A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */,
+				A29F9C962BEDB4A30030F957 /* Secret.swift in Sources */,
 				A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */,
 				A2306D7A2BE11B1600FD78D3 /* HeaderView.swift in Sources */,
 				A2AC32242BE572B40010903A /* FooterView.swift in Sources */,
 				A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */,
 				A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */,
+				A29F9C982BEDB5CD0030F957 /* BoxOfficeViewController.swift in Sources */,
+				A29F9C9A2BEDB7480030F957 /* BoxOfficeTableViewCell.swift in Sources */,
 				A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */,
+				A29F9C9C2BEDB7950030F957 /* NSObject+.swift in Sources */,
 				A293D31B2BDC12E4007CA9DC /* MainViewController.swift in Sources */,
 				A2306D7F2BE11C5200FD78D3 /* LiveProgram.swift in Sources */,
 			);

@@ -99,7 +99,7 @@ final class MainViewController: UIViewController {
         return self.createSection(for: sectionIndex)
     }, configuration: config)
     
-    private lazy var mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout).then {        
+    private lazy var mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout).then {
         $0.tag = 2
         $0.backgroundColor = .black
         $0.delegate = self
