@@ -30,6 +30,7 @@ class BoxOfficeViewController: UIViewController {
         view.backgroundColor = .black
         setLayout()
         register()
+        requestDailyBoxOfficeList()
     }
     
     // MARK: - Helpers
@@ -54,6 +55,26 @@ class BoxOfficeViewController: UIViewController {
             BoxOfficeTableViewCell.self,
             forCellReuseIdentifier: BoxOfficeTableViewCell.identifier
         )
+    }
+    
+    private func requestDailyBoxOfficeList() {
+        BoxOfficeService.shared.getDailyBoxOffice(targetDt: "20240509") { res in
+            switch res {
+            case .success(let data):
+                guard let data = data as? BoxOfficeResModel else { return }
+                print("응답값! \(data)")
+            case .requestError:
+                print("요청 오류 입니다")
+            case .decodingError:
+                print("디코딩 오류 입니다")
+            case .pathError:
+                print("경로 오류 입니다")
+            case .serverError:
+                print("서버 오류입니다")
+            case .networkFail:
+                print("네트워크 오류입니다")
+            }
+        }
     }
 }
 

@@ -26,6 +26,11 @@
 		A29F9C9A2BEDB7480030F957 /* BoxOfficeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9C992BEDB7480030F957 /* BoxOfficeTableViewCell.swift */; };
 		A29F9C9C2BEDB7950030F957 /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9C9B2BEDB7950030F957 /* NSObject+.swift */; };
 		A29F9C9F2BEDBB4A0030F957 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A29F9C9E2BEDBB4A0030F957 /* Moya */; };
+		A29F9CA62BEDBC5C0030F957 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9CA32BEDBC5C0030F957 /* NetworkResult.swift */; };
+		A29F9CA72BEDBC5C0030F957 /* MoyaLoggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9CA42BEDBC5C0030F957 /* MoyaLoggingPlugin.swift */; };
+		A29F9CAB2BEDBC710030F957 /* BoxOfficeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9CAA2BEDBC710030F957 /* BoxOfficeService.swift */; };
+		A29F9CAE2BEDBC7B0030F957 /* BoxOfficeTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9CAD2BEDBC7B0030F957 /* BoxOfficeTargetType.swift */; };
+		A29F9CB12BEDBC820030F957 /* BoxOfficeResModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9CB02BEDBC820030F957 /* BoxOfficeResModel.swift */; };
 		A2AC32222BE56F5E0010903A /* BigPosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC32212BE56F5E0010903A /* BigPosterCollectionViewCell.swift */; };
 		A2AC32242BE572B40010903A /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC32232BE572B40010903A /* FooterView.swift */; };
 		A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D639572BCE2FAE000DAE80 /* AppDelegate.swift */; };
@@ -68,6 +73,11 @@
 		A29F9C972BEDB5CD0030F957 /* BoxOfficeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeViewController.swift; sourceTree = "<group>"; };
 		A29F9C992BEDB7480030F957 /* BoxOfficeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeTableViewCell.swift; sourceTree = "<group>"; };
 		A29F9C9B2BEDB7950030F957 /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
+		A29F9CA32BEDBC5C0030F957 /* NetworkResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		A29F9CA42BEDBC5C0030F957 /* MoyaLoggingPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoyaLoggingPlugin.swift; sourceTree = "<group>"; };
+		A29F9CAA2BEDBC710030F957 /* BoxOfficeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxOfficeService.swift; sourceTree = "<group>"; };
+		A29F9CAD2BEDBC7B0030F957 /* BoxOfficeTargetType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxOfficeTargetType.swift; sourceTree = "<group>"; };
+		A29F9CB02BEDBC820030F957 /* BoxOfficeResModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxOfficeResModel.swift; sourceTree = "<group>"; };
 		A2AC32212BE56F5E0010903A /* BigPosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2AC32232BE572B40010903A /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		A2D639542BCE2FAE000DAE80 /* Tving-Clone-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tving-Clone-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +140,52 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		A29F9CA02BEDBC090030F957 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A29F9CA12BEDBC120030F957 /* Common */,
+				A29F9CA92BEDBC710030F957 /* Service */,
+				A29F9CAC2BEDBC7B0030F957 /* TargetType */,
+				A29F9CAF2BEDBC820030F957 /* Model */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A29F9CA12BEDBC120030F957 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A29F9C952BEDB4A30030F957 /* Secret.swift */,
+				A29F9CA42BEDBC5C0030F957 /* MoyaLoggingPlugin.swift */,
+				A29F9CA32BEDBC5C0030F957 /* NetworkResult.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A29F9CA92BEDBC710030F957 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				A29F9CAA2BEDBC710030F957 /* BoxOfficeService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		A29F9CAC2BEDBC7B0030F957 /* TargetType */ = {
+			isa = PBXGroup;
+			children = (
+				A29F9CAD2BEDBC7B0030F957 /* BoxOfficeTargetType.swift */,
+			);
+			path = TargetType;
+			sourceTree = "<group>";
+		};
+		A29F9CAF2BEDBC820030F957 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A29F9CB02BEDBC820030F957 /* BoxOfficeResModel.swift */,
+			);
+			name = Model;
+			path = "Tving-Clone-Project/Network/Model";
+			sourceTree = SOURCE_ROOT;
+		};
 		A2D6394B2BCE2FAE000DAE80 = {
 			isa = PBXGroup;
 			children = (
@@ -149,13 +205,13 @@
 		A2D639562BCE2FAE000DAE80 /* Tving-Clone-Project */ = {
 			isa = PBXGroup;
 			children = (
-				A29F9C952BEDB4A30030F957 /* Secret.swift */,
 				A2D6397F2BCE36E2000DAE80 /* Font */,
 				A2D6396B2BCE3678000DAE80 /* App */,
 				A2306D7B2BE11BF500FD78D3 /* Model */,
 				A2D6396C2BCE3681000DAE80 /* ViewController */,
 				A21172CB2BDC3F0400FEA8CA /* Cell */,
 				A2D639802BCE38A6000DAE80 /* Extensions */,
+				A29F9CA02BEDBC090030F957 /* Network */,
 				A2D639602BCE2FAF000DAE80 /* Assets.xcassets */,
 				A2D639622BCE2FAF000DAE80 /* LaunchScreen.storyboard */,
 				A2D639652BCE2FAF000DAE80 /* Info.plist */,
@@ -306,8 +362,10 @@
 				A2D639822BCE38B3000DAE80 /* UIFont+.swift in Sources */,
 				A2306D782BDF99F800FD78D3 /* BaseballCollectionViewCell.swift in Sources */,
 				A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */,
+				A29F9CA72BEDBC5C0030F957 /* MoyaLoggingPlugin.swift in Sources */,
 				A293D31D2BDC161E007CA9DC /* TabBarController.swift in Sources */,
 				A2306D7D2BE11C1B00FD78D3 /* Poster.swift in Sources */,
+				A29F9CAE2BEDBC7B0030F957 /* BoxOfficeTargetType.swift in Sources */,
 				A2306D832BE12E6E00FD78D3 /* TabControlCollectionViewCell.swift in Sources */,
 				A2306D812BE11D2900FD78D3 /* BaseballSlogan.swift in Sources */,
 				A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */,
@@ -318,6 +376,7 @@
 				A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */,
 				A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */,
 				A29F9C962BEDB4A30030F957 /* Secret.swift in Sources */,
+				A29F9CB12BEDBC820030F957 /* BoxOfficeResModel.swift in Sources */,
 				A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */,
 				A2306D7A2BE11B1600FD78D3 /* HeaderView.swift in Sources */,
 				A2AC32242BE572B40010903A /* FooterView.swift in Sources */,
@@ -328,7 +387,9 @@
 				A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */,
 				A29F9C9C2BEDB7950030F957 /* NSObject+.swift in Sources */,
 				A293D31B2BDC12E4007CA9DC /* MainViewController.swift in Sources */,
+				A29F9CAB2BEDBC710030F957 /* BoxOfficeService.swift in Sources */,
 				A2306D7F2BE11C5200FD78D3 /* LiveProgram.swift in Sources */,
+				A29F9CA62BEDBC5C0030F957 /* NetworkResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
