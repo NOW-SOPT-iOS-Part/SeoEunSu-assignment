@@ -65,8 +65,19 @@ class BoxOfficeViewController: UIViewController {
         )
     }
     
+    /// TMI: 시간이 일러서 그런지 오늘 날짜로 하면 아직 데이터가 없길래...
+    /// 어제 날짜를 yyyyMMdd 형태로 반환해주는 함수
+    private func getYesterdayDateStr() -> String {
+        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return "" }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let yesterdayDateStr = dateFormatter.string(from: yesterday)
+        return yesterdayDateStr
+    }
+
+    /// 일별 박스오피스 조회 API를 호출
     private func requestDailyBoxOfficeList() {
-        BoxOfficeService.shared.getDailyBoxOffice(targetDt: "20240509") { res in
+        BoxOfficeService.shared.getDailyBoxOffice(targetDt: getYesterdayDateStr()) { res in
             switch res {
             case .success(let data):
                 guard let data = data as? BoxOfficeResModel else { return }
