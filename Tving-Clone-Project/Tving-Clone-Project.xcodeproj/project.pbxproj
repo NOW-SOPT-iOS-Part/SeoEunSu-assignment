@@ -119,25 +119,20 @@
 			isa = PBXGroup;
 			children = (
 				A2306D822BE12E6E00FD78D3 /* TabControlCollectionViewCell.swift */,
-				A2306D792BE11B1600FD78D3 /* HeaderView.swift */,
-				A2AC32212BE56F5E0010903A /* BigPosterCollectionViewCell.swift */,
-				A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */,
-				A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */,
-				A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */,
-				A2AC32232BE572B40010903A /* FooterView.swift */,
-				A29F9C992BEDB7480030F957 /* BoxOfficeTableViewCell.swift */,
+				A29F9CB32BEDC3D30030F957 /* Main */,
+				A29F9CB42BEDC3DC0030F957 /* BoxOffice */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		A2306D7B2BE11BF500FD78D3 /* Model */ = {
+		A2306D7B2BE11BF500FD78D3 /* DummyModel */ = {
 			isa = PBXGroup;
 			children = (
 				A2306D7C2BE11C1B00FD78D3 /* Poster.swift */,
 				A2306D7E2BE11C5200FD78D3 /* LiveProgram.swift */,
 				A2306D802BE11D2900FD78D3 /* BaseballSlogan.swift */,
 			);
-			path = Model;
+			path = DummyModel;
 			sourceTree = "<group>";
 		};
 		A29F9CA02BEDBC090030F957 /* Network */ = {
@@ -186,6 +181,62 @@
 			path = "Tving-Clone-Project/Network/Model";
 			sourceTree = SOURCE_ROOT;
 		};
+		A29F9CB22BEDC3B60030F957 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				A2D6395B2BCE2FAE000DAE80 /* LoginViewController.swift */,
+				A2D6398F2BCEBEC6000DAE80 /* WelcomeViewController.swift */,
+				A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		A29F9CB32BEDC3D30030F957 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				A2306D792BE11B1600FD78D3 /* HeaderView.swift */,
+				A2AC32212BE56F5E0010903A /* BigPosterCollectionViewCell.swift */,
+				A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */,
+				A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */,
+				A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */,
+				A2AC32232BE572B40010903A /* FooterView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		A29F9CB42BEDC3DC0030F957 /* BoxOffice */ = {
+			isa = PBXGroup;
+			children = (
+				A29F9C992BEDB7480030F957 /* BoxOfficeTableViewCell.swift */,
+			);
+			path = BoxOffice;
+			sourceTree = "<group>";
+		};
+		A29F9CB52BEDC3F00030F957 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				A293D31A2BDC12E4007CA9DC /* MainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		A29F9CB62BEDC3F90030F957 /* BoxOffice */ = {
+			isa = PBXGroup;
+			children = (
+				A29F9C972BEDB5CD0030F957 /* BoxOfficeViewController.swift */,
+			);
+			path = BoxOffice;
+			sourceTree = "<group>";
+		};
+		A29F9CB72BEDC4100030F957 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				A2D6397F2BCE36E2000DAE80 /* Font */,
+				A2D639602BCE2FAF000DAE80 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		A2D6394B2BCE2FAE000DAE80 = {
 			isa = PBXGroup;
 			children = (
@@ -205,14 +256,13 @@
 		A2D639562BCE2FAE000DAE80 /* Tving-Clone-Project */ = {
 			isa = PBXGroup;
 			children = (
-				A2D6397F2BCE36E2000DAE80 /* Font */,
 				A2D6396B2BCE3678000DAE80 /* App */,
-				A2306D7B2BE11BF500FD78D3 /* Model */,
+				A2306D7B2BE11BF500FD78D3 /* DummyModel */,
 				A2D6396C2BCE3681000DAE80 /* ViewController */,
 				A21172CB2BDC3F0400FEA8CA /* Cell */,
 				A2D639802BCE38A6000DAE80 /* Extensions */,
+				A29F9CB72BEDC4100030F957 /* Resource */,
 				A29F9CA02BEDBC090030F957 /* Network */,
-				A2D639602BCE2FAF000DAE80 /* Assets.xcassets */,
 				A2D639622BCE2FAF000DAE80 /* LaunchScreen.storyboard */,
 				A2D639652BCE2FAF000DAE80 /* Info.plist */,
 			);
@@ -231,12 +281,10 @@
 		A2D6396C2BCE3681000DAE80 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				A2D6395B2BCE2FAE000DAE80 /* LoginViewController.swift */,
-				A2D6398F2BCEBEC6000DAE80 /* WelcomeViewController.swift */,
-				A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */,
+				A29F9CB22BEDC3B60030F957 /* Onboarding */,
 				A293D31C2BDC161E007CA9DC /* TabBarController.swift */,
-				A293D31A2BDC12E4007CA9DC /* MainViewController.swift */,
-				A29F9C972BEDB5CD0030F957 /* BoxOfficeViewController.swift */,
+				A29F9CB52BEDC3F00030F957 /* Main */,
+				A29F9CB62BEDC3F90030F957 /* BoxOffice */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
