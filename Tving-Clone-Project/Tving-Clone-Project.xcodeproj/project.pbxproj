@@ -125,14 +125,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		A2306D7B2BE11BF500FD78D3 /* DummyModel */ = {
+		A2306D7B2BE11BF500FD78D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				A2306D7C2BE11C1B00FD78D3 /* Poster.swift */,
 				A2306D7E2BE11C5200FD78D3 /* LiveProgram.swift */,
 				A2306D802BE11D2900FD78D3 /* BaseballSlogan.swift */,
 			);
-			path = DummyModel;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A29F9CA02BEDBC090030F957 /* Network */ = {
@@ -257,7 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				A2D6396B2BCE3678000DAE80 /* App */,
-				A2306D7B2BE11BF500FD78D3 /* DummyModel */,
+				A2306D7B2BE11BF500FD78D3 /* Model */,
 				A2D6396C2BCE3681000DAE80 /* ViewController */,
 				A21172CB2BDC3F0400FEA8CA /* Cell */,
 				A2D639802BCE38A6000DAE80 /* Extensions */,
