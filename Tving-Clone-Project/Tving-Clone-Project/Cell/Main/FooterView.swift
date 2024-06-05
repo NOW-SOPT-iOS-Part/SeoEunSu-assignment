@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 /// PageControl이 있는 첫번째 섹션의 푸터뷰
-class FooterView: UICollectionReusableView {
+final class FooterView: UICollectionReusableView {
     
     // MARK: - Properties
     

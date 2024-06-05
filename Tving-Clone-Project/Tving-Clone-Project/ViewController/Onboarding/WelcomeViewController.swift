@@ -19,11 +19,11 @@ final class WelcomeViewController: UIViewController {
     
     // MARK: - Components
     
-    final private let tvingImageView = UIImageView().then {
+    private let tvingImageView = UIImageView().then {
         $0.image = .tvingTitleRed
     }
     
-    final private lazy var welcomeLabel = UILabel().then {
+    private lazy var welcomeLabel = UILabel().then {
         // 행간 (피그마의 lineheight 값) 설정
         let style = NSMutableParagraphStyle()
         let lineheight = 37.0
@@ -39,7 +39,7 @@ final class WelcomeViewController: UIViewController {
         $0.textColor = .grayD6
     }
     
-    final private lazy var toMainButton = UIButton().then {
+    private lazy var toMainButton = UIButton().then {
         $0.backgroundColor = .red
         $0.layer.cornerRadius = 3
         $0.setAttributedTitle(
@@ -69,7 +69,7 @@ final class WelcomeViewController: UIViewController {
     
     // MARK: - Helpers
     
-    final private func addSubview() {
+    private func addSubview() {
         self.view.addSubviews(
             tvingImageView,
             welcomeLabel,
@@ -77,7 +77,7 @@ final class WelcomeViewController: UIViewController {
         )
     }
     
-    final private func setLayout() {
+    private func setLayout() {
         tvingImageView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalToSuperview().inset(58)
@@ -97,8 +97,7 @@ final class WelcomeViewController: UIViewController {
     // MARK: - Actions
     
     /// 메인으로 버튼 클릭 시 호출되는 함수
-    @objc
-    final private func toMainButtonDidTap(_ sender: UIButton) {
+    @objc private func toMainButtonDidTap(_ sender: UIButton) {
         let tabBarVC = TabBarController()
         tabBarVC.modalPresentationStyle = .fullScreen
         tabBarVC.modalTransitionStyle = .crossDissolve

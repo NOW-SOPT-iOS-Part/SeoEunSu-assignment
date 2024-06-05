@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class HeaderView: UICollectionReusableView {
+final class HeaderView: UICollectionReusableView {
     
     // MARK: - Properties
     

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class BoxOfficeTableViewCell: UITableViewCell {
+final class BoxOfficeTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
@@ -18,19 +18,19 @@ class BoxOfficeTableViewCell: UITableViewCell {
     
     // MARK: - Components
     
-    let rankLabel = UILabel().then {
+    private let rankLabel = UILabel().then {
         $0.text = "1"
         $0.font = .pretendard(weight: 700, size: 18)
         $0.textColor = .white
     }
     
-    let movieTitleLabel = UILabel().then {
+    private let movieTitleLabel = UILabel().then {
         $0.text = "범죄도시4"
         $0.font = .pretendard(weight: 500, size: 15)
         $0.textColor = .white
     }
     
-    let openDateLabel = UILabel().then {
+    private let openDateLabel = UILabel().then {
         $0.text = "개봉일: 2024-04-24"
         $0.font = .pretendard(weight: 400, size: 15)
         $0.textColor = .white

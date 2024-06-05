@@ -27,25 +27,25 @@ final class BottomSheetViewController: UIViewController {
     
     // MARK: - Components
     
-    final private let grabBarView = UIView().then {
+    private let grabBarView = UIView().then {
         $0.backgroundColor = .white2
         $0.layer.cornerRadius = 4
     }
     
-    final private let bottomSheetView = UIView().then {
+    private let bottomSheetView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 20
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         $0.clipsToBounds = true
     }
     
-    final private let enterNicknameLabel = UILabel().then {
+    private let enterNicknameLabel = UILabel().then {
         $0.text = "닉네임을 입력해주세요"
         $0.font = .pretendard(weight: 500, size: 23)
         $0.textColor = .black
     }
     
-    final private lazy var nicknameTextField = UITextField().then {
+    private lazy var nicknameTextField = UITextField().then {
         $0.backgroundColor = .gray9C
         $0.font = .pretendard(weight: 600, size: 14)
         $0.textColor = .gray2E
@@ -59,7 +59,7 @@ final class BottomSheetViewController: UIViewController {
         $0.addTarget(self, action: #selector(checkTextFieldState), for: .editingChanged)
     }
     
-    final private lazy var saveButton = UIButton().then {
+    private lazy var saveButton = UIButton().then {
         $0.backgroundColor = .black
         $0.layer.cornerRadius = 3
         $0.layer.borderWidth = 1
@@ -101,7 +101,7 @@ final class BottomSheetViewController: UIViewController {
         }
     }
     
-    final private func addSubview() {
+    private func addSubview() {
         self.view.addSubviews(
             grabBarView,
             bottomSheetView,
@@ -111,7 +111,7 @@ final class BottomSheetViewController: UIViewController {
         )
     }
     
-    final private func setLayout() {
+    private func setLayout() {
         bottomSheetView.snp.makeConstraints {
             $0.left.right.bottom.equalToSuperview()
             $0.height.equalTo(UIScreen.main.bounds.height / 2 + 20)
@@ -142,8 +142,7 @@ final class BottomSheetViewController: UIViewController {
     /// nicknameTextField의 상태를 확인하는 함수
     /// - nicknameTextField의 텍스트 값이 변할 때마다 호출된다
     /// - 해당 텍스트 필드가 isEmpty인지 아닌지에 따라 저장하기 버튼의 스타일이 달라지게 된다
-    @objc
-    final private func checkTextFieldState() {
+    @objc private func checkTextFieldState() {
         guard let nicknameText = nicknameTextField.text else { return }
         saveButton.activateButtonStyle(isActivate: !(nicknameText.isEmpty))
     }
@@ -153,8 +152,7 @@ final class BottomSheetViewController: UIViewController {
     /// - 2. 닉네임 값 정규식 확인 및 에러 처리
     /// - 3. 닉네임 값을 전달한다 => delegate를 통해 LoginVC로 닉네임 데이터를 전달
     /// - 4. BottomSheet를 dismiss
-    @objc
-    final private func saveButtonDidTap() {
+    @objc private func saveButtonDidTap() {
         guard let nickname = nicknameTextField.text else { return }
         
         if isMatchRegex(type: .nickname, input: nickname) {
@@ -172,7 +170,7 @@ final class BottomSheetViewController: UIViewController {
 extension BottomSheetViewController: UITextFieldDelegate {
     /// 텍스트 필드 내용 수정을 시작할 때 호출되는 함수
     /// - border를 활성화
-    final func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
         return true
@@ -180,14 +178,14 @@ extension BottomSheetViewController: UITextFieldDelegate {
     
     /// 텍스트 필드 내용 수정이 끝났을 때 호출되는 함수
     /// - border 제거
-    final func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         textField.layer.borderWidth = 0
         textField.layer.borderColor = nil
     }
     
     /// 키보드의 return 키 클릭 시 호출되는 함수
     /// - 키보드를 내려준다
-    final func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
