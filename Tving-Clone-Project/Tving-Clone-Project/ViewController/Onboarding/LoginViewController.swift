@@ -264,6 +264,12 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    /// id, pw 텍스트필드 비워주는 함수
+    private func clearTextFields() {
+        self.idTextField.text = ""
+        self.pwTextField.text = ""
+    }
+    
     // MARK: - Actions
     
     /// 텍스트 필드 사이드에 있는 X 버튼 클릭 시 호출되는 함수
@@ -302,14 +308,12 @@ final class LoginViewController: UIViewController {
                 self.present(welcomeVC, animated: true)
             } else {
                 presentAlert(title: "닉네임 미설정 에러", message: "닉네임을 먼저 설정해주세요!") {
-                    self.idTextField.text = ""
-                    self.pwTextField.text = ""
+                    self.clearTextFields()
                 }
             }
         } else {
             presentAlert(title: "정규식 에러", message: "이메일 또는 비밀번호의 형식을 다시 확인해주세요!") {
-                self.idTextField.text = ""
-                self.pwTextField.text = ""
+                self.clearTextFields()
             }
         }
     }
