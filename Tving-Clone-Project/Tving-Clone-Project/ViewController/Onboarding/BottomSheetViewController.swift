@@ -18,7 +18,7 @@ protocol BottomSheetDelegate: AnyObject {
     func passUserData(nickname: String)
 }
 
-final class BottomSheetViewController: UIViewController {
+final class BottomSheetViewController: BaseViewController {
     
     // MARK: - Properties
     
@@ -78,30 +78,9 @@ final class BottomSheetViewController: UIViewController {
         $0.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Set UI
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        addSubview()
-        setLayout()
-    }
-    
-    // MARK: - Helpers
-    
-    // 유저의 터치를 감지하는 함수
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        // 배경의 self.view 클릭 시 실행될 코드 작성
-        // 1. 뒤의 어두운 뷰(dimmedView) 제거
-        // 2. BottomSheetVC dismiss
-        if let touch = touches.first, touch.view == self.view {
-            delegate?.removeDimmedView()
-            self.dismiss(animated: true)
-        }
-    }
-    
-    private func addSubview() {
+    override func addSubview() {
         self.view.addSubviews(
             grabBarView,
             bottomSheetView,
@@ -111,7 +90,7 @@ final class BottomSheetViewController: UIViewController {
         )
     }
     
-    private func setLayout() {
+    override func setLayout() {
         bottomSheetView.snp.makeConstraints {
             $0.left.right.bottom.equalToSuperview()
             $0.height.equalTo(UIScreen.main.bounds.height / 2 + 20)
@@ -134,6 +113,20 @@ final class BottomSheetViewController: UIViewController {
         saveButton.snp.makeConstraints {
             $0.left.right.bottom.equalToSuperview().inset(20)
             $0.height.equalTo(52)
+        }
+    }
+    
+    // MARK: - Helpers
+    
+    // 유저의 터치를 감지하는 함수
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        // 배경의 self.view 클릭 시 실행될 코드 작성
+        // 1. 뒤의 어두운 뷰(dimmedView) 제거
+        // 2. BottomSheetVC dismiss
+        if let touch = touches.first, touch.view == self.view {
+            delegate?.removeDimmedView()
+            self.dismiss(animated: true)
         }
     }
     
@@ -166,6 +159,8 @@ final class BottomSheetViewController: UIViewController {
         }
     }
 }
+
+// MARK: - UITextFieldDelegate
 
 extension BottomSheetViewController: UITextFieldDelegate {
     /// 텍스트 필드 내용 수정을 시작할 때 호출되는 함수

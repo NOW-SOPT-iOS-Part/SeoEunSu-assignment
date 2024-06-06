@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 /// 야구 슬로건 컬렉션뷰 셀
-final class BaseballCollectionViewCell: UICollectionViewCell {
+final class BaseballCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
     
@@ -21,25 +21,20 @@ final class BaseballCollectionViewCell: UICollectionViewCell {
     
     private let baseballImageView = UIImageView()
     
-    // MARK: - Init
+    // MARK: - Set UI
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Helpers
-    
-    private func setLayout() {
+    override func setLayout() {
         contentView.addSubviews(baseballImageView)
+        
         baseballImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
+}
+
+extension BaseballCollectionViewCell {
+    
+    // MARK: - Helpers
     
     /// 더미 데이터를 뷰에 연결
     func fetchData(model: BaseballSlogan) {

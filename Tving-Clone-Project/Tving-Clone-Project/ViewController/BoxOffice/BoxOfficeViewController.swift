@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class BoxOfficeViewController: UIViewController {
+final class BoxOfficeViewController: BaseViewController {
     
     // MARK: - Properties
     
@@ -35,20 +35,20 @@ final class BoxOfficeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .black
-        setLayout()
         register()
         requestDailyBoxOfficeList()
     }
     
-    // MARK: - Helpers
+    // MARK: - Set UI
     
-    private func setLayout() {
+    override func addSubview() {
         self.view.addSubviews(
             titleLabel,
             boxOfficeTableView
         )
-        
+    }
+    
+    override func setLayout() {
         titleLabel.snp.makeConstraints {
             $0.top.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
@@ -57,6 +57,8 @@ final class BoxOfficeViewController: UIViewController {
             $0.horizontalEdges.bottom.equalToSuperview().inset(10)
         }
     }
+    
+    // MARK: - Helpers
     
     private func register() {
         boxOfficeTableView.register(

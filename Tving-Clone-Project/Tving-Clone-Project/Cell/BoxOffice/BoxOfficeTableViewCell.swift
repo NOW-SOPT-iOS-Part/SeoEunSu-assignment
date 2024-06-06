@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class BoxOfficeTableViewCell: UITableViewCell {
+final class BoxOfficeTableViewCell: BaseTableViewCell {
     
     // MARK: - Properties
     
@@ -36,22 +36,9 @@ final class BoxOfficeTableViewCell: UITableViewCell {
         $0.textColor = .white
     }
     
-    // MARK: - Init
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        contentView.backgroundColor = .black
-        setLayout()
-    }
+    // MARK: - Set UI
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Helpers
-    
-    private func setLayout() {
+    override func setLayout() {
         contentView.addSubviews(
             rankLabel,
             movieTitleLabel,
@@ -72,9 +59,10 @@ final class BoxOfficeTableViewCell: UITableViewCell {
     }
 }
 
-// MARK: - Extension
-
 extension BoxOfficeTableViewCell {
+    
+    // MARK: - Helpers
+    
     func dataBind(_ boxOfficeData: DailyBoxOffice) {
         rankLabel.text = boxOfficeData.rank
         movieTitleLabel.text = boxOfficeData.movieNm

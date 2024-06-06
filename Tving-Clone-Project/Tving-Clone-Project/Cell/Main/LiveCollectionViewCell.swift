@@ -11,11 +11,11 @@ import SnapKit
 import Then
 
 /// 티빙 라이브 프로그램 컬렉션뷰 셀
-final class LiveCollectionViewCell: UICollectionViewCell {
+final class LiveCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
     
-    let ranking: Int = 1
+    private let ranking: Int = 1
     static let identifier = "LiveCollectionViewCell"
     
     // MARK: - Components
@@ -25,6 +25,7 @@ final class LiveCollectionViewCell: UICollectionViewCell {
         $0.layer.cornerRadius = 3
         $0.clipsToBounds = true
     }
+    
     private lazy var rankingLabel = UILabel().then {
         $0.attributedText = NSMutableAttributedString(string: "\(ranking)", attributes: [
             .font : UIFont.pretendard(weight: 700, size: 19),
@@ -32,33 +33,25 @@ final class LiveCollectionViewCell: UICollectionViewCell {
             .obliqueness : 0.3
         ])
     }
+    
     private lazy var channelLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .pretendard(weight: 400, size: 10)
     }
+    
     private lazy var titleLabel = UILabel().then {
         $0.textColor = .gray9C
         $0.font = .pretendard(weight: 400, size: 10)
     }
+    
     private lazy var viewingRatingLabel = UILabel().then {
         $0.textColor = .gray9C
         $0.font = .pretendard(weight: 400, size: 10)
     }
     
-    // MARK: - Init
+    // MARK: - Set UI
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Helpers
-    
-    private func setLayout() {
+    override func setLayout() {
         contentView.addSubviews(
             liveImageView,
             rankingLabel,
@@ -89,6 +82,11 @@ final class LiveCollectionViewCell: UICollectionViewCell {
             $0.leading.equalTo(channelLabel)
         }
     }
+}
+
+extension LiveCollectionViewCell {
+    
+    // MARK: - Helpers
     
     /// 더미 데이터를 뷰에 연결
     func fetchData(model: LiveProgram) {

@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 /// 상단의 탭(홈, 실시간, ...) 컬렉션뷰
-final class TabControlCollectionViewCell: UICollectionViewCell {
+final class TabControlCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
     
@@ -47,13 +47,14 @@ final class TabControlCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Helpers
+    // MARK: - Set UI
     
-    private func setLayout() {
+    override func setLayout() {
         contentView.addSubviews(
             tabNameLabel,
             bottomView
         )
+        
         tabNameLabel.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
         }
@@ -63,6 +64,8 @@ final class TabControlCollectionViewCell: UICollectionViewCell {
             $0.height.equalTo(3)
         }
     }
+    
+    // MARK: - Helpers
     
     /// 더미 데이터를 뷰에 연결
     func fetchData(model: Tab) {

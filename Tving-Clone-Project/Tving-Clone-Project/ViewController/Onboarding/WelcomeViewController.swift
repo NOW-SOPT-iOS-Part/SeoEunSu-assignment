@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class WelcomeViewController: UIViewController {
+final class WelcomeViewController: BaseViewController {
     
     // MARK: - Properties
     
@@ -55,21 +55,9 @@ final class WelcomeViewController: UIViewController {
         $0.addTarget(self, action: #selector(toMainButtonDidTap), for: .touchUpInside)
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Set UI
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .black
-        
-        addSubview()
-        setLayout()
-        
-        print("당신의 id는 \(id)이고, nickname은 \(nickname)입니다!")
-    }
-    
-    // MARK: - Helpers
-    
-    private func addSubview() {
+    override func addSubview() {
         self.view.addSubviews(
             tvingImageView,
             welcomeLabel,
@@ -77,7 +65,7 @@ final class WelcomeViewController: UIViewController {
         )
     }
     
-    private func setLayout() {
+    override func setLayout() {
         tvingImageView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalToSuperview().inset(58)

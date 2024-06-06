@@ -43,9 +43,10 @@ final class HeaderView: UICollectionReusableView {
     }
     
     // MARK: - Init
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setLayout()
     }
     
@@ -53,8 +54,11 @@ final class HeaderView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension HeaderView {
     
-    // MARK: - Helpers
+    // MARK: - Set UI
     
     private func setLayout() {
         addSubviews(
@@ -73,6 +77,8 @@ final class HeaderView: UICollectionReusableView {
             $0.trailing.equalToSuperview()
         }
     }
+    
+    // MARK: - Helpers
     
     /// 더미 데이터를 뷰에 연결
     func fetchData(_ data: String) {

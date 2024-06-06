@@ -11,10 +11,10 @@ import SnapKit
 import Then
 
 /// 맨 위에 제일 크게 있는 프로그램 포스터 컬렉션뷰 셀
-final class BigPosterCollectionViewCell: UICollectionViewCell {
+final class BigPosterCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
-       
+    
     static let identifier = "BigPosterCollectionViewCell"
     
     // MARK: - Components
@@ -35,21 +35,9 @@ final class BigPosterCollectionViewCell: UICollectionViewCell {
         $0.numberOfLines = 2
     }
     
-    // MARK: - Init
+    // MARK: - Set UI
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Helpers
-    
-    private func setLayout() {
+    override func setLayout() {
         contentView.addSubviews(
             posterImageView,
             posterTitleLabel,
@@ -69,6 +57,11 @@ final class BigPosterCollectionViewCell: UICollectionViewCell {
             $0.top.equalTo(posterTitleLabel.snp.bottom).offset(15)
         }
     }
+}
+
+extension BigPosterCollectionViewCell {
+    
+    // MARK: - Helpers
     
     /// 더미 데이터를 뷰에 연결
     func fetchData(model: Poster) {

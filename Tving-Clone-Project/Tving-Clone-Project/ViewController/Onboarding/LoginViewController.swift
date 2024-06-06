@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: BaseViewController {
 
     // MARK: - Properties
     
@@ -167,19 +167,9 @@ final class LoginViewController: UIViewController {
         $0.backgroundColor = .black.withAlphaComponent(0.5)
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Set UI
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .black
-        
-        addSubview()
-        setLayout()
-    }
-    
-    // MARK: - Helpers
-    
-    private func addSubview() {
+    override func addSubview() {
         self.view.addSubviews(
             idLoginLabel,
             idTextField,
@@ -193,7 +183,7 @@ final class LoginViewController: UIViewController {
         )
     }
     
-    private func setLayout() {
+    override func setLayout() {
         idLoginLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().inset(90)
@@ -239,6 +229,8 @@ final class LoginViewController: UIViewController {
             $0.height.equalTo(22)
         }
     }
+    
+    // MARK: - Helpers
     
     /// 텍스트필드 사이드에 있는 X 버튼과 Eye 버튼의 visibility를 변경한다.
     private func changeSideButtonVisibility(textField: UITextField) {

@@ -26,7 +26,7 @@ final class FooterView: UICollectionReusableView {
     }
     
     // MARK: - Init
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -37,8 +37,11 @@ final class FooterView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension FooterView {
     
-    // MARK: - Helpers
+    // MARK: - Set UI
     
     private func setLayout() {
         addSubviews(pageControl)
@@ -48,6 +51,8 @@ final class FooterView: UICollectionReusableView {
             $0.leading.equalToSuperview().offset(-24)
         }
     }
+    
+    // MARK: - Helpers
     
     func config(num: Int) {
         pageControl.numberOfPages = num

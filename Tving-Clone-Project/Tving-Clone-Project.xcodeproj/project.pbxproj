@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A20456B22C117588000F5D1A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456B12C117588000F5D1A /* BaseViewController.swift */; };
+		A20456B42C117B2B000F5D1A /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456B32C117B2B000F5D1A /* BaseCollectionViewCell.swift */; };
+		A20456B62C118C01000F5D1A /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456B52C118C01000F5D1A /* BaseTableViewCell.swift */; };
 		A2306D742BDF99CA00FD78D3 /* LiveCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */; };
 		A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */; };
 		A2306D782BDF99F800FD78D3 /* BaseballCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */; };
@@ -55,6 +58,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A20456B12C117588000F5D1A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		A20456B32C117B2B000F5D1A /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		A20456B52C118C01000F5D1A /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseballCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -115,6 +121,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A20456B02C11756E000F5D1A /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				A20456B12C117588000F5D1A /* BaseViewController.swift */,
+				A20456B32C117B2B000F5D1A /* BaseCollectionViewCell.swift */,
+				A20456B52C118C01000F5D1A /* BaseTableViewCell.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		A21172CB2BDC3F0400FEA8CA /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +147,7 @@
 				A2306D7C2BE11C1B00FD78D3 /* Poster.swift */,
 				A2306D7E2BE11C5200FD78D3 /* LiveProgram.swift */,
 				A2306D802BE11D2900FD78D3 /* BaseballSlogan.swift */,
+				A29F9CB02BEDBC820030F957 /* BoxOfficeResModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -141,7 +158,6 @@
 				A29F9CA12BEDBC120030F957 /* Common */,
 				A29F9CA92BEDBC710030F957 /* Service */,
 				A29F9CAC2BEDBC7B0030F957 /* TargetType */,
-				A29F9CAF2BEDBC820030F957 /* Model */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -172,15 +188,6 @@
 			path = TargetType;
 			sourceTree = "<group>";
 		};
-		A29F9CAF2BEDBC820030F957 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				A29F9CB02BEDBC820030F957 /* BoxOfficeResModel.swift */,
-			);
-			name = Model;
-			path = "Tving-Clone-Project/Network/Model";
-			sourceTree = SOURCE_ROOT;
-		};
 		A29F9CB22BEDC3B60030F957 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,11 +202,11 @@
 			isa = PBXGroup;
 			children = (
 				A2306D792BE11B1600FD78D3 /* HeaderView.swift */,
+				A2AC32232BE572B40010903A /* FooterView.swift */,
 				A2AC32212BE56F5E0010903A /* BigPosterCollectionViewCell.swift */,
 				A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */,
 				A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */,
 				A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */,
-				A2AC32232BE572B40010903A /* FooterView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -257,12 +264,13 @@
 			isa = PBXGroup;
 			children = (
 				A2D6396B2BCE3678000DAE80 /* App */,
+				A20456B02C11756E000F5D1A /* Base */,
+				A29F9CA02BEDBC090030F957 /* Network */,
 				A2306D7B2BE11BF500FD78D3 /* Model */,
 				A2D6396C2BCE3681000DAE80 /* ViewController */,
 				A21172CB2BDC3F0400FEA8CA /* Cell */,
 				A2D639802BCE38A6000DAE80 /* Extensions */,
 				A29F9CB72BEDC4100030F957 /* Resource */,
-				A29F9CA02BEDBC090030F957 /* Network */,
 				A2D639622BCE2FAF000DAE80 /* LaunchScreen.storyboard */,
 				A2D639652BCE2FAF000DAE80 /* Info.plist */,
 			);
@@ -281,8 +289,8 @@
 		A2D6396C2BCE3681000DAE80 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				A29F9CB22BEDC3B60030F957 /* Onboarding */,
 				A293D31C2BDC161E007CA9DC /* TabBarController.swift */,
+				A29F9CB22BEDC3B60030F957 /* Onboarding */,
 				A29F9CB52BEDC3F00030F957 /* Main */,
 				A29F9CB62BEDC3F90030F957 /* BoxOffice */,
 			);
@@ -419,7 +427,9 @@
 				A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */,
 				A29F9C942BED75AA0030F957 /* UIView+.swift in Sources */,
 				A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */,
+				A20456B62C118C01000F5D1A /* BaseTableViewCell.swift in Sources */,
 				A2306D742BDF99CA00FD78D3 /* LiveCollectionViewCell.swift in Sources */,
+				A20456B22C117588000F5D1A /* BaseViewController.swift in Sources */,
 				A2AC32222BE56F5E0010903A /* BigPosterCollectionViewCell.swift in Sources */,
 				A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */,
 				A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */,
@@ -432,6 +442,7 @@
 				A2D6395A2BCE2FAE000DAE80 /* SceneDelegate.swift in Sources */,
 				A29F9C982BEDB5CD0030F957 /* BoxOfficeViewController.swift in Sources */,
 				A29F9C9A2BEDB7480030F957 /* BoxOfficeTableViewCell.swift in Sources */,
+				A20456B42C117B2B000F5D1A /* BaseCollectionViewCell.swift in Sources */,
 				A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */,
 				A29F9C9C2BEDB7950030F957 /* NSObject+.swift in Sources */,
 				A293D31B2BDC12E4007CA9DC /* MainViewController.swift in Sources */,

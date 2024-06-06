@@ -16,7 +16,7 @@ struct Tab {
 }
 
 /// 티빙 메인 화면
-final class MainViewController: UIViewController {
+final class MainViewController: BaseViewController {
     
     // MARK: - Properties
     
@@ -106,37 +106,17 @@ final class MainViewController: UIViewController {
         $0.dataSource = self
     }
     
-    // MARK: - Life Cycles
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .black
         register()
-        setLayout()
     }
     
-    // MARK: - Helpers
+    // MARK: - Set UI
     
-    private func register() {
-        tabControlCollectionView.register(TabControlCollectionViewCell.self, forCellWithReuseIdentifier: TabControlCollectionViewCell.identifier)
-        mainCollectionView.register(BigPosterCollectionViewCell.self, forCellWithReuseIdentifier: BigPosterCollectionViewCell.identifier)
-        mainCollectionView.register(LiveCollectionViewCell.self, forCellWithReuseIdentifier: LiveCollectionViewCell.identifier)
-        mainCollectionView.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.identifier)
-        mainCollectionView.register(BaseballCollectionViewCell.self, forCellWithReuseIdentifier: BaseballCollectionViewCell.identifier)
-        mainCollectionView.register(
-            HeaderView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: HeaderView.identifier
-        )
-        mainCollectionView.register(
-            FooterView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-            withReuseIdentifier: FooterView.identifier
-        )
-    }
-    
-    private func setLayout() {
+    override func addSubview() {
         self.view.addSubviews(
             mainCollectionView,
             tvingTopLogoImageView,
@@ -144,7 +124,9 @@ final class MainViewController: UIViewController {
             bufferView,
             tabControlCollectionView
         )
-        
+    }
+    
+    override func setLayout() {
         mainCollectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -166,6 +148,26 @@ final class MainViewController: UIViewController {
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(40)
         }
+    }
+    
+    // MARK: - Helpers
+    
+    private func register() {
+        tabControlCollectionView.register(TabControlCollectionViewCell.self, forCellWithReuseIdentifier: TabControlCollectionViewCell.identifier)
+        mainCollectionView.register(BigPosterCollectionViewCell.self, forCellWithReuseIdentifier: BigPosterCollectionViewCell.identifier)
+        mainCollectionView.register(LiveCollectionViewCell.self, forCellWithReuseIdentifier: LiveCollectionViewCell.identifier)
+        mainCollectionView.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.identifier)
+        mainCollectionView.register(BaseballCollectionViewCell.self, forCellWithReuseIdentifier: BaseballCollectionViewCell.identifier)
+        mainCollectionView.register(
+            HeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: HeaderView.identifier
+        )
+        mainCollectionView.register(
+            FooterView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: FooterView.identifier
+        )
     }
     
     private func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection? {
@@ -270,9 +272,6 @@ final class MainViewController: UIViewController {
 // MARK: - UIScrollViewDelegate
 
 extension MainViewController: UIScrollViewDelegate {
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         print(scrollView.contentOffset.y, bufferView.frame.minY)
