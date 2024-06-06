@@ -40,7 +40,7 @@ final class BottomSheetViewController: BaseViewController {
     }
     
     private let enterNicknameLabel = UILabel().then {
-        $0.text = "닉네임을 입력해주세요"
+        $0.text = StringLiteral.enterNicknameLabelStr
         $0.font = .pretendard(weight: 500, size: 23)
         $0.textColor = .black
     }
@@ -50,7 +50,7 @@ final class BottomSheetViewController: BaseViewController {
         $0.font = .pretendard(weight: 600, size: 14)
         $0.textColor = .gray2E
         $0.attributedPlaceholder = NSAttributedString(
-            string: "한글 2-10자로 설정해주세요",
+            string: StringLiteral.nicknameTextFieldPlaceHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.grayD6]
         )
         $0.layer.cornerRadius = 3
@@ -153,7 +153,7 @@ final class BottomSheetViewController: BaseViewController {
             delegate?.passUserData(nickname: nickname)
             self.dismiss(animated: true)
         } else {
-            presentAlert(title: "닉네임 정규식 에러", message: "닉네임 형식을 다시 확인해주세요!") {
+            presentAlert(title: StringLiteral.nicknameRegexErrTitle, message: StringLiteral.nicknameRegexErrMsg) {
                 self.nicknameTextField.text = ""
             }
         }

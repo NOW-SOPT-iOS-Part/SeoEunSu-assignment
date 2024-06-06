@@ -21,13 +21,13 @@ final class HeaderView: UICollectionReusableView {
     }
     
     private let fullViewLabel = UILabel().then {
-        $0.text = "전체보기"
+        $0.text = StringLiteral.fullViewStr
         $0.font = .pretendard(weight: 500, size: 11)
         $0.textColor = .gray9C
     }
     
     private let fullViewButton = UIButton().then {
-        $0.setImage(.init(systemName: "chevron.right"), for: .normal)
+        $0.setImage(.init(systemName: StringLiteral.rightArrowImgName), for: .normal)
         $0.tintColor = .gray9C
     }
     

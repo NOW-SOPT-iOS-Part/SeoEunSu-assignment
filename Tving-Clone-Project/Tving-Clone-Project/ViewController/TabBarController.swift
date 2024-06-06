@@ -26,30 +26,30 @@ final class TabBarController: UITabBarController {
     private func createDefaultTabBar() {
         let mainVC = MainViewController()
         configTabBar(
-            title: .homeTitle,
-            tabImgName: .homeImgName,
-            tabUnselectedImgName: .homeUnselectedImgName,
+            title: StringLiteral.homeStr,
+            tabImgName: StringLiteral.homeImgName,
+            tabUnselectedImgName: StringLiteral.homeUnselectedImgName,
             vc: mainVC
         )
         let boxOfficeVC = BoxOfficeViewController()
         configTabBar(
-            title: .soonTitle,
-            tabImgName: .soonImgName,
-            tabUnselectedImgName: .soonUnselectedImgName,
+            title: StringLiteral.soonStr,
+            tabImgName: StringLiteral.soonImgName,
+            tabUnselectedImgName: StringLiteral.soonUnselectedImgName,
             vc: boxOfficeVC
         )
         let thirdVC = UIViewController()
         configTabBar(
-            title: .searchTitle,
-            tabImgName: .searchImgName,
-            tabUnselectedImgName: .searchImgName,
+            title: StringLiteral.searchStr,
+            tabImgName: StringLiteral.searchImgName,
+            tabUnselectedImgName: StringLiteral.searchImgName,
             vc: thirdVC
         )
         let fourthVC = UIViewController()
         configTabBar(
-            title: .recordTitle,
-            tabImgName: .recordImgName,
-            tabUnselectedImgName: .recordUnselectedImgName,
+            title: StringLiteral.recordStr,
+            tabImgName: StringLiteral.recordImgName,
+            tabUnselectedImgName: StringLiteral.recordUnselectedImgName,
             vc: fourthVC
         )
         
@@ -58,16 +58,16 @@ final class TabBarController: UITabBarController {
     
     /// 탭바 설정
     private func configTabBar(
-        title: StringLiteral,
-        tabImgName: StringLiteral,
-        tabUnselectedImgName: StringLiteral,
+        title: String,
+        tabImgName: String,
+        tabUnselectedImgName: String,
         vc: UIViewController
     ) {
-        vc.title = title.rawValue
+        vc.title = title
         vc.tabBarItem = UITabBarItem(
-            title: title.rawValue,
-            image: UIImage(systemName: tabImgName.rawValue),
-            selectedImage: UIImage(systemName: tabImgName.rawValue)
+            title: title,
+            image: UIImage(systemName: tabImgName),
+            selectedImage: UIImage(systemName: tabImgName)
         )
     }
 }

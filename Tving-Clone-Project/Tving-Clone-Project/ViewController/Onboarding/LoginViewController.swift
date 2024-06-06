@@ -19,7 +19,7 @@ final class LoginViewController: BaseViewController {
     // MARK: - Components
     
     private let idLoginLabel = UILabel().then {
-        $0.text = "TVING ID 로그인"
+        $0.text = StringLiteral.idLoginLabelStr
         $0.font = .pretendard(weight: 500, size: 23)
         $0.textColor = .grayD6
     }
@@ -30,7 +30,7 @@ final class LoginViewController: BaseViewController {
         $0.layer.cornerRadius = 3
         $0.backgroundColor = .gray2E
         $0.attributedPlaceholder = NSAttributedString(
-            string: "아이디",
+            string: StringLiteral.idTextFieldPlaceHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray9C]
         )
         $0.addSidePadding(width: 22)
@@ -50,7 +50,7 @@ final class LoginViewController: BaseViewController {
         $0.layer.cornerRadius = 3
         $0.backgroundColor = .gray2E
         $0.attributedPlaceholder = NSAttributedString(
-            string: "비밀번호",
+            string: StringLiteral.pwTextFieldPlaceHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray9C]
         )
         $0.addSidePadding(width: 22)
@@ -78,7 +78,7 @@ final class LoginViewController: BaseViewController {
         $0.layer.borderColor = UIColor.gray2E.cgColor
         $0.setAttributedTitle(
             NSAttributedString(
-                string: "로그인하기",
+                string: StringLiteral.loginButtonStr,
                 attributes: [
                     .font : UIFont.pretendard(weight: 600, size: 14),
                     .foregroundColor : UIColor.gray9C
@@ -94,7 +94,7 @@ final class LoginViewController: BaseViewController {
         $0.configuration = .plain()
         $0.setAttributedTitle(
             NSAttributedString(
-                string: "아이디 찾기",
+                string: StringLiteral.findIdButtonStr,
                 attributes: [
                     .font : UIFont.pretendard(weight: 600, size: 14),
                     .foregroundColor : UIColor.gray9C
@@ -116,7 +116,7 @@ final class LoginViewController: BaseViewController {
         $0.configuration = .plain()
         $0.setAttributedTitle(
             NSAttributedString(
-                string: "비밀번호 찾기",
+                string: StringLiteral.findPwButtonStr,
                 attributes: [
                     .font : UIFont.pretendard(weight: 600, size: 14),
                     .foregroundColor : UIColor.gray9C
@@ -134,7 +134,7 @@ final class LoginViewController: BaseViewController {
     }
     
     private let guideLabel = UILabel().then {
-        $0.text = "아직 계정이 없으신가요?"
+        $0.text = StringLiteral.noAccountGuideLabelStr
         $0.font = .pretendard(weight: 600, size: 14)
         $0.textColor = .gray62
     }
@@ -143,7 +143,7 @@ final class LoginViewController: BaseViewController {
         $0.configuration = .plain()
         $0.setAttributedTitle(
             NSAttributedString(
-                string: "닉네임 만들러가기",
+                string: StringLiteral.makeNicknameButtonStr,
                 attributes: [
                     .font : UIFont.pretendard(weight: 400, size: 14),
                     .foregroundColor : UIColor.gray9C,
@@ -299,12 +299,12 @@ final class LoginViewController: BaseViewController {
                 welcomeVC.modalTransitionStyle = .coverVertical
                 self.present(welcomeVC, animated: true)
             } else {
-                presentAlert(title: "닉네임 미설정 에러", message: "닉네임을 먼저 설정해주세요!") {
+                presentAlert(title: StringLiteral.noNicknameErrTitle, message: StringLiteral.noNicknameErrMsg) {
                     self.clearTextFields()
                 }
             }
         } else {
-            presentAlert(title: "정규식 에러", message: "이메일 또는 비밀번호의 형식을 다시 확인해주세요!") {
+            presentAlert(title: StringLiteral.regexErrTitle, message: StringLiteral.regexErrMsg) {
                 self.clearTextFields()
             }
         }

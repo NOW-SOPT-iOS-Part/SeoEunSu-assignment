@@ -19,7 +19,7 @@ final class BoxOfficeViewController: BaseViewController {
     // MARK: - Components
     
     private let titleLabel = UILabel().then {
-        $0.text = "오늘의 박스 오피스 순위"
+        $0.text = StringLiteral.todayBoxOfficeRankStr
         $0.font = .pretendard(weight: 700, size: 25)
         $0.textColor = .white
     }
@@ -87,15 +87,15 @@ final class BoxOfficeViewController: BaseViewController {
                 self.boxOfficeTableView.reloadData()
                 print("응답값! \(data)")
             case .requestError:
-                print("요청 오류 입니다")
+                print(StringLiteral.requestErr)
             case .decodingError:
-                print("디코딩 오류 입니다")
+                print(StringLiteral.decodingErr)
             case .pathError:
-                print("경로 오류 입니다")
+                print(StringLiteral.pathErr)
             case .serverError:
-                print("서버 오류입니다")
+                print(StringLiteral.serverErr)
             case .networkFail:
-                print("네트워크 오류입니다")
+                print(StringLiteral.networkFailErr)
             }
         }
     }

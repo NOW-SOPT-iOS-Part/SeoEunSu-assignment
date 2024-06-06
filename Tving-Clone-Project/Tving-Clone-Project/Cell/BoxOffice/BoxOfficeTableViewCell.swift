@@ -15,19 +15,16 @@ final class BoxOfficeTableViewCell: BaseTableViewCell {
     // MARK: - Components
     
     private let rankLabel = UILabel().then {
-        $0.text = "1"
         $0.font = .pretendard(weight: 700, size: 18)
         $0.textColor = .white
     }
     
     private let movieTitleLabel = UILabel().then {
-        $0.text = "범죄도시4"
         $0.font = .pretendard(weight: 500, size: 15)
         $0.textColor = .white
     }
     
     private let openDateLabel = UILabel().then {
-        $0.text = "개봉일: 2024-04-24"
         $0.font = .pretendard(weight: 400, size: 15)
         $0.textColor = .white
     }

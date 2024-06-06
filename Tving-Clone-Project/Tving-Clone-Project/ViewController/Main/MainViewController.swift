@@ -32,11 +32,11 @@ final class MainViewController: BaseViewController {
         "서은수님이 시청하는 콘텐츠"
     ]
     let tabs: [Tab] = [
-        Tab(name: "홈", width: 15),
-        Tab(name: "실시간", width: 55),
-        Tab(name: "TV프로그램", width: 85),
-        Tab(name: "영화", width: 35),
-        Tab(name: "파라마운트+", width: 90)
+        Tab(name: StringLiteral.homeStr, width: 15),
+        Tab(name: StringLiteral.liveStr, width: 55),
+        Tab(name: StringLiteral.tvProgramStr, width: 85),
+        Tab(name: StringLiteral.movieStr, width: 35),
+        Tab(name: StringLiteral.paramountPlusStr, width: 90)
     ]
     let bigPosters = Poster.dummyDataForBig()
     let posters = Poster.dummyDataForSmall()
@@ -59,7 +59,7 @@ final class MainViewController: BaseViewController {
     }
     
     private let shareButton = UIButton().then {
-        $0.setImage(.init(systemName: "square.and.arrow.up"), for: .normal)
+        $0.setImage(.init(systemName: StringLiteral.shareIconImgName), for: .normal)
         $0.tintColor = .white
     }
     

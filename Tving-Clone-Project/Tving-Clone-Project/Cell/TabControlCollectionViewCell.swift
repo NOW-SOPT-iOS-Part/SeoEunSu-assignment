@@ -73,7 +73,7 @@ final class TabControlCollectionViewCell: BaseCollectionViewCell {
     
     /// 홈 말고 다른 애들 바텀 밑줄 뷰 숨기기
     func hideOtherTabs() {
-        if tabNameLabel.text != "홈" {
+        if tabNameLabel.text != StringLiteral.homeStr {
             bottomView.isHidden = true
         }
     }

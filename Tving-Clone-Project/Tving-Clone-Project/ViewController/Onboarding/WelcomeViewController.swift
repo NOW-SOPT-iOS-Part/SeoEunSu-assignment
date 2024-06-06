@@ -29,7 +29,7 @@ final class WelcomeViewController: BaseViewController {
         let lineheight = 37.0
         style.minimumLineHeight = lineheight
         $0.attributedText = NSAttributedString(
-            string: "\(nickname) 님\n반가워요!",
+            string: nickname + StringLiteral.welcomeLabelStr,
             attributes: [
                 .paragraphStyle: style
             ])
@@ -44,7 +44,7 @@ final class WelcomeViewController: BaseViewController {
         $0.layer.cornerRadius = 3
         $0.setAttributedTitle(
             NSAttributedString(
-                string: "메인으로",
+                string: StringLiteral.toMainButtonStr,
                 attributes: [
                     .font : UIFont.pretendard(weight: 600, size: 14),
                     .foregroundColor : UIColor.white
