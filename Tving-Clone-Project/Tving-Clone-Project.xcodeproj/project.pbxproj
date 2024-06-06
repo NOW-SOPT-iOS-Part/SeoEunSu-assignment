@@ -10,6 +10,7 @@
 		A20456B22C117588000F5D1A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456B12C117588000F5D1A /* BaseViewController.swift */; };
 		A20456B42C117B2B000F5D1A /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456B32C117B2B000F5D1A /* BaseCollectionViewCell.swift */; };
 		A20456B62C118C01000F5D1A /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456B52C118C01000F5D1A /* BaseTableViewCell.swift */; };
+		A20456B92C118EC7000F5D1A /* StringLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456B82C118EC7000F5D1A /* StringLiteral.swift */; };
 		A2306D742BDF99CA00FD78D3 /* LiveCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */; };
 		A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */; };
 		A2306D782BDF99F800FD78D3 /* BaseballCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */; };
@@ -61,6 +62,7 @@
 		A20456B12C117588000F5D1A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		A20456B32C117B2B000F5D1A /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		A20456B52C118C01000F5D1A /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		A20456B82C118EC7000F5D1A /* StringLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLiteral.swift; sourceTree = "<group>"; };
 		A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseballCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -92,7 +94,7 @@
 		A2D6395B2BCE2FAE000DAE80 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A2D639602BCE2FAF000DAE80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A2D639632BCE2FAF000DAE80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A2D639652BCE2FAF000DAE80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2D639652BCE2FAF000DAE80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Tving-Clone-Project/App/Info.plist"; sourceTree = SOURCE_ROOT; };
 		A2D6396D2BCE36D8000DAE80 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		A2D6396E2BCE36D8000DAE80 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		A2D6396F2BCE36D8000DAE80 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -129,6 +131,14 @@
 				A20456B52C118C01000F5D1A /* BaseTableViewCell.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		A20456B72C118E39000F5D1A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A20456B82C118EC7000F5D1A /* StringLiteral.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		A21172CB2BDC3F0400FEA8CA /* Cell */ = {
@@ -269,10 +279,9 @@
 				A2306D7B2BE11BF500FD78D3 /* Model */,
 				A2D6396C2BCE3681000DAE80 /* ViewController */,
 				A21172CB2BDC3F0400FEA8CA /* Cell */,
+				A20456B72C118E39000F5D1A /* Utils */,
 				A2D639802BCE38A6000DAE80 /* Extensions */,
 				A29F9CB72BEDC4100030F957 /* Resource */,
-				A2D639622BCE2FAF000DAE80 /* LaunchScreen.storyboard */,
-				A2D639652BCE2FAF000DAE80 /* Info.plist */,
 			);
 			path = "Tving-Clone-Project";
 			sourceTree = "<group>";
@@ -282,6 +291,8 @@
 			children = (
 				A2D639572BCE2FAE000DAE80 /* AppDelegate.swift */,
 				A2D639592BCE2FAE000DAE80 /* SceneDelegate.swift */,
+				A2D639622BCE2FAF000DAE80 /* LaunchScreen.storyboard */,
+				A2D639652BCE2FAF000DAE80 /* Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -424,6 +435,7 @@
 				A29F9CAE2BEDBC7B0030F957 /* BoxOfficeTargetType.swift in Sources */,
 				A2306D832BE12E6E00FD78D3 /* TabControlCollectionViewCell.swift in Sources */,
 				A2306D812BE11D2900FD78D3 /* BaseballSlogan.swift in Sources */,
+				A20456B92C118EC7000F5D1A /* StringLiteral.swift in Sources */,
 				A2D6395C2BCE2FAE000DAE80 /* LoginViewController.swift in Sources */,
 				A29F9C942BED75AA0030F957 /* UIView+.swift in Sources */,
 				A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */,
@@ -594,7 +606,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LM9BKUSL5K;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Tving-Clone-Project/Info.plist";
+				INFOPLIST_FILE = "Tving-Clone-Project/App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -621,7 +633,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LM9BKUSL5K;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Tving-Clone-Project/Info.plist";
+				INFOPLIST_FILE = "Tving-Clone-Project/App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

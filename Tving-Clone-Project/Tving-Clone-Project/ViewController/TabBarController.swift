@@ -7,30 +7,6 @@
 
 import UIKit
 
-/// 탭바 타이틀 타입
-enum TabBarTitleType: String {
-    case home = "홈"
-    case soon = "공개예정"
-    case search = "검색"
-    case record = "기록"
-}
-
-/// 탭바 클릭 안 됐을 때 이미지 타입
-enum TabBarUnselectedImgNameType: String {
-    case home = "house"
-    case soon = "video"
-    case search = "magnifyingglass"
-    case record = "clock"
-}
-
-/// 탭바 클릭됐을 때 이미지 타입
-enum TabBarselectedImgNameType: String {
-    case home = "house.fill"
-    case soon = "video.fill"
-    case search = "magnifyingglass"
-    case record = "clock.fill"
-}
-
 /// 하단 탭바
 final class TabBarController: UITabBarController {
     
@@ -50,30 +26,30 @@ final class TabBarController: UITabBarController {
     private func createDefaultTabBar() {
         let mainVC = MainViewController()
         configTabBar(
-            title: .home,
-            tabImgName: .home,
-            tabUnselectedImgName: .home,
+            title: .homeTitle,
+            tabImgName: .homeImgName,
+            tabUnselectedImgName: .homeUnselectedImgName,
             vc: mainVC
         )
         let boxOfficeVC = BoxOfficeViewController()
         configTabBar(
-            title: .soon,
-            tabImgName: .soon,
-            tabUnselectedImgName: .soon,
+            title: .soonTitle,
+            tabImgName: .soonImgName,
+            tabUnselectedImgName: .soonUnselectedImgName,
             vc: boxOfficeVC
         )
         let thirdVC = UIViewController()
         configTabBar(
-            title: .search,
-            tabImgName: .search,
-            tabUnselectedImgName: .search,
+            title: .searchTitle,
+            tabImgName: .searchImgName,
+            tabUnselectedImgName: .searchImgName,
             vc: thirdVC
         )
         let fourthVC = UIViewController()
         configTabBar(
-            title: .record,
-            tabImgName: .record,
-            tabUnselectedImgName: .record,
+            title: .recordTitle,
+            tabImgName: .recordImgName,
+            tabUnselectedImgName: .recordUnselectedImgName,
             vc: fourthVC
         )
         
@@ -82,9 +58,9 @@ final class TabBarController: UITabBarController {
     
     /// 탭바 설정
     private func configTabBar(
-        title: TabBarTitleType,
-        tabImgName: TabBarselectedImgNameType,
-        tabUnselectedImgName: TabBarUnselectedImgNameType,
+        title: StringLiteral,
+        tabImgName: StringLiteral,
+        tabUnselectedImgName: StringLiteral,
         vc: UIViewController
     ) {
         vc.title = title.rawValue
