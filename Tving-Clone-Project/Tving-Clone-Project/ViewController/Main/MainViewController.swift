@@ -153,20 +153,20 @@ final class MainViewController: BaseViewController {
     // MARK: - Helpers
     
     private func register() {
-        tabControlCollectionView.register(TabControlCollectionViewCell.self, forCellWithReuseIdentifier: TabControlCollectionViewCell.identifier)
-        mainCollectionView.register(BigPosterCollectionViewCell.self, forCellWithReuseIdentifier: BigPosterCollectionViewCell.identifier)
-        mainCollectionView.register(LiveCollectionViewCell.self, forCellWithReuseIdentifier: LiveCollectionViewCell.identifier)
-        mainCollectionView.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.identifier)
-        mainCollectionView.register(BaseballCollectionViewCell.self, forCellWithReuseIdentifier: BaseballCollectionViewCell.identifier)
+        tabControlCollectionView.register(TabControlCollectionViewCell.self, forCellWithReuseIdentifier: TabControlCollectionViewCell.className)
+        mainCollectionView.register(BigPosterCollectionViewCell.self, forCellWithReuseIdentifier: BigPosterCollectionViewCell.className)
+        mainCollectionView.register(LiveCollectionViewCell.self, forCellWithReuseIdentifier: LiveCollectionViewCell.className)
+        mainCollectionView.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.className)
+        mainCollectionView.register(BaseballCollectionViewCell.self, forCellWithReuseIdentifier: BaseballCollectionViewCell.className)
         mainCollectionView.register(
             HeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: HeaderView.identifier
+            withReuseIdentifier: HeaderView.className
         )
         mainCollectionView.register(
             FooterView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-            withReuseIdentifier: FooterView.identifier
+            withReuseIdentifier: FooterView.className
         )
     }
     
@@ -305,11 +305,11 @@ extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.identifier, for: indexPath) as! HeaderView
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.className, for: indexPath) as! HeaderView
             header.fetchData(headers[indexPath.section])
             return header
         case UICollectionView.elementKindSectionFooter:
-            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FooterView.identifier, for: indexPath) as! FooterView
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FooterView.className, for: indexPath) as! FooterView
             footer.config(num: bigPosters.count)
             return footer
         default:
@@ -344,25 +344,25 @@ extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView.tag == 1 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabControlCollectionViewCell.identifier, for: indexPath) as? TabControlCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabControlCollectionViewCell.className, for: indexPath) as? TabControlCollectionViewCell else { return UICollectionViewCell() }
             cell.fetchData(model: tabs[indexPath.row])
             return cell
         } else {
             switch indexPath.section {
             case 0:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BigPosterCollectionViewCell.identifier, for: indexPath) as? BigPosterCollectionViewCell else { return UICollectionViewCell() }
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BigPosterCollectionViewCell.className, for: indexPath) as? BigPosterCollectionViewCell else { return UICollectionViewCell() }
                 cell.fetchData(model: bigPosters[indexPath.row])
                 return cell
             case 2:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LiveCollectionViewCell.identifier, for: indexPath) as? LiveCollectionViewCell else { return UICollectionViewCell() }
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LiveCollectionViewCell.className, for: indexPath) as? LiveCollectionViewCell else { return UICollectionViewCell() }
                 cell.fetchData(model: livePrograms[indexPath.row])
                 return cell
             case 4:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseballCollectionViewCell.identifier, for: indexPath) as? BaseballCollectionViewCell else { return UICollectionViewCell() }
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseballCollectionViewCell.className, for: indexPath) as? BaseballCollectionViewCell else { return UICollectionViewCell() }
                 cell.fetchData(model: baseballSlogans[indexPath.row])
                 return cell
             default: // 1, 3, 5
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.className, for: indexPath) as? PosterCollectionViewCell else { return UICollectionViewCell() }
                 cell.fetchData(model: posters[indexPath.row])
                 return cell
             }

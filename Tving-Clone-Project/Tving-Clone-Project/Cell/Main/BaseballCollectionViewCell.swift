@@ -13,10 +13,6 @@ import Then
 /// 야구 슬로건 컬렉션뷰 셀
 final class BaseballCollectionViewCell: BaseCollectionViewCell {
     
-    // MARK: - Properties
-    
-    static let identifier = "BaseballCollectionViewCell"
-    
     // MARK: - Components
     
     private let baseballImageView = UIImageView()

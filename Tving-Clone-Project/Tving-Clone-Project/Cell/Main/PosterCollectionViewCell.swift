@@ -13,10 +13,6 @@ import Then
 /// 프로그램 포스터 컬렉션뷰 셀
 final class PosterCollectionViewCell: BaseCollectionViewCell {
     
-    // MARK: - Properties
-    
-    static let identifier = "PosterCollectionViewCell"
-    
     // MARK: - Components
     
     private let posterImageView = UIImageView().then {

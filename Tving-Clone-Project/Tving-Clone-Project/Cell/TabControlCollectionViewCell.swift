@@ -13,10 +13,6 @@ import Then
 /// 상단의 탭(홈, 실시간, ...) 컬렉션뷰
 final class TabControlCollectionViewCell: BaseCollectionViewCell {
     
-    // MARK: - Properties
-    
-    static let identifier = "TabControlCollectionViewCell"
-    
     // MARK: - Components
     
     private lazy var tabNameLabel = UILabel().then {

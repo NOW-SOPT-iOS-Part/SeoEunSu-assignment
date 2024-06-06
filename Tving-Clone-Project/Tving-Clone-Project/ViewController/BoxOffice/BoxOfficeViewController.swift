@@ -63,7 +63,7 @@ final class BoxOfficeViewController: BaseViewController {
     private func register() {
         boxOfficeTableView.register(
             BoxOfficeTableViewCell.self,
-            forCellReuseIdentifier: BoxOfficeTableViewCell.identifier
+            forCellReuseIdentifier: BoxOfficeTableViewCell.className
         )
     }
     
@@ -109,7 +109,7 @@ extension BoxOfficeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: BoxOfficeTableViewCell.identifier) as? BoxOfficeTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BoxOfficeTableViewCell.className) as? BoxOfficeTableViewCell else {
             return UITableViewCell()
         }
         cell.dataBind(boxOfficeData[indexPath.row])

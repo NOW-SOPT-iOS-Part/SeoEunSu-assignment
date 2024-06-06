@@ -16,7 +16,6 @@ final class LiveCollectionViewCell: BaseCollectionViewCell {
     // MARK: - Properties
     
     private let ranking: Int = 1
-    static let identifier = "LiveCollectionViewCell"
     
     // MARK: - Components
     

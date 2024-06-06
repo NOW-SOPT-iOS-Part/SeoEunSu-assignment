@@ -13,10 +13,6 @@ import Then
 /// 맨 위에 제일 크게 있는 프로그램 포스터 컬렉션뷰 셀
 final class BigPosterCollectionViewCell: BaseCollectionViewCell {
     
-    // MARK: - Properties
-    
-    static let identifier = "BigPosterCollectionViewCell"
-    
     // MARK: - Components
     
     private lazy var posterImageView = UIImageView().then {

@@ -13,10 +13,6 @@ import Then
 /// PageControl이 있는 첫번째 섹션의 푸터뷰
 final class FooterView: UICollectionReusableView {
     
-    // MARK: - Properties
-    
-    static let identifier = "FooterView"
-    
     // MARK: - Components
     
     private lazy var pageControl = UIPageControl().then {

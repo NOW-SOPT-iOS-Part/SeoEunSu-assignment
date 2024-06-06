@@ -12,10 +12,6 @@ import Then
 
 final class HeaderView: UICollectionReusableView {
     
-    // MARK: - Properties
-    
-    static let identifier = "HeaderView"
-    
     // MARK: - Components
     
     private let titleLabel = UILabel().then {

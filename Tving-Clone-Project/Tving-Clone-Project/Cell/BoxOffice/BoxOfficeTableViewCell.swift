@@ -12,10 +12,6 @@ import Then
 
 final class BoxOfficeTableViewCell: BaseTableViewCell {
     
-    // MARK: - Properties
-    
-    static let identifier = NSObject.className
-    
     // MARK: - Components
     
     private let rankLabel = UILabel().then {
