@@ -76,6 +76,7 @@
 		A2E99BEA2C1337980063A02F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BE92C1337980063A02F /* WelcomeView.swift */; };
 		A2E99BEC2C1339920063A02F /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BEB2C1339920063A02F /* BottomSheetView.swift */; };
 		A2E99BF02C133C850063A02F /* BoxOfficeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BEF2C133C850063A02F /* BoxOfficeView.swift */; };
+		A2E99BF32C133E4D0063A02F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BF22C133E4D0063A02F /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -141,6 +142,7 @@
 		A2E99BE92C1337980063A02F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		A2E99BEB2C1339920063A02F /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		A2E99BEF2C133C850063A02F /* BoxOfficeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeView.swift; sourceTree = "<group>"; };
+		A2E99BF22C133E4D0063A02F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,8 +198,7 @@
 		A21172CB2BDC3F0400FEA8CA /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				A2306D822BE12E6E00FD78D3 /* TabControlCollectionViewCell.swift */,
-				A29F9CB32BEDC3D30030F957 /* Main */,
+				A29F9CB32BEDC3D30030F957 /* Home */,
 				A29F9CB42BEDC3DC0030F957 /* BoxOffice */,
 			);
 			path = Cell;
@@ -260,9 +261,10 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		A29F9CB32BEDC3D30030F957 /* Main */ = {
+		A29F9CB32BEDC3D30030F957 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				A2306D822BE12E6E00FD78D3 /* TabControlCollectionViewCell.swift */,
 				A2306D792BE11B1600FD78D3 /* HeaderView.swift */,
 				A2AC32232BE572B40010903A /* FooterView.swift */,
 				A2AC32212BE56F5E0010903A /* BigPosterCollectionViewCell.swift */,
@@ -270,7 +272,7 @@
 				A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */,
 				A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */,
 			);
-			path = Main;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		A29F9CB42BEDC3DC0030F957 /* BoxOffice */ = {
@@ -459,6 +461,7 @@
 		A2E99BF12C133D500063A02F /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				A2E99BF22C133E4D0063A02F /* HomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				A2D639822BCE38B3000DAE80 /* UIFont+.swift in Sources */,
 				A2E99BF02C133C850063A02F /* BoxOfficeView.swift in Sources */,
 				A2306D782BDF99F800FD78D3 /* BaseballCollectionViewCell.swift in Sources */,
+				A2E99BF32C133E4D0063A02F /* HomeView.swift in Sources */,
 				A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */,
 				A2E99BE62C1333770063A02F /* LoginView.swift in Sources */,
 				A29F9CA72BEDBC5C0030F957 /* MoyaLoggingPlugin.swift in Sources */,

@@ -52,11 +52,11 @@ final class TabControlCollectionViewCell: BaseCollectionViewCell {
         )
         
         tabNameLabel.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
+            $0.top.leading.equalToSuperview()
         }
         bottomView.snp.makeConstraints {
             $0.top.equalTo(tabNameLabel.snp.bottom).offset(10)
-            $0.horizontalEdges.equalToSuperview()
+            $0.horizontalEdges.equalTo(tabNameLabel)
             $0.height.equalTo(3)
         }
     }

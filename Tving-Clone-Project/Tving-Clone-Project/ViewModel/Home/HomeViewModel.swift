@@ -26,10 +26,10 @@ final class HomeViewModel: ViewModelType {
     
     let tabs: [Tab] = [
         Tab(name: StringLiteral.homeStr, width: 15),
-        Tab(name: StringLiteral.liveStr, width: 55),
-        Tab(name: StringLiteral.tvProgramStr, width: 85),
-        Tab(name: StringLiteral.movieStr, width: 35),
-        Tab(name: StringLiteral.paramountPlusStr, width: 90)
+        Tab(name: StringLiteral.liveStr, width: 45),
+        Tab(name: StringLiteral.tvProgramStr, width: 78),
+        Tab(name: StringLiteral.movieStr, width: 29),
+        Tab(name: StringLiteral.paramountPlusStr, width: 82)
     ]
     
     // MARK: - Input
