@@ -282,7 +282,7 @@ final class LoginViewController: BaseViewController<LoginViewModel> {
             pwTextField.sendActions(for: .editingChanged)
         }.disposed(by: disposeBag)
         
-        output.changeLoginButtonStatus.subscribe { [self] isActive in
+        output.isLoginButtonActive.subscribe { [self] isActive in
             loginButton.activateButtonStyle(isActivate: isActive)
         }.disposed(by: disposeBag)
         
@@ -296,13 +296,12 @@ final class LoginViewController: BaseViewController<LoginViewModel> {
             pwTextField.isSecureTextEntry.toggle()
         }.disposed(by: disposeBag)
         
-        output.changeSideButtonVisibility.subscribe(onNext: { [self] isHidden, textField in
-            changeSideButtonVisibility(isHidden: isHidden, textField: textField)
+        output.isSideButtonVisible.subscribe(onNext: { [self] isVisible, textField in
+            changeSideButtonVisibility(isVisible: isVisible, textField: textField)
         }).disposed(by: disposeBag)
         
-        output.changeBorderVisibility.subscribe { isHidden, textField in
-            textField.layer.borderWidth = isHidden ? 0 : 1
-            textField.layer.borderColor = UIColor.gray9C.cgColor
+        output.isBorderVisible.subscribe { isVisible, textField in
+            textField.changeBorderVisibility(isVisible: isVisible, color: UIColor.gray9C.cgColor)
         }.disposed(by: disposeBag)
         
         output.dismissKeyboard.subscribe(onNext: { textField in
@@ -316,13 +315,13 @@ extension LoginViewController {
     
     // MARK: - Helpers
     
-    /// isHidden 값에 따라 텍스트필드 사이드에 있는 X 버튼과 Eye 버튼의 visibility를 변경한다.
-    private func changeSideButtonVisibility(isHidden: Bool, textField: UITextField) {
+    /// isVisible 값에 따라 텍스트필드 사이드에 있는 X 버튼과 Eye 버튼의 isHidden 값을 변경한다.
+    private func changeSideButtonVisibility(isVisible: Bool, textField: UITextField) {
         if textField == idTextField {
-            idXButton.isHidden = isHidden
+            idXButton.isHidden = !isVisible
         } else {
-            pwXButton.isHidden = isHidden
-            pwEyeButton.isHidden = isHidden
+            pwXButton.isHidden = !isVisible
+            pwEyeButton.isHidden = !isVisible
         }
     }
     

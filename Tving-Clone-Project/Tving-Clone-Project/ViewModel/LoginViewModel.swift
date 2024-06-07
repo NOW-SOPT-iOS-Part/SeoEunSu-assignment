@@ -44,9 +44,9 @@ final class LoginViewModel: ViewModelType {
     // MARK: - Output
     
     struct Output {
-        let changeSideButtonVisibility = PublishRelay<(Bool, UITextField)>()
-        let changeBorderVisibility = PublishRelay<(Bool, UITextField)>()
-        let changeLoginButtonStatus = PublishRelay<Bool>()
+        let isSideButtonVisible = PublishRelay<(Bool, UITextField)>()
+        let isBorderVisible = PublishRelay<(Bool, UITextField)>()
+        let isLoginButtonActive = PublishRelay<Bool>()
         let validLoginNickname = PublishRelay<String>()
         let noNicknameErr = PublishRelay<Void>()
         let regexErr = PublishRelay<Void>()
@@ -67,9 +67,9 @@ extension LoginViewModel {
         
         input.textFieldBeginEditingEvent.subscribe(onNext: { textField in
             if !(textField.text ?? "").isEmpty {
-                output.changeSideButtonVisibility.accept((false, textField))
+                output.isSideButtonVisible.accept((true, textField))
             }
-            output.changeBorderVisibility.accept((false, textField))
+            output.isBorderVisible.accept((true, textField))
         }).disposed(by: disposeBag)
         
         input.textFieldIsEditingEvent.subscribe(onNext: { [self] textField in
@@ -82,19 +82,19 @@ extension LoginViewModel {
                 self.pwText = pwText
             }
             
-            output.changeSideButtonVisibility.accept((false, textField))
-            output.changeBorderVisibility.accept((false, textField))
+            output.isSideButtonVisible.accept((true, textField))
+            output.isBorderVisible.accept((true, textField))
             
             guard let idText = self.idText else { return }
             guard let pwText = self.pwText else { return }
-            output.changeLoginButtonStatus.accept(
+            output.isLoginButtonActive.accept(
                 !(idText.isEmpty) && !(pwText.isEmpty)
             )
         }).disposed(by: disposeBag)
         
         input.textFieldDidEndEditingEvent.subscribe { textField in
-            output.changeSideButtonVisibility.accept((true, textField))
-            output.changeBorderVisibility.accept((true, textField))
+            output.isSideButtonVisible.accept((false, textField))
+            output.isBorderVisible.accept((false, textField))
         }.disposed(by: disposeBag)
         
         input.returnKeyDidTapEvent.subscribe { textField in
@@ -122,15 +122,13 @@ extension LoginViewModel {
         }).disposed(by: disposeBag)
         
         input.idXButtonDidTapEvent.subscribe(onNext: { button in
-            print("idXButtonDidTapEvent")
             output.clearIdTextField.accept(Void())
-            output.changeLoginButtonStatus.accept(false)
+            output.isLoginButtonActive.accept(false)
         }).disposed(by: disposeBag)
         
         input.pwXButtonDidTapEvent.subscribe(onNext: { button in
-            print("pwXButtonDidTapEvent")
             output.clearPwTextField.accept(Void())
-            output.changeLoginButtonStatus.accept(false)
+            output.isLoginButtonActive.accept(false)
         }).disposed(by: disposeBag)
         
         input.makeNicknameButtonDidTapEvent.subscribe { _ in

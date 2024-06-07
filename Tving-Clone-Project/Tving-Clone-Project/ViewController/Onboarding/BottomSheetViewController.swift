@@ -129,7 +129,7 @@ final class BottomSheetViewController: BaseViewController<BottomSheetViewModel> 
         let output = viewModel.transform(from: input, disposeBag: disposeBag)
         
         output.isBorderVisible.subscribe(onNext: { isVisible in
-            self.nicknameTextField.changeBorderVisibility(isVisible: isVisible)
+            self.nicknameTextField.changeBorderVisibility(isVisible: isVisible, color: UIColor.black.cgColor)
         }).disposed(by: disposeBag)
         
         output.isButtonActive.subscribe(onNext: { isActive in
