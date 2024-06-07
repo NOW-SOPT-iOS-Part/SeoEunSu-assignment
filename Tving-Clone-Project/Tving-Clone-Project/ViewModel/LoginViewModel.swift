@@ -14,11 +14,12 @@ import Then
 
 final class LoginViewModel: ViewModelType {
     
+    // MARK: - Properties
+    
     /// 정규식 유형
     enum RegexType {
         case email
         case password
-        case nickname
     }
     
     private var idText: String?
@@ -43,17 +44,17 @@ final class LoginViewModel: ViewModelType {
     // MARK: - Output
     
     struct Output {
-        var changeSideButtonVisibility = PublishRelay<(Bool, UITextField)>()
-        var changeBorderVisibility = PublishRelay<(Bool, UITextField)>()
-        var changeLoginButtonStatus = PublishRelay<Bool>()
-        var validLoginNickname = PublishRelay<String>()
-        var noNicknameErr = PublishRelay<Void>()
-        var regexErr = PublishRelay<Void>()
-        var clearIdTextField = PublishRelay<Void>()
-        var clearPwTextField = PublishRelay<Void>()
-        var presentBottomSheet = PublishRelay<Void>()
-        var changeSecurity = PublishRelay<Void>()
-        var dismissKeyboard = PublishRelay<UITextField>()
+        let changeSideButtonVisibility = PublishRelay<(Bool, UITextField)>()
+        let changeBorderVisibility = PublishRelay<(Bool, UITextField)>()
+        let changeLoginButtonStatus = PublishRelay<Bool>()
+        let validLoginNickname = PublishRelay<String>()
+        let noNicknameErr = PublishRelay<Void>()
+        let regexErr = PublishRelay<Void>()
+        let clearIdTextField = PublishRelay<Void>()
+        let clearPwTextField = PublishRelay<Void>()
+        let presentBottomSheet = PublishRelay<Void>()
+        let changeSecurity = PublishRelay<Void>()
+        let dismissKeyboard = PublishRelay<UITextField>()
     }
 }
 
@@ -104,11 +105,11 @@ extension LoginViewModel {
             self.nicknameStr = nickname
         }).disposed(by: disposeBag)
         
-        input.loginButtonDidTapEvent.subscribe(onNext: { [self] _ in                
+        input.loginButtonDidTapEvent.subscribe(onNext: { [self] _ in
             guard let idText = self.idText else { return }
             guard let pwText = self.pwText else { return }
-
-            if self.isMatchRegex(type: .email, input: idText) 
+            
+            if self.isMatchRegex(type: .email, input: idText)
                 && self.isMatchRegex(type: .password, input: pwText) {
                 if let nickname = self.nicknameStr {
                     output.validLoginNickname.accept(nickname)
@@ -152,8 +153,6 @@ extension LoginViewModel {
             regexPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         case .password:
             regexPattern = "[A-Za-z0-9!_@$%^&+=]{8,20}"
-        case .nickname:
-            regexPattern = "[ㄱ-ㅎ가-힣]{2,10}"
         }
         let pred = NSPredicate(format:"SELF MATCHES %@", regexPattern)
         return pred.evaluate(with: input)
