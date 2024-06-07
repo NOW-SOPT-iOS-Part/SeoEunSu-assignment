@@ -26,6 +26,7 @@ final class BottomSheetViewModel: ViewModelType {
         let textFieldDidEndEditingEvent: Observable<Void>
         let returnKeyDidTapEvent: Observable<Void>
         let saveButtonDidTapEvent: Observable<Void>
+        let backgroundViewDidTapEvent: Observable<UITapGestureRecognizer>
     }
     
     // MARK: - Output
@@ -36,6 +37,7 @@ final class BottomSheetViewModel: ViewModelType {
         let dismissKeyboard = PublishRelay<Void>()
         let validNickname = PublishRelay<Void>()
         let nicknameRegexErr = PublishRelay<Void>()
+        let backToTheLoginVC = PublishRelay<Void>()
     }
 }
 
@@ -71,6 +73,10 @@ extension BottomSheetViewModel {
             } else {
                 output.nicknameRegexErr.accept(Void())
             }
+        }).disposed(by: disposeBag)
+        
+        input.backgroundViewDidTapEvent.subscribe(onNext: { _ in 
+            output.backToTheLoginVC.accept(Void())
         }).disposed(by: disposeBag)
         
         return output

@@ -67,6 +67,7 @@
 		A2D6398A2BCE40F9000DAE80 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = A2D639892BCE40F9000DAE80 /* Then */; };
 		A2D6398E2BCE9C65000DAE80 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D6398D2BCE9C65000DAE80 /* UITextField+.swift */; };
 		A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D6398F2BCEBEC6000DAE80 /* WelcomeViewController.swift */; };
+		A2E99BD92C12E6170063A02F /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = A2E99BD82C12E6170063A02F /* RxGesture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +133,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A20456C52C11B65B000F5D1A /* RxCocoa in Frameworks */,
+				A2E99BD92C12E6170063A02F /* RxGesture in Frameworks */,
 				A20456C72C11B65B000F5D1A /* RxCocoa-Dynamic in Frameworks */,
 				A2D639852BCE3C8A000DAE80 /* SnapKit in Frameworks */,
 				A20456C12C11B65B000F5D1A /* RxBlocking in Frameworks */,
@@ -170,8 +172,8 @@
 				A20456BB2C11ADCC000F5D1A /* LoginViewModel.swift */,
 				A20456CA2C11C078000F5D1A /* WelcomeViewModel.swift */,
 				A20456CC2C11C083000F5D1A /* BottomSheetViewModel.swift */,
-				A20456CE2C11C08F000F5D1A /* BoxOfficeViewModel.swift */,
 				A20456D02C11C097000F5D1A /* MainViewModel.swift */,
+				A20456CE2C11C08F000F5D1A /* BoxOfficeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -398,6 +400,7 @@
 				A20456C42C11B65B000F5D1A /* RxCocoa */,
 				A20456C62C11B65B000F5D1A /* RxCocoa-Dynamic */,
 				A20456C82C11B65B000F5D1A /* RxRelay */,
+				A2E99BD82C12E6170063A02F /* RxGesture */,
 			);
 			productName = "Tving-Clone-Project";
 			productReference = A2D639542BCE2FAE000DAE80 /* Tving-Clone-Project.app */;
@@ -432,6 +435,7 @@
 				A2D639882BCE40F9000DAE80 /* XCRemoteSwiftPackageReference "Then" */,
 				A29F9C9D2BEDBB4A0030F957 /* XCRemoteSwiftPackageReference "Moya" */,
 				A20456BF2C11B65B000F5D1A /* XCRemoteSwiftPackageReference "RxSwift" */,
+				A2E99BD72C12E6170063A02F /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			productRefGroup = A2D639552BCE2FAE000DAE80 /* Products */;
 			projectDirPath = "";
@@ -755,6 +759,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		A2E99BD72C12E6170063A02F /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -797,6 +809,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A2D639882BCE40F9000DAE80 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		A2E99BD82C12E6170063A02F /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2E99BD72C12E6170063A02F /* XCRemoteSwiftPackageReference "RxGesture" */;
+			productName = RxGesture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

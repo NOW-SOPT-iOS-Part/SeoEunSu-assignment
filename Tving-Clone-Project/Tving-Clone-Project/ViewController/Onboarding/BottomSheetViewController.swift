@@ -7,6 +7,9 @@
 
 import UIKit
 
+import RxGesture
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
@@ -26,6 +29,8 @@ final class BottomSheetViewController: BaseViewController<BottomSheetViewModel> 
     weak var delegate: (BottomSheetDelegate)?
     
     // MARK: - Components
+    
+    private let backgroundView = UIView()
     
     private let grabBarView = UIView().then {
         $0.backgroundColor = .white2
@@ -79,6 +84,7 @@ final class BottomSheetViewController: BaseViewController<BottomSheetViewModel> 
     
     override func addSubview() {
         self.view.addSubviews(
+            backgroundView,
             grabBarView,
             bottomSheetView,
             enterNicknameLabel,
@@ -88,6 +94,9 @@ final class BottomSheetViewController: BaseViewController<BottomSheetViewModel> 
     }
     
     override func setLayout() {
+        backgroundView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         bottomSheetView.snp.makeConstraints {
             $0.left.right.bottom.equalToSuperview()
             $0.height.equalTo(UIScreen.main.bounds.height / 2 + 20)
@@ -123,7 +132,8 @@ final class BottomSheetViewController: BaseViewController<BottomSheetViewModel> 
             textFieldIsEditingEvent: nicknameTextField.rx.controlEvent(.editingChanged).map { self.nicknameTextField },
             textFieldDidEndEditingEvent: nicknameTextField.rx.controlEvent(.editingDidEnd).asObservable(),
             returnKeyDidTapEvent: nicknameTextField.rx.controlEvent(.editingDidEndOnExit).asObservable(),
-            saveButtonDidTapEvent: saveButton.rx.tap.asObservable()
+            saveButtonDidTapEvent: saveButton.rx.tap.asObservable(), 
+            backgroundViewDidTapEvent: backgroundView.rx.tapGesture().asObservable()
         )
         
         let output = viewModel.transform(from: input, disposeBag: disposeBag)
@@ -151,22 +161,10 @@ final class BottomSheetViewController: BaseViewController<BottomSheetViewModel> 
                 self.nicknameTextField.text = ""
             }
         }).disposed(by: disposeBag)
-    }
-}
-
-extension BottomSheetViewController {
-    
-    // MARK: - Helpers
-    
-    // 유저의 터치를 감지하는 함수
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        // 배경의 self.view 클릭 시 실행될 코드 작성
-        // 1. 뒤의 어두운 뷰(dimmedView) 제거
-        // 2. BottomSheetVC dismiss
-        if let touch = touches.first, touch.view == self.view {
+        
+        output.backToTheLoginVC.subscribe(onNext: { [self] in
             delegate?.removeDimmedView()
-            self.dismiss(animated: true)
-        }
+            dismiss(animated: true)
+        }).disposed(by: disposeBag)
     }
 }
