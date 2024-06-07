@@ -126,6 +126,8 @@ final class BottomSheetViewController: BaseViewController<BottomSheetViewModel> 
         self.view.backgroundColor = .clear
     }
     
+    // MARK: - bindViewModel
+
     override func bindViewModel() {
         let input = BottomSheetViewModel.Input(
             textFieldBeginEditingEvent: nicknameTextField.rx.controlEvent(.editingDidBegin).asObservable(),

@@ -75,12 +75,15 @@ extension BottomSheetViewModel {
             }
         }).disposed(by: disposeBag)
         
-        input.backgroundViewDidTapEvent.subscribe(onNext: { _ in 
+        input.backgroundViewDidTapEvent.subscribe(onNext: { _ in
             output.backToTheLoginVC.accept(Void())
         }).disposed(by: disposeBag)
         
         return output
     }
+}
+
+extension BottomSheetViewModel {
     
     // MARK: - Helpers
     

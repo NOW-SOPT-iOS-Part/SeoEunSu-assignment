@@ -224,6 +224,8 @@ final class LoginViewController: BaseViewController<LoginViewModel> {
         }
     }
     
+    // MARK: - bindViewModel
+
     override func bindViewModel() {
         let input = LoginViewModel.Input(
             textFieldBeginEditingEvent:

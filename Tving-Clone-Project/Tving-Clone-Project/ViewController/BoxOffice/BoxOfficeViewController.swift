@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
@@ -26,17 +28,10 @@ final class BoxOfficeViewController: BaseViewController<BoxOfficeViewModel> {
     
     private lazy var boxOfficeTableView = UITableView().then {
         $0.backgroundColor = .black
-        $0.delegate = self
-        $0.dataSource = self
-    }
-    
-    // MARK: - Life Cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        register()
-        requestDailyBoxOfficeList()
+        $0.register(
+            BoxOfficeTableViewCell.self,
+            forCellReuseIdentifier: BoxOfficeTableViewCell.className
+        )
     }
     
     // MARK: - Set UI
@@ -58,67 +53,25 @@ final class BoxOfficeViewController: BaseViewController<BoxOfficeViewModel> {
         }
     }
     
-    // MARK: - Helpers
+    // MARK: - bindViewModel
     
-    private func register() {
-        boxOfficeTableView.register(
-            BoxOfficeTableViewCell.self,
-            forCellReuseIdentifier: BoxOfficeTableViewCell.className
-        )
+    override func bindViewModel() {
+        let input = BoxOfficeViewModel.Input(viewWillAppearEvent: self.rx.viewWillAppear.asObservable())
+        
+        let output = viewModel.transform(from: input, disposeBag: disposeBag)
+        
+        output.daliyBoxOfficeList.subscribe(onNext: { daliyBoxOfficeList in
+            self.boxOfficeData = daliyBoxOfficeList
+            self.boxOfficeTableView.reloadData()
+        }).disposed(by: disposeBag)
+        
+        output.daliyBoxOfficeList
+            .asObservable()
+            .bind(to: boxOfficeTableView.rx.items(
+                cellIdentifier: BoxOfficeTableViewCell.className,
+                cellType: BoxOfficeTableViewCell.self
+            )) { (row, element, cell) in
+                cell.dataBind(element)
+            }.disposed(by: disposeBag)
     }
-    
-    /// TMI: 시간이 일러서 그런지 오늘 날짜로 하면 아직 데이터가 없길래...
-    /// 어제 날짜를 yyyyMMdd 형태로 반환해주는 함수
-    private func getYesterdayDateStr() -> String {
-        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return "" }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        let yesterdayDateStr = dateFormatter.string(from: yesterday)
-        return yesterdayDateStr
-    }
-
-    /// 일별 박스오피스 조회 API를 호출
-    private func requestDailyBoxOfficeList() {
-        BoxOfficeService.shared.getDailyBoxOffice(targetDt: getYesterdayDateStr()) { res in
-            switch res {
-            case .success(let data):
-                guard let data = data as? BoxOfficeResModel else { return }
-                self.boxOfficeData = data.boxOfficeResult.dailyBoxOfficeList
-                self.boxOfficeTableView.reloadData()
-                print("응답값! \(data)")
-            case .requestError:
-                print(StringLiteral.requestErr)
-            case .decodingError:
-                print(StringLiteral.decodingErr)
-            case .pathError:
-                print(StringLiteral.pathErr)
-            case .serverError:
-                print(StringLiteral.serverErr)
-            case .networkFail:
-                print(StringLiteral.networkFailErr)
-            }
-        }
-    }
-}
-
-// MARK: - UITableViewDataSource
-
-extension BoxOfficeViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        boxOfficeData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: BoxOfficeTableViewCell.className) as? BoxOfficeTableViewCell else {
-            return UITableViewCell()
-        }
-        cell.dataBind(boxOfficeData[indexPath.row])
-        return cell
-    }
-}
-
-// MARK: - UITableViewDelegate
-
-extension BoxOfficeViewController: UITableViewDelegate {
-    
 }

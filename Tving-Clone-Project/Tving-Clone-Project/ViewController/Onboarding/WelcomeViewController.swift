@@ -76,6 +76,8 @@ final class WelcomeViewController: BaseViewController<WelcomeViewModel> {
         }
     }
     
+    // MARK: - bindViewModel
+
     override func bindViewModel() {
         let input = WelcomeViewModel.Input(
             toMainButtonDidTap: toMainButton.rx.tap.asObservable()

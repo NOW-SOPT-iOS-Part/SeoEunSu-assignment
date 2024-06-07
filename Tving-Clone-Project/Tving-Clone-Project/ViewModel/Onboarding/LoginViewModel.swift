@@ -141,6 +141,9 @@ extension LoginViewModel {
         
         return output
     }
+}
+
+extension LoginViewModel {
     
     // MARK: - Helpers
     

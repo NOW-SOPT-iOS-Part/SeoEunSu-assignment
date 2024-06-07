@@ -141,6 +141,8 @@ final class MainViewController: BaseViewController<MainViewModel> {
         }
     }
     
+    // MARK: - bindViewModel
+    
     override func bindViewModel() {
         let input = MainViewModel.Input(viewWillAppearEvent: self.rx.viewWillAppear.asObservable())
         let output = viewModel.transform(from: input, disposeBag: disposeBag)
@@ -161,6 +163,9 @@ final class MainViewController: BaseViewController<MainViewModel> {
             self.baseballSlogans = baseballSlogans
         }.disposed(by: disposeBag)
     }
+}
+
+extension MainViewController {
     
     // MARK: - Helpers
     
