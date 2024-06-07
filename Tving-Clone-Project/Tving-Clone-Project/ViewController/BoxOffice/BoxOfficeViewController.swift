@@ -20,37 +20,12 @@ final class BoxOfficeViewController: BaseViewController<BoxOfficeViewModel> {
     
     // MARK: - Components
     
-    private let titleLabel = UILabel().then {
-        $0.text = StringLiteral.todayBoxOfficeRankStr
-        $0.font = .pretendard(weight: 700, size: 25)
-        $0.textColor = .white
-    }
+    private let boxOfficeView = BoxOfficeView()
     
-    private lazy var boxOfficeTableView = UITableView().then {
-        $0.backgroundColor = .black
-        $0.register(
-            BoxOfficeTableViewCell.self,
-            forCellReuseIdentifier: BoxOfficeTableViewCell.className
-        )
-    }
+    // MARK: - Life Cycle
     
-    // MARK: - Set UI
-    
-    override func addSubview() {
-        self.view.addSubviews(
-            titleLabel,
-            boxOfficeTableView
-        )
-    }
-    
-    override func setLayout() {
-        titleLabel.snp.makeConstraints {
-            $0.top.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-        }
-        boxOfficeTableView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(15)
-            $0.horizontalEdges.bottom.equalToSuperview().inset(10)
-        }
+    override func loadView() {
+        self.view = boxOfficeView
     }
     
     // MARK: - bindViewModel
@@ -60,14 +35,14 @@ final class BoxOfficeViewController: BaseViewController<BoxOfficeViewModel> {
         
         let output = viewModel.transform(from: input, disposeBag: disposeBag)
         
-        output.daliyBoxOfficeList.subscribe(onNext: { daliyBoxOfficeList in
-            self.boxOfficeData = daliyBoxOfficeList
-            self.boxOfficeTableView.reloadData()
+        output.daliyBoxOfficeList.subscribe(onNext: { [self] daliyBoxOfficeList in
+            boxOfficeData = daliyBoxOfficeList
+            boxOfficeView.boxOfficeTableView.reloadData()
         }).disposed(by: disposeBag)
         
         output.daliyBoxOfficeList
             .asObservable()
-            .bind(to: boxOfficeTableView.rx.items(
+            .bind(to: boxOfficeView.boxOfficeTableView.rx.items(
                 cellIdentifier: BoxOfficeTableViewCell.className,
                 cellType: BoxOfficeTableViewCell.self
             )) { (row, element, cell) in

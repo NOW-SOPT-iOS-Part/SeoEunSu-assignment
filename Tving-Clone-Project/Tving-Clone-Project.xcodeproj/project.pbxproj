@@ -75,6 +75,7 @@
 		A2E99BE82C1333C30063A02F /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BE72C1333C30063A02F /* BaseView.swift */; };
 		A2E99BEA2C1337980063A02F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BE92C1337980063A02F /* WelcomeView.swift */; };
 		A2E99BEC2C1339920063A02F /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BEB2C1339920063A02F /* BottomSheetView.swift */; };
+		A2E99BF02C133C850063A02F /* BoxOfficeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BEF2C133C850063A02F /* BoxOfficeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,6 +140,7 @@
 		A2E99BE72C1333C30063A02F /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		A2E99BE92C1337980063A02F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		A2E99BEB2C1339920063A02F /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
+		A2E99BEF2C133C850063A02F /* BoxOfficeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,8 +329,8 @@
 				A20456B02C11756E000F5D1A /* Base */,
 				A2306D7B2BE11BF500FD78D3 /* Model */,
 				A20456BA2C11AC0A000F5D1A /* ViewModel */,
-				A2D6396C2BCE3681000DAE80 /* ViewController */,
 				A2E99BE42C1333660063A02F /* View */,
+				A2D6396C2BCE3681000DAE80 /* ViewController */,
 				A29F9CA02BEDBC090030F957 /* Network */,
 				A20456B72C118E39000F5D1A /* Utils */,
 				A2D639802BCE38A6000DAE80 /* Extensions */,
@@ -430,6 +432,7 @@
 				A2E99BDF2C132AA20063A02F /* Component */,
 				A21172CB2BDC3F0400FEA8CA /* Cell */,
 				A2E99BED2C133BFF0063A02F /* Onboarding */,
+				A2E99BEE2C133C770063A02F /* BoxOffice */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -442,6 +445,14 @@
 				A2E99BEB2C1339920063A02F /* BottomSheetView.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		A2E99BEE2C133C770063A02F /* BoxOffice */ = {
+			isa = PBXGroup;
+			children = (
+				A2E99BEF2C133C850063A02F /* BoxOfficeView.swift */,
+			);
+			path = BoxOffice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -542,6 +553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2D639822BCE38B3000DAE80 /* UIFont+.swift in Sources */,
+				A2E99BF02C133C850063A02F /* BoxOfficeView.swift in Sources */,
 				A2306D782BDF99F800FD78D3 /* BaseballCollectionViewCell.swift in Sources */,
 				A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */,
 				A2E99BE62C1333770063A02F /* LoginView.swift in Sources */,
