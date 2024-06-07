@@ -7,6 +7,9 @@
 
 import UIKit
 
+import RxCocoa
+import RxRelay
+import RxSwift
 import SnapKit
 import Then
 
@@ -23,25 +26,13 @@ final class MainViewController: BaseViewController<MainViewModel> {
     let bigPosterHeight = 730.0
     let deviceWidth = UIScreen.main.bounds.width
     
-    let headers: [String] = [
-        "",
-        "티빙에서 꼭 봐야하는 콘텐츠",
-        "인기 LIVE 채널",
-        "1화 무료! 파라마운트+ 인기 시리즈",
-        "",
-        "서은수님이 시청하는 콘텐츠"
-    ]
-    let tabs: [Tab] = [
-        Tab(name: StringLiteral.homeStr, width: 15),
-        Tab(name: StringLiteral.liveStr, width: 55),
-        Tab(name: StringLiteral.tvProgramStr, width: 85),
-        Tab(name: StringLiteral.movieStr, width: 35),
-        Tab(name: StringLiteral.paramountPlusStr, width: 90)
-    ]
-    let bigPosters = Poster.dummyDataForBig()
-    let posters = Poster.dummyDataForSmall()
-    let livePrograms = LiveProgram.dummyData()
-    let baseballSlogans = BaseballSlogan.dummyData()
+    lazy var headers: [String] = viewModel.headers
+    lazy var tabs: [Tab] = viewModel.tabs
+    
+    var bigPosters: [Poster] = []
+    var posters: [Poster] = []
+    var livePrograms: [LiveProgram] = []
+    var baseballSlogans: [BaseballSlogan] = []
     
     // MARK: - Components
     
@@ -148,6 +139,27 @@ final class MainViewController: BaseViewController<MainViewModel> {
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(40)
         }
+    }
+    
+    override func bindViewModel() {
+        let input = MainViewModel.Input(viewWillAppearEvent: self.rx.viewWillAppear.asObservable())
+        let output = viewModel.transform(from: input, disposeBag: disposeBag)
+        
+        output.bigPosters.subscribe { bigPosters in
+            self.bigPosters = bigPosters
+        }.disposed(by: disposeBag)
+        
+        output.posters.subscribe { posters in
+            self.posters = posters
+        }.disposed(by: disposeBag)
+        
+        output.livePrograms.subscribe { livePrograms in
+            self.livePrograms = livePrograms
+        }.disposed(by: disposeBag)
+        
+        output.baseballSlogans.subscribe { baseballSlogans in
+            self.baseballSlogans = baseballSlogans
+        }.disposed(by: disposeBag)
     }
     
     // MARK: - Helpers
@@ -264,9 +276,6 @@ final class MainViewController: BaseViewController<MainViewModel> {
         
         return section
     }
-    
-    // MARK: - Actions
-    
 }
 
 // MARK: - UIScrollViewDelegate
@@ -379,10 +388,6 @@ extension MainViewController: UICollectionViewDataSource {
         }
     }
 }
-
-// MARK: - UICollectionViewDelegate
-
-extension MainViewController: UICollectionViewDelegate { }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 

@@ -70,4 +70,11 @@ struct StringLiteral {
     static var pathErr = "경로 오류입니다"
     static var serverErr = "서버 오류입니다"
     static var networkFailErr = "네트워크 오류입니다"
+    
+    // 메인 화면 헤더
+    static var emptyHeaderStr = ""
+    static var contentsHeaderStr = "티빙에서 꼭 봐야하는 콘텐츠"
+    static var popularLiveHeaderStr = "인기 LIVE 채널"
+    static var paramountPlusHeaderStr = "1화 무료! 파라마운트+ 인기 시리즈"
+    static var userContentsHeaderStr = "서은수님이 시청하는 콘텐츠"
 }
