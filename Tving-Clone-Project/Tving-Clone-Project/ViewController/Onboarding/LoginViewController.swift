@@ -26,33 +26,14 @@ final class LoginViewController: BaseViewController<LoginViewModel> {
         $0.textColor = .grayD6
     }
     
-    private let idTextField = UITextField().then {
-        $0.textColor = .gray9C
-        $0.font = .pretendard(weight: 600, size: 15)
-        $0.layer.cornerRadius = 3
-        $0.backgroundColor = .gray2E
-        $0.attributedPlaceholder = NSAttributedString(
-            string: StringLiteral.idTextFieldPlaceHolder,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray9C]
-        )
-        $0.addSidePadding(width: 22)
-    }
+    private let idTextField = LoginTextField(placeHolder: StringLiteral.idTextFieldPlaceHolder)
     
     private let idXButton = UIButton().then {
         $0.setImage(.xCircle, for: .normal)
         $0.isHidden = true
     }
     
-    private let pwTextField = UITextField().then {
-        $0.textColor = .gray9C
-        $0.font = .pretendard(weight: 600, size: 15)
-        $0.layer.cornerRadius = 3
-        $0.backgroundColor = .gray2E
-        $0.attributedPlaceholder = NSAttributedString(
-            string: StringLiteral.pwTextFieldPlaceHolder,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray9C]
-        )
-        $0.addSidePadding(width: 22)
+    private let pwTextField = LoginTextField(placeHolder: StringLiteral.pwTextFieldPlaceHolder).then {
         $0.isSecureTextEntry = true
     }
     
@@ -85,19 +66,7 @@ final class LoginViewController: BaseViewController<LoginViewModel> {
         $0.isEnabled = false
     }
     
-    private let findIdButton = UIButton().then {
-        $0.configuration = .plain()
-        $0.setAttributedTitle(
-            NSAttributedString(
-                string: StringLiteral.findIdButtonStr,
-                attributes: [
-                    .font : UIFont.pretendard(weight: 600, size: 14),
-                    .foregroundColor : UIColor.gray9C
-                ]
-            ),
-            for: .normal
-        )
-    }
+    private let findIdButton = FindInfoButton(title: StringLiteral.findIdButtonStr)
     
     private let separatorView = UIView().then {
         $0.backgroundColor = .gray2E
@@ -107,19 +76,7 @@ final class LoginViewController: BaseViewController<LoginViewModel> {
         }
     }
     
-    private let findPwButton = UIButton().then {
-        $0.configuration = .plain()
-        $0.setAttributedTitle(
-            NSAttributedString(
-                string: StringLiteral.findPwButtonStr,
-                attributes: [
-                    .font : UIFont.pretendard(weight: 600, size: 14),
-                    .foregroundColor : UIColor.gray9C
-                ]
-            ),
-            for: .normal
-        )
-    }
+    private let findPwButton = FindInfoButton(title: StringLiteral.findPwButtonStr)
     
     private lazy var findButtonStackView = UIStackView(arrangedSubviews: [findIdButton, separatorView, findPwButton]).then {
         $0.axis = .horizontal

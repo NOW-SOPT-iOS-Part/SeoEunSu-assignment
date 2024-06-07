@@ -73,7 +73,6 @@ extension LoginViewModel {
         }).disposed(by: disposeBag)
         
         input.textFieldIsEditingEvent.subscribe(onNext: { [self] textField in
-            print("textFieldIsEditingEvent")
             if textField.placeholder == StringLiteral.idTextFieldPlaceHolder {
                 guard let idText = textField.text else { return }
                 self.idText = idText
