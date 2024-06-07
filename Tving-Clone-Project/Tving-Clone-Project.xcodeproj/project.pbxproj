@@ -325,12 +325,11 @@
 			children = (
 				A2D6396B2BCE3678000DAE80 /* App */,
 				A20456B02C11756E000F5D1A /* Base */,
-				A29F9CA02BEDBC090030F957 /* Network */,
 				A2306D7B2BE11BF500FD78D3 /* Model */,
 				A20456BA2C11AC0A000F5D1A /* ViewModel */,
-				A2E99BE42C1333660063A02F /* View */,
 				A2D6396C2BCE3681000DAE80 /* ViewController */,
-				A21172CB2BDC3F0400FEA8CA /* Cell */,
+				A2E99BE42C1333660063A02F /* View */,
+				A29F9CA02BEDBC090030F957 /* Network */,
 				A20456B72C118E39000F5D1A /* Utils */,
 				A2D639802BCE38A6000DAE80 /* Extensions */,
 				A29F9CB72BEDC4100030F957 /* Resource */,
@@ -429,11 +428,20 @@
 			isa = PBXGroup;
 			children = (
 				A2E99BDF2C132AA20063A02F /* Component */,
+				A21172CB2BDC3F0400FEA8CA /* Cell */,
+				A2E99BED2C133BFF0063A02F /* Onboarding */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A2E99BED2C133BFF0063A02F /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
 				A2E99BE52C1333770063A02F /* LoginView.swift */,
 				A2E99BE92C1337980063A02F /* WelcomeView.swift */,
 				A2E99BEB2C1339920063A02F /* BottomSheetView.swift */,
 			);
-			path = View;
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
