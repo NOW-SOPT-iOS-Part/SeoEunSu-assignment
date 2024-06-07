@@ -18,7 +18,7 @@ protocol BottomSheetDelegate: AnyObject {
     func passUserData(nickname: String)
 }
 
-final class BottomSheetViewController: BaseViewController {
+final class BottomSheetViewController: BaseViewController<BottomSheetViewModel> {
     
     // MARK: - Properties
     
@@ -114,6 +114,10 @@ final class BottomSheetViewController: BaseViewController {
             $0.left.right.bottom.equalToSuperview().inset(20)
             $0.height.equalTo(52)
         }
+    }
+    
+    override func setStyle() {
+        self.view.backgroundColor = .clear
     }
     
     // MARK: - Helpers

@@ -16,7 +16,7 @@ struct Tab {
 }
 
 /// 티빙 메인 화면
-final class MainViewController: BaseViewController {
+final class MainViewController: BaseViewController<MainViewModel> {
     
     // MARK: - Properties
     

@@ -7,16 +7,19 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+import RxSwift
+
+class BaseViewController<T: ViewModelType>: UIViewController {
+    
+    let viewModel: T
+    let disposeBag = DisposeBag()
     
     // MARK: - Init
     
-    init() {
+    init(viewModel: T) {
+        self.viewModel = viewModel
+        
         super.init(nibName: nil, bundle: nil)
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     required init?(coder: NSCoder) {
@@ -32,6 +35,7 @@ class BaseViewController: UIViewController {
         addSubview()
         setLayout()
         setStyle()
+        bindViewModel()
     }
 
     // MARK: - Set UI
@@ -39,4 +43,8 @@ class BaseViewController: UIViewController {
     func addSubview() { }
     func setLayout() { }
     func setStyle() { }
+    
+    // MARK: - Rx
+    
+    func bindViewModel() { }
 }

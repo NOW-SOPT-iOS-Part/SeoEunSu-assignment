@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class BoxOfficeViewController: BaseViewController {
+final class BoxOfficeViewController: BaseViewController<BoxOfficeViewModel> {
     
     // MARK: - Properties
     

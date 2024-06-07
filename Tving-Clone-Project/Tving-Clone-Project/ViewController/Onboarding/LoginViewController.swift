@@ -7,14 +7,16 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
-final class LoginViewController: BaseViewController {
+final class LoginViewController: BaseViewController<LoginViewModel> {
 
     // MARK: - Properties
     
-    private var nickname: String?
+    var nickname = PublishSubject<String?>()
     
     // MARK: - Components
     
@@ -24,7 +26,7 @@ final class LoginViewController: BaseViewController {
         $0.textColor = .grayD6
     }
     
-    private lazy var idTextField = UITextField().then {
+    private let idTextField = UITextField().then {
         $0.textColor = .gray9C
         $0.font = .pretendard(weight: 600, size: 15)
         $0.layer.cornerRadius = 3
@@ -34,17 +36,14 @@ final class LoginViewController: BaseViewController {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray9C]
         )
         $0.addSidePadding(width: 22)
-        $0.delegate = self
-        $0.addTarget(self, action: #selector(checkTextFieldState), for: .editingChanged)
     }
     
-    private lazy var idXButton = UIButton().then {
+    private let idXButton = UIButton().then {
         $0.setImage(.xCircle, for: .normal)
-        $0.addTarget(self, action: #selector(xButtonDidTap), for: .touchUpInside)
         $0.isHidden = true
     }
     
-    private lazy var pwTextField = UITextField().then {
+    private let pwTextField = UITextField().then {
         $0.textColor = .gray9C
         $0.font = .pretendard(weight: 600, size: 15)
         $0.layer.cornerRadius = 3
@@ -55,23 +54,20 @@ final class LoginViewController: BaseViewController {
         )
         $0.addSidePadding(width: 22)
         $0.isSecureTextEntry = true
-        $0.delegate = self
-        $0.addTarget(self, action: #selector(checkTextFieldState), for: .editingChanged)
     }
     
-    private lazy var pwXButton = UIButton().then {
+    private let pwXButton = UIButton().then {
         $0.setImage(.xCircle, for: .normal)
-        $0.addTarget(self, action: #selector(xButtonDidTap), for: .touchUpInside)
         $0.isHidden = true
     }
     
-    private lazy var pwEyeButton = UIButton().then {
+    private let pwEyeButton = UIButton().then {
         $0.setImage(.eyeSlash, for: .normal)
-        $0.addTarget(self, action: #selector(eyeButtonDidTap), for: .touchUpInside)
+        $0.contentMode = .scaleToFill
         $0.isHidden = true
     }
     
-    private lazy var loginButton = UIButton().then {
+    private let loginButton = UIButton().then {
         $0.backgroundColor = .black
         $0.layer.cornerRadius = 3
         $0.layer.borderWidth = 1
@@ -87,7 +83,6 @@ final class LoginViewController: BaseViewController {
             for: .normal
         )
         $0.isEnabled = false
-        $0.addTarget(self, action: #selector(loginButtonDidTap), for: .touchUpInside)
     }
     
     private let findIdButton = UIButton().then {
@@ -139,7 +134,7 @@ final class LoginViewController: BaseViewController {
         $0.textColor = .gray62
     }
     
-    private lazy var makeNicknameButton = UIButton().then {
+    private let makeNicknameButton = UIButton().then {
         $0.configuration = .plain()
         $0.setAttributedTitle(
             NSAttributedString(
@@ -152,7 +147,6 @@ final class LoginViewController: BaseViewController {
             ),
             for: .normal
         )
-        $0.addTarget(self, action: #selector(makeNicknameButtonDidTap), for: .touchUpInside)
     }
     
     private lazy var guideButtonStackView = UIStackView(arrangedSubviews: [guideLabel, makeNicknameButton]).then {
@@ -230,15 +224,106 @@ final class LoginViewController: BaseViewController {
         }
     }
     
+    override func bindViewModel() {
+        // textFieldShouldBeginEditing equivalent
+        let input = LoginViewModel.Input(
+            textFieldBeginEditingEvent:
+                Observable.merge(
+                    idTextField.rx.controlEvent(.editingDidBegin).map { self.idTextField },
+                    pwTextField.rx.controlEvent(.editingDidBegin).map { self.pwTextField }
+                ),
+            textFieldIsEditingEvent:
+                Observable.merge(
+                    idTextField.rx.controlEvent(.editingChanged).map { self.idTextField },
+                    pwTextField.rx.controlEvent(.editingChanged).map { self.pwTextField }
+                ),
+            textFieldDidEndEditingEvent:
+                Observable.merge(
+                    idTextField.rx.controlEvent(.editingDidEnd).map { self.idTextField },
+                    pwTextField.rx.controlEvent(.editingDidEnd).map { self.pwTextField }
+                ),
+            returnKeyDidTapEvent:
+                Observable.merge(
+                    idTextField.rx.controlEvent(.editingDidEndOnExit).map { self.idTextField },
+                    pwTextField.rx.controlEvent(.editingDidEndOnExit).map { self.pwTextField }
+                ),
+            nicknameDidChangeEvent: nickname.asObservable(),
+            loginButtonDidTapEvent: loginButton.rx.tap.asObservable(),
+            idXButtonDidTapEvent: idXButton.rx.tap.map { self.idXButton },
+            pwXButtonDidTapEvent: pwXButton.rx.tap.map { self.pwXButton },
+            makeNicknameButtonDidTapEvent: makeNicknameButton.rx.tap.asObservable(),
+            eyeButtonDidTapEvent: pwEyeButton.rx.tap.asObservable()
+        )
+        
+        let output = viewModel.transform(from: input, disposeBag: disposeBag)
+        
+        output.validLoginNickname.subscribe(onNext: { [self] nickname in
+            self.pushToWelcomeVC(id: self.idTextField.text!, nickname: nickname)
+        }).disposed(by: disposeBag)
+        
+        output.noNicknameErr.subscribe(onNext: { [self] _ in
+            presentAlert(title: StringLiteral.noNicknameErrTitle, message: StringLiteral.noNicknameErrMsg) {
+                self.clearTextFields()
+            }
+        }).disposed(by: disposeBag)
+        
+        output.regexErr.subscribe(onNext: { [self] _ in
+            presentAlert(title: StringLiteral.regexErrTitle, message: StringLiteral.regexErrMsg) {
+                self.clearTextFields()
+            }
+        }).disposed(by: disposeBag)
+        
+        output.clearIdTextField.subscribe { [self] _ in
+            idTextField.text = ""
+            idTextField.sendActions(for: .editingChanged)
+        }.disposed(by: disposeBag)
+        
+        output.clearPwTextField.subscribe { [self] _ in
+            pwTextField.text = ""
+            pwTextField.sendActions(for: .editingChanged)
+        }.disposed(by: disposeBag)
+        
+        output.changeLoginButtonStatus.subscribe { [self] isActive in
+            loginButton.activateButtonStyle(isActivate: isActive)
+        }.disposed(by: disposeBag)
+        
+        output.presentBottomSheet.subscribe { [self] _ in
+            addDimmedView()
+            presentBottomSheetVC()
+        }.disposed(by: disposeBag)
+        
+        output.changeSecurity.subscribe { [self] _ in
+            pwEyeButton.setImage(pwTextField.isSecureTextEntry ? .eye : .eyeSlash, for: .normal)
+            pwTextField.isSecureTextEntry.toggle()
+        }.disposed(by: disposeBag)
+        
+        output.changeSideButtonVisibility.subscribe(onNext: { [self] isHidden, textField in
+            changeSideButtonVisibility(isHidden: isHidden, textField: textField)
+        }).disposed(by: disposeBag)
+        
+        output.changeBorderVisibility.subscribe { isHidden, textField in
+            textField.layer.borderWidth = isHidden ? 0 : 1
+            textField.layer.borderColor = UIColor.gray9C.cgColor
+        }.disposed(by: disposeBag)
+        
+        output.dismissKeyboard.subscribe(onNext: { textField in
+            textField.resignFirstResponder()
+        })
+        .disposed(by: disposeBag)
+    }
+}
+
+extension LoginViewController {
+    
     // MARK: - Helpers
     
-    /// 텍스트필드 사이드에 있는 X 버튼과 Eye 버튼의 visibility를 변경한다.
-    private func changeSideButtonVisibility(textField: UITextField) {
+    /// isHidden 값에 따라 텍스트필드 사이드에 있는 X 버튼과 Eye 버튼의 visibility를 변경한다.
+    private func changeSideButtonVisibility(isHidden: Bool, textField: UITextField) {
         if textField == idTextField {
-            idXButton.isHidden = false
+            idXButton.isHidden = isHidden
         } else {
-            pwXButton.isHidden = false
-            pwEyeButton.isHidden = false
+            pwXButton.isHidden = isHidden
+            pwEyeButton.isHidden = isHidden
         }
     }
     
@@ -262,117 +347,20 @@ final class LoginViewController: BaseViewController {
         self.pwTextField.text = ""
     }
     
-    // MARK: - Actions
-    
-    /// 텍스트 필드 사이드에 있는 X 버튼 클릭 시 호출되는 함수
-    /// - 해당 텍스트 필드의 내용을 지워준다.
-    /// - 내용 삭제 시 LoginButton이 비활성화 되어야 하기 때문에 changeLoginButtonStyle 함수를 false 값을 넣어 호출함.
-    @objc private func xButtonDidTap(_ sender: UIButton) {
-        if sender == idXButton {
-            idTextField.text = ""
-        } else {
-            pwTextField.text = ""
-        }
-        loginButton.activateButtonStyle(isActivate: false)
+    private func pushToWelcomeVC(id: String, nickname: String) {
+        let welcomeVC = WelcomeViewController(viewModel: WelcomeViewModel())
+        welcomeVC.id = id
+        welcomeVC.nickname = nickname
+        welcomeVC.modalPresentationStyle = .fullScreen
+        welcomeVC.modalTransitionStyle = .coverVertical
+        self.present(welcomeVC, animated: true)
     }
     
-    /// 비밀번호 텍스트 필드 사이드에 있는 Eye / Eye-Slash 버튼 클릭 시 호출되는 함수
-    /// - 1. 이미지를 변경한다. ( Eye -> Eye-Slash / Eye-Slash -> Eye )
-    /// - 2. 비밀번호 텍스트 필드의 security 여부를 변경한다.
-    @objc private func eyeButtonDidTap(_ sender: UIButton) {
-        pwEyeButton.setImage(pwTextField.isSecureTextEntry ? .eye : .eyeSlash, for: .normal)
-        pwTextField.isSecureTextEntry.toggle()
-    }
-    
-    /// 로그인하기 버튼 클릭 시 호출되는 함수
-    /// - 1. 아이디 및 비밀번호 정규식 확인 및 에러 처리
-    /// - 2. 닉네임 설정 여부 확인 및 에러 처리
-    /// - 3. 아이디, 닉네임 데이터 전달 및 화면 이동
-    @objc private func loginButtonDidTap(_ sender: UIButton) {
-        if isMatchRegex(type: .email, input: idTextField.text ?? "") && isMatchRegex(type: .password, input: pwTextField.text ?? "") {
-            guard let id = idTextField.text else { return }
-            if let nickname = nickname {
-                let welcomeVC = WelcomeViewController()
-                welcomeVC.id = id
-                welcomeVC.nickname = nickname
-                welcomeVC.modalPresentationStyle = .fullScreen
-                welcomeVC.modalTransitionStyle = .coverVertical
-                self.present(welcomeVC, animated: true)
-            } else {
-                presentAlert(title: StringLiteral.noNicknameErrTitle, message: StringLiteral.noNicknameErrMsg) {
-                    self.clearTextFields()
-                }
-            }
-        } else {
-            presentAlert(title: StringLiteral.regexErrTitle, message: StringLiteral.regexErrMsg) {
-                self.clearTextFields()
-            }
-        }
-    }
-    
-    /// idTextField와 pwTextField의 상태를 확인하는 함수
-    /// - idTextField와 pwTextField의 값이 변할 때마다 호출된다
-    /// - 해당 텍스트 필드가 isEmpty인지 아닌지에 따라 LoginButton의 스타일이 달라지게 된다
-    @objc private func checkTextFieldState() {
-        guard let idText = idTextField.text else { return }
-        guard let pwText = pwTextField.text else { return }
-        
-        loginButton.activateButtonStyle(isActivate: !(idText.isEmpty) && !(pwText.isEmpty))
-    }
-    
-    /// 닉네임 만들러가기 버튼 클릭 시 호출되는 함수
-    /// - 1. 배경에 dimmedView 추가
-    /// - 2. Bottom Sheet VC를 present
-    @objc private func makeNicknameButtonDidTap() {
-        addDimmedView()
-        
-        let bottomSheetVC = BottomSheetViewController()
+    private func presentBottomSheetVC() {
+        let bottomSheetVC = BottomSheetViewController(viewModel: BottomSheetViewModel())
         bottomSheetVC.delegate = self
         bottomSheetVC.modalPresentationStyle = .overFullScreen
         self.present(bottomSheetVC, animated: true)
-    }
-}
-
-// MARK: - UITextFieldDelegate
-
-extension LoginViewController: UITextFieldDelegate {
-    /// 텍스트 필드 내용 수정을 시작할 때 호출되는 함수
-    /// - 1. border를 활성화해준다.
-    /// - 2. 텍스트가 채워져 있으면 바로 사이드 버튼들의 visibility를 변경한다.
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if !(textField.text ?? "").isEmpty {
-            changeSideButtonVisibility(textField: textField)
-        }
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.gray9C.cgColor
-        return true
-    }
-    
-    /// 텍스트 필드 내용 수정 중일 때 호출되는 함수
-    /// - 사이드 버튼들의 visibility를 변경한다.
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        changeSideButtonVisibility(textField: textField)
-        return true
-    }
-    
-    /// 텍스트 필드 내용 수정이 끝났을 때 호출되는 함수
-    /// - border를 제거해준다.
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == idTextField {
-            idXButton.isHidden = true
-        } else {
-            pwXButton.isHidden = true
-            pwEyeButton.isHidden = true
-        }
-        textField.layer.borderWidth = 0
-        textField.layer.borderColor = nil
-    }
-    
-    /// 키보드의 return 키 클릭 시 호출되는 함수
-    /// - 키보드를 내려준다
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
 }
 
@@ -394,6 +382,6 @@ extension LoginViewController: BottomSheetDelegate {
     
     /// BottomSheetVC에서 입력받은 유저의 닉네임 데이터를 LoginVC의 nickname 변수에 저장하는 함수
     func passUserData(nickname: String) {
-        self.nickname = nickname
+        self.nickname.onNext(nickname)
     }
 }

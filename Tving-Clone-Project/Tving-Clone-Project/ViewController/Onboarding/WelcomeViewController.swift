@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class WelcomeViewController: BaseViewController {
+final class WelcomeViewController: BaseViewController<WelcomeViewModel> {
     
     // MARK: - Properties
     
