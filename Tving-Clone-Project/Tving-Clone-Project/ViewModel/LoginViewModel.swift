@@ -59,6 +59,8 @@ final class LoginViewModel: ViewModelType {
 
 extension LoginViewModel {
     
+    // MARK: - transform
+    
     func transform(from input: Input, disposeBag: DisposeBag) -> Output {
         let output = Output()
         
@@ -140,6 +142,8 @@ extension LoginViewModel {
         
         return output
     }
+    
+    // MARK: - Helpers
     
     private func isMatchRegex(type: RegexType, input: String) -> Bool {
         var regexPattern = ""

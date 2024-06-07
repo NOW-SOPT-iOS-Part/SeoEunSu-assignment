@@ -12,11 +12,6 @@ import Then
 
 final class WelcomeViewController: BaseViewController<WelcomeViewModel> {
     
-    // MARK: - Properties
-    
-    var id: String = ""
-    var nickname: String = ""
-    
     // MARK: - Components
     
     private let tvingImageView = UIImageView().then {
@@ -29,7 +24,7 @@ final class WelcomeViewController: BaseViewController<WelcomeViewModel> {
         let lineheight = 37.0
         style.minimumLineHeight = lineheight
         $0.attributedText = NSAttributedString(
-            string: nickname + StringLiteral.welcomeLabelStr,
+            string: viewModel.nickname + StringLiteral.welcomeLabelStr,
             attributes: [
                 .paragraphStyle: style
             ])
@@ -39,7 +34,7 @@ final class WelcomeViewController: BaseViewController<WelcomeViewModel> {
         $0.textColor = .grayD6
     }
     
-    private lazy var toMainButton = UIButton().then {
+    private let toMainButton = UIButton().then {
         $0.backgroundColor = .red
         $0.layer.cornerRadius = 3
         $0.setAttributedTitle(
@@ -52,7 +47,6 @@ final class WelcomeViewController: BaseViewController<WelcomeViewModel> {
             ),
             for: .normal
         )
-        $0.addTarget(self, action: #selector(toMainButtonDidTap), for: .touchUpInside)
     }
     
     // MARK: - Set UI
@@ -82,10 +76,25 @@ final class WelcomeViewController: BaseViewController<WelcomeViewModel> {
         }
     }
     
-    // MARK: - Actions
+    override func bindViewModel() {
+        let input = WelcomeViewModel.Input(
+            toMainButtonDidTap: toMainButton.rx.tap.asObservable()
+        )
+        
+        let output = viewModel.transform(from: input, disposeBag: disposeBag)
+        
+        output.presentTabBarController.subscribe(onNext: {
+            self.presentTabBarController()
+        }).disposed(by: disposeBag)
+    }
+}
+
+extension WelcomeViewController {
+    
+    // MARK: - Helpers
     
     /// 메인으로 버튼 클릭 시 호출되는 함수
-    @objc private func toMainButtonDidTap(_ sender: UIButton) {
+    private func presentTabBarController() {
         let tabBarVC = TabBarController()
         tabBarVC.modalPresentationStyle = .fullScreen
         tabBarVC.modalTransitionStyle = .crossDissolve

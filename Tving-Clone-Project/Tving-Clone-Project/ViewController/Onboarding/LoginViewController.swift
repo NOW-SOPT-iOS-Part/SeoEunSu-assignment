@@ -225,7 +225,6 @@ final class LoginViewController: BaseViewController<LoginViewModel> {
     }
     
     override func bindViewModel() {
-        // textFieldShouldBeginEditing equivalent
         let input = LoginViewModel.Input(
             textFieldBeginEditingEvent:
                 Observable.merge(
@@ -348,9 +347,7 @@ extension LoginViewController {
     }
     
     private func pushToWelcomeVC(id: String, nickname: String) {
-        let welcomeVC = WelcomeViewController(viewModel: WelcomeViewModel())
-        welcomeVC.id = id
-        welcomeVC.nickname = nickname
+        let welcomeVC = WelcomeViewController(viewModel: WelcomeViewModel(nickname: nickname))
         welcomeVC.modalPresentationStyle = .fullScreen
         welcomeVC.modalTransitionStyle = .coverVertical
         self.present(welcomeVC, animated: true)
