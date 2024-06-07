@@ -30,97 +30,15 @@ final class BottomSheetViewController: BaseViewController<BottomSheetViewModel> 
     
     // MARK: - Components
     
-    private let backgroundView = UIView()
+    private let bottomSheetView = BottomSheetView()
     
-    private let grabBarView = UIView().then {
-        $0.backgroundColor = .white2
-        $0.layer.cornerRadius = 4
-    }
+    // MARK: - Life Cycle
     
-    private let bottomSheetView = UIView().then {
-        $0.backgroundColor = .white
-        $0.layer.cornerRadius = 20
-        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        $0.clipsToBounds = true
-    }
-    
-    private let enterNicknameLabel = UILabel().then {
-        $0.text = StringLiteral.enterNicknameLabelStr
-        $0.font = .pretendard(weight: 500, size: 23)
-        $0.textColor = .black
-    }
-    
-    private let nicknameTextField = UITextField().then {
-        $0.backgroundColor = .gray9C
-        $0.font = .pretendard(weight: 600, size: 14)
-        $0.textColor = .gray2E
-        $0.attributedPlaceholder = NSAttributedString(
-            string: StringLiteral.nicknameTextFieldPlaceHolder,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.grayD6]
-        )
-        $0.layer.cornerRadius = 3
-        $0.addSidePadding(width: 25)
-    }
-    
-    private let saveButton = UIButton().then {
-        $0.backgroundColor = .black
-        $0.layer.cornerRadius = 10
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.gray2E.cgColor
-        $0.setAttributedTitle(
-            NSAttributedString(
-                string: "저장하기",
-                attributes: [
-                    .font : UIFont.pretendard(weight: 600, size: 14),
-                    .foregroundColor : UIColor.gray9C
-                ]
-            ),
-            for: .normal
-        )
-        $0.isEnabled = false
+    override func loadView() {
+        self.view = bottomSheetView
     }
     
     // MARK: - Set UI
-    
-    override func addSubview() {
-        self.view.addSubviews(
-            backgroundView,
-            grabBarView,
-            bottomSheetView,
-            enterNicknameLabel,
-            nicknameTextField,
-            saveButton
-        )
-    }
-    
-    override func setLayout() {
-        backgroundView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        bottomSheetView.snp.makeConstraints {
-            $0.left.right.bottom.equalToSuperview()
-            $0.height.equalTo(UIScreen.main.bounds.height / 2 + 20)
-        }
-        grabBarView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(bottomSheetView.snp.top).offset(-15)
-            $0.width.equalTo(56)
-            $0.height.equalTo(7)
-        }
-        enterNicknameLabel.snp.makeConstraints {
-            $0.top.equalTo(bottomSheetView).offset(50)
-            $0.left.equalTo(bottomSheetView).offset(20)
-        }
-        nicknameTextField.snp.makeConstraints {
-            $0.top.equalTo(enterNicknameLabel.snp.bottom).offset(21)
-            $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(52)
-        }
-        saveButton.snp.makeConstraints {
-            $0.left.right.bottom.equalToSuperview().inset(20)
-            $0.height.equalTo(52)
-        }
-    }
     
     override func setStyle() {
         self.view.backgroundColor = .clear
@@ -130,37 +48,37 @@ final class BottomSheetViewController: BaseViewController<BottomSheetViewModel> 
 
     override func bindViewModel() {
         let input = BottomSheetViewModel.Input(
-            textFieldBeginEditingEvent: nicknameTextField.rx.controlEvent(.editingDidBegin).asObservable(),
-            textFieldIsEditingEvent: nicknameTextField.rx.controlEvent(.editingChanged).map { self.nicknameTextField },
-            textFieldDidEndEditingEvent: nicknameTextField.rx.controlEvent(.editingDidEnd).asObservable(),
-            returnKeyDidTapEvent: nicknameTextField.rx.controlEvent(.editingDidEndOnExit).asObservable(),
-            saveButtonDidTapEvent: saveButton.rx.tap.asObservable(), 
-            backgroundViewDidTapEvent: backgroundView.rx.tapGesture().asObservable()
+            textFieldBeginEditingEvent: bottomSheetView.nicknameTextField.rx.controlEvent(.editingDidBegin).asObservable(),
+            textFieldIsEditingEvent: bottomSheetView.nicknameTextField.rx.controlEvent(.editingChanged).map { self.bottomSheetView.nicknameTextField },
+            textFieldDidEndEditingEvent: bottomSheetView.nicknameTextField.rx.controlEvent(.editingDidEnd).asObservable(),
+            returnKeyDidTapEvent: bottomSheetView.nicknameTextField.rx.controlEvent(.editingDidEndOnExit).asObservable(),
+            saveButtonDidTapEvent: bottomSheetView.saveButton.rx.tap.asObservable(),
+            backgroundViewDidTapEvent: bottomSheetView.backgroundView.rx.tapGesture().asObservable()
         )
         
         let output = viewModel.transform(from: input, disposeBag: disposeBag)
         
         output.isBorderVisible.subscribe(onNext: { isVisible in
-            self.nicknameTextField.changeBorderVisibility(isVisible: isVisible, color: UIColor.black.cgColor)
+            self.bottomSheetView.nicknameTextField.changeBorderVisibility(isVisible: isVisible, color: UIColor.black.cgColor)
         }).disposed(by: disposeBag)
         
         output.isButtonActive.subscribe(onNext: { isActive in
-            self.saveButton.activateButtonStyle(isActivate: isActive)
+            self.bottomSheetView.saveButton.activateButtonStyle(isActivate: isActive)
         }).disposed(by: disposeBag)
         
         output.dismissKeyboard.subscribe(onNext: {
-            self.nicknameTextField.resignFirstResponder()
+            self.bottomSheetView.nicknameTextField.resignFirstResponder()
         }).disposed(by: disposeBag)
         
         output.validNickname.subscribe(onNext: { [self] in
             delegate?.removeDimmedView()
-            delegate?.passUserData(nickname: nicknameTextField.text ?? "")
+            delegate?.passUserData(nickname: bottomSheetView.nicknameTextField.text ?? "")
             dismiss(animated: true)
         }).disposed(by: disposeBag)
         
         output.nicknameRegexErr.subscribe(onNext: {
             self.presentAlert(title: StringLiteral.nicknameRegexErrTitle, message: StringLiteral.nicknameRegexErrMsg) {
-                self.nicknameTextField.text = ""
+                self.bottomSheetView.nicknameTextField.text = ""
             }
         }).disposed(by: disposeBag)
         

@@ -74,6 +74,7 @@
 		A2E99BE62C1333770063A02F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BE52C1333770063A02F /* LoginView.swift */; };
 		A2E99BE82C1333C30063A02F /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BE72C1333C30063A02F /* BaseView.swift */; };
 		A2E99BEA2C1337980063A02F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BE92C1337980063A02F /* WelcomeView.swift */; };
+		A2E99BEC2C1339920063A02F /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BEB2C1339920063A02F /* BottomSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +138,7 @@
 		A2E99BE52C1333770063A02F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A2E99BE72C1333C30063A02F /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		A2E99BE92C1337980063A02F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		A2E99BEB2C1339920063A02F /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -429,6 +431,7 @@
 				A2E99BDF2C132AA20063A02F /* Component */,
 				A2E99BE52C1333770063A02F /* LoginView.swift */,
 				A2E99BE92C1337980063A02F /* WelcomeView.swift */,
+				A2E99BEB2C1339920063A02F /* BottomSheetView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				A2D639902BCEBEC6000DAE80 /* WelcomeViewController.swift in Sources */,
 				A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */,
 				A29F9C962BEDB4A30030F957 /* Secret.swift in Sources */,
+				A2E99BEC2C1339920063A02F /* BottomSheetView.swift in Sources */,
 				A29F9CB12BEDBC820030F957 /* BoxOfficeResModel.swift in Sources */,
 				A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */,
 				A2306D7A2BE11B1600FD78D3 /* HeaderView.swift in Sources */,
