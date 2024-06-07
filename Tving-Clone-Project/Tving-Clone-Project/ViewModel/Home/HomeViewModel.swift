@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  HomeViewModel.swift
 //  Tving-Clone-Project
 //
 //  Created by 서은수 on 6/6/24.
@@ -11,7 +11,7 @@ import RxCocoa
 import RxRelay
 import RxSwift
 
-final class MainViewModel: ViewModelType {
+final class HomeViewModel: ViewModelType {
     
     // MARK: - Properties
     
@@ -48,7 +48,7 @@ final class MainViewModel: ViewModelType {
     }
 }
 
-extension MainViewModel {
+extension HomeViewModel {
     
     // MARK: - transform
     

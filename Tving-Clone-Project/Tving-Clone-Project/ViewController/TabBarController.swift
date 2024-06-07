@@ -24,12 +24,12 @@ final class TabBarController: UITabBarController {
     /// 티빙의 기본 하단 탭바를 생성
     /// 홈, 공개예정, 검색, 기록 총 4개의 탭바로 구성
     private func createDefaultTabBar() {
-        let mainVC = MainViewController(viewModel: MainViewModel())
+        let homeVC = HomeViewController(viewModel: HomeViewModel())
         configTabBar(
             title: StringLiteral.homeStr,
             tabImgName: StringLiteral.homeImgName,
             tabUnselectedImgName: StringLiteral.homeUnselectedImgName,
-            vc: mainVC
+            vc: homeVC
         )
         let boxOfficeVC = BoxOfficeViewController(viewModel: BoxOfficeViewModel())
         configTabBar(
@@ -53,7 +53,7 @@ final class TabBarController: UITabBarController {
             vc: fourthVC
         )
         
-        self.viewControllers = [mainVC, boxOfficeVC, thirdVC, fourthVC]
+        self.viewControllers = [homeVC, boxOfficeVC, thirdVC, fourthVC]
     }
     
     /// 탭바 설정

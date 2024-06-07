@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  HomeViewController.swift
 //  Tving-Clone-Project
 //
 //  Created by 서은수 on 4/27/24.
@@ -19,7 +19,7 @@ struct Tab {
 }
 
 /// 티빙 메인 화면
-final class MainViewController: BaseViewController<MainViewModel> {
+final class HomeViewController: BaseViewController<HomeViewModel> {
     
     // MARK: - Properties
     
@@ -144,7 +144,7 @@ final class MainViewController: BaseViewController<MainViewModel> {
     // MARK: - bindViewModel
     
     override func bindViewModel() {
-        let input = MainViewModel.Input(viewWillAppearEvent: self.rx.viewWillAppear.asObservable())
+        let input = HomeViewModel.Input(viewWillAppearEvent: self.rx.viewWillAppear.asObservable())
         let output = viewModel.transform(from: input, disposeBag: disposeBag)
         
         output.bigPosters.subscribe { bigPosters in
@@ -165,7 +165,7 @@ final class MainViewController: BaseViewController<MainViewModel> {
     }
 }
 
-extension MainViewController {
+extension HomeViewController {
     
     // MARK: - Helpers
     
@@ -285,7 +285,7 @@ extension MainViewController {
 
 // MARK: - UIScrollViewDelegate
 
-extension MainViewController: UIScrollViewDelegate {
+extension HomeViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         print(scrollView.contentOffset.y, bufferView.frame.minY)
@@ -314,7 +314,7 @@ extension MainViewController: UIScrollViewDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension MainViewController: UICollectionViewDataSource {
+extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
@@ -396,7 +396,7 @@ extension MainViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension MainViewController: UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView.tag == 1 {

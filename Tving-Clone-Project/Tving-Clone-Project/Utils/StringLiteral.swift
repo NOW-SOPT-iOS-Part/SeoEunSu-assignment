@@ -53,7 +53,7 @@ struct StringLiteral {
     static var welcomeLabelStr = "님\n반가워요!"
     static var toMainButtonStr = "메인으로"
     
-    // 티빙 메인 화면
+    // 티빙 홈 화면
     static var liveStr = "실시간"
     static var tvProgramStr = "TV프로그램"
     static var movieStr = "영화"
@@ -71,7 +71,7 @@ struct StringLiteral {
     static var serverErr = "서버 오류입니다"
     static var networkFailErr = "네트워크 오류입니다"
     
-    // 메인 화면 헤더
+    // 홈 화면 헤더
     static var emptyHeaderStr = ""
     static var contentsHeaderStr = "티빙에서 꼭 봐야하는 콘텐츠"
     static var popularLiveHeaderStr = "인기 LIVE 채널"

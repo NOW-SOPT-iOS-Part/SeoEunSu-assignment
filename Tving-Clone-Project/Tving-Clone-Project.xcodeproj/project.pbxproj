@@ -21,7 +21,7 @@
 		A20456CB2C11C078000F5D1A /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456CA2C11C078000F5D1A /* WelcomeViewModel.swift */; };
 		A20456CD2C11C083000F5D1A /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456CC2C11C083000F5D1A /* BottomSheetViewModel.swift */; };
 		A20456CF2C11C08F000F5D1A /* BoxOfficeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456CE2C11C08F000F5D1A /* BoxOfficeViewModel.swift */; };
-		A20456D12C11C097000F5D1A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456D02C11C097000F5D1A /* MainViewModel.swift */; };
+		A20456D12C11C097000F5D1A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20456D02C11C097000F5D1A /* HomeViewModel.swift */; };
 		A2306D742BDF99CA00FD78D3 /* LiveCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */; };
 		A2306D762BDF99E600FD78D3 /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */; };
 		A2306D782BDF99F800FD78D3 /* BaseballCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */; };
@@ -33,7 +33,7 @@
 		A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */; };
 		A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289F2B92BD190ED00AF50BF /* UIButton+.swift */; };
 		A289F2BC2BD1B05F00AF50BF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */; };
-		A293D31B2BDC12E4007CA9DC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293D31A2BDC12E4007CA9DC /* MainViewController.swift */; };
+		A293D31B2BDC12E4007CA9DC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293D31A2BDC12E4007CA9DC /* HomeViewController.swift */; };
 		A293D31D2BDC161E007CA9DC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293D31C2BDC161E007CA9DC /* TabBarController.swift */; };
 		A29F9C942BED75AA0030F957 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9C932BED75AA0030F957 /* UIView+.swift */; };
 		A29F9C962BEDB4A30030F957 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F9C952BEDB4A30030F957 /* Secret.swift */; };
@@ -88,7 +88,7 @@
 		A20456CA2C11C078000F5D1A /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		A20456CC2C11C083000F5D1A /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
 		A20456CE2C11C08F000F5D1A /* BoxOfficeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeViewModel.swift; sourceTree = "<group>"; };
-		A20456D02C11C097000F5D1A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		A20456D02C11C097000F5D1A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A2306D732BDF99CA00FD78D3 /* LiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2306D752BDF99E600FD78D3 /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2306D772BDF99F800FD78D3 /* BaseballCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseballCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		A236F8F82BD05470007B90D8 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		A289F2B92BD190ED00AF50BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A289F2BB2BD1B05F00AF50BF /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
-		A293D31A2BDC12E4007CA9DC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A293D31A2BDC12E4007CA9DC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A293D31C2BDC161E007CA9DC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		A29F9C932BED75AA0030F957 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		A29F9C952BEDB4A30030F957 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 			children = (
 				A20456BD2C11AE91000F5D1A /* ViewModelType.swift */,
 				A2E99BDC2C1320200063A02F /* Onboarding */,
-				A2E99BDD2C1320280063A02F /* Main */,
+				A2E99BDD2C1320280063A02F /* Home */,
 				A2E99BDE2C13202E0063A02F /* BoxOffice */,
 			);
 			path = ViewModel;
@@ -281,12 +281,12 @@
 			path = BoxOffice;
 			sourceTree = "<group>";
 		};
-		A29F9CB52BEDC3F00030F957 /* Main */ = {
+		A29F9CB52BEDC3F00030F957 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				A293D31A2BDC12E4007CA9DC /* MainViewController.swift */,
+				A293D31A2BDC12E4007CA9DC /* HomeViewController.swift */,
 			);
-			path = Main;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		A29F9CB62BEDC3F90030F957 /* BoxOffice */ = {
@@ -355,7 +355,7 @@
 			children = (
 				A293D31C2BDC161E007CA9DC /* TabBarController.swift */,
 				A29F9CB22BEDC3B60030F957 /* Onboarding */,
-				A29F9CB52BEDC3F00030F957 /* Main */,
+				A29F9CB52BEDC3F00030F957 /* Home */,
 				A29F9CB62BEDC3F90030F957 /* BoxOffice */,
 			);
 			path = ViewController;
@@ -401,12 +401,12 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		A2E99BDD2C1320280063A02F /* Main */ = {
+		A2E99BDD2C1320280063A02F /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				A20456D02C11C097000F5D1A /* MainViewModel.swift */,
+				A20456D02C11C097000F5D1A /* HomeViewModel.swift */,
 			);
-			path = Main;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		A2E99BDE2C13202E0063A02F /* BoxOffice */ = {
@@ -432,6 +432,7 @@
 				A2E99BDF2C132AA20063A02F /* Component */,
 				A21172CB2BDC3F0400FEA8CA /* Cell */,
 				A2E99BED2C133BFF0063A02F /* Onboarding */,
+				A2E99BF12C133D500063A02F /* Home */,
 				A2E99BEE2C133C770063A02F /* BoxOffice */,
 			);
 			path = View;
@@ -453,6 +454,13 @@
 				A2E99BEF2C133C850063A02F /* BoxOfficeView.swift */,
 			);
 			path = BoxOffice;
+			sourceTree = "<group>";
+		};
+		A2E99BF12C133D500063A02F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -594,11 +602,11 @@
 				A289F2BA2BD190ED00AF50BF /* UIButton+.swift in Sources */,
 				A2E99BDB2C131F070063A02F /* UIViewController+Rx.swift in Sources */,
 				A29F9C9C2BEDB7950030F957 /* NSObject+.swift in Sources */,
-				A293D31B2BDC12E4007CA9DC /* MainViewController.swift in Sources */,
+				A293D31B2BDC12E4007CA9DC /* HomeViewController.swift in Sources */,
 				A20456BE2C11AE91000F5D1A /* ViewModelType.swift in Sources */,
 				A29F9CAB2BEDBC710030F957 /* BoxOfficeService.swift in Sources */,
 				A2306D7F2BE11C5200FD78D3 /* LiveProgram.swift in Sources */,
-				A20456D12C11C097000F5D1A /* MainViewModel.swift in Sources */,
+				A20456D12C11C097000F5D1A /* HomeViewModel.swift in Sources */,
 				A29F9CA62BEDBC5C0030F957 /* NetworkResult.swift in Sources */,
 				A2E99BEA2C1337980063A02F /* WelcomeView.swift in Sources */,
 			);
