@@ -71,6 +71,8 @@
 		A2E99BDB2C131F070063A02F /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BDA2C131F070063A02F /* UIViewController+Rx.swift */; };
 		A2E99BE12C132AE10063A02F /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BE02C132AE10063A02F /* LoginTextField.swift */; };
 		A2E99BE32C132D430063A02F /* FindInfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BE22C132D430063A02F /* FindInfoButton.swift */; };
+		A2E99BE62C1333770063A02F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BE52C1333770063A02F /* LoginView.swift */; };
+		A2E99BE82C1333C30063A02F /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E99BE72C1333C30063A02F /* BaseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +133,8 @@
 		A2E99BDA2C131F070063A02F /* UIViewController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Rx.swift"; sourceTree = "<group>"; };
 		A2E99BE02C132AE10063A02F /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		A2E99BE22C132D430063A02F /* FindInfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindInfoButton.swift; sourceTree = "<group>"; };
+		A2E99BE52C1333770063A02F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A2E99BE72C1333C30063A02F /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +163,7 @@
 				A20456B12C117588000F5D1A /* BaseViewController.swift */,
 				A20456B32C117B2B000F5D1A /* BaseCollectionViewCell.swift */,
 				A20456B52C118C01000F5D1A /* BaseTableViewCell.swift */,
+				A2E99BE72C1333C30063A02F /* BaseView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -319,8 +324,8 @@
 				A29F9CA02BEDBC090030F957 /* Network */,
 				A2306D7B2BE11BF500FD78D3 /* Model */,
 				A20456BA2C11AC0A000F5D1A /* ViewModel */,
+				A2E99BE42C1333660063A02F /* View */,
 				A2D6396C2BCE3681000DAE80 /* ViewController */,
-				A2E99BDF2C132AA20063A02F /* Component */,
 				A21172CB2BDC3F0400FEA8CA /* Cell */,
 				A20456B72C118E39000F5D1A /* Utils */,
 				A2D639802BCE38A6000DAE80 /* Extensions */,
@@ -414,6 +419,15 @@
 				A2E99BE22C132D430063A02F /* FindInfoButton.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		A2E99BE42C1333660063A02F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A2E99BDF2C132AA20063A02F /* Component */,
+				A2E99BE52C1333770063A02F /* LoginView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -516,6 +530,7 @@
 				A2D639822BCE38B3000DAE80 /* UIFont+.swift in Sources */,
 				A2306D782BDF99F800FD78D3 /* BaseballCollectionViewCell.swift in Sources */,
 				A236F8F92BD05470007B90D8 /* BottomSheetViewController.swift in Sources */,
+				A2E99BE62C1333770063A02F /* LoginView.swift in Sources */,
 				A29F9CA72BEDBC5C0030F957 /* MoyaLoggingPlugin.swift in Sources */,
 				A2E99BE12C132AE10063A02F /* LoginTextField.swift in Sources */,
 				A20456CF2C11C08F000F5D1A /* BoxOfficeViewModel.swift in Sources */,
@@ -531,6 +546,7 @@
 				A29F9C942BED75AA0030F957 /* UIView+.swift in Sources */,
 				A2D639582BCE2FAE000DAE80 /* AppDelegate.swift in Sources */,
 				A20456B62C118C01000F5D1A /* BaseTableViewCell.swift in Sources */,
+				A2E99BE82C1333C30063A02F /* BaseView.swift in Sources */,
 				A2306D742BDF99CA00FD78D3 /* LiveCollectionViewCell.swift in Sources */,
 				A20456B22C117588000F5D1A /* BaseViewController.swift in Sources */,
 				A20456CB2C11C078000F5D1A /* WelcomeViewModel.swift in Sources */,

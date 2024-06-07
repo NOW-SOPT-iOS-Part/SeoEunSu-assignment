@@ -20,165 +20,17 @@ final class LoginViewController: BaseViewController<LoginViewModel> {
     
     // MARK: - Components
     
-    private let idLoginLabel = UILabel().then {
-        $0.text = StringLiteral.idLoginLabelStr
-        $0.font = .pretendard(weight: 500, size: 23)
-        $0.textColor = .grayD6
-    }
-    
-    private let idTextField = LoginTextField(placeHolder: StringLiteral.idTextFieldPlaceHolder)
-    
-    private let idXButton = UIButton().then {
-        $0.setImage(.xCircle, for: .normal)
-        $0.isHidden = true
-    }
-    
-    private let pwTextField = LoginTextField(placeHolder: StringLiteral.pwTextFieldPlaceHolder).then {
-        $0.isSecureTextEntry = true
-    }
-    
-    private let pwXButton = UIButton().then {
-        $0.setImage(.xCircle, for: .normal)
-        $0.isHidden = true
-    }
-    
-    private let pwEyeButton = UIButton().then {
-        $0.setImage(.eyeSlash, for: .normal)
-        $0.contentMode = .scaleToFill
-        $0.isHidden = true
-    }
-    
-    private let loginButton = UIButton().then {
-        $0.backgroundColor = .black
-        $0.layer.cornerRadius = 3
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.gray2E.cgColor
-        $0.setAttributedTitle(
-            NSAttributedString(
-                string: StringLiteral.loginButtonStr,
-                attributes: [
-                    .font : UIFont.pretendard(weight: 600, size: 14),
-                    .foregroundColor : UIColor.gray9C
-                ]
-            ),
-            for: .normal
-        )
-        $0.isEnabled = false
-    }
-    
-    private let findIdButton = FindInfoButton(title: StringLiteral.findIdButtonStr)
-    
-    private let separatorView = UIView().then {
-        $0.backgroundColor = .gray2E
-        $0.snp.makeConstraints {
-            $0.width.equalTo(1)
-            $0.height.equalTo(12)
-        }
-    }
-    
-    private let findPwButton = FindInfoButton(title: StringLiteral.findPwButtonStr)
-    
-    private lazy var findButtonStackView = UIStackView(arrangedSubviews: [findIdButton, separatorView, findPwButton]).then {
-        $0.axis = .horizontal
-        $0.spacing = 34
-        $0.alignment = .center
-        $0.distribution = .equalSpacing
-    }
-    
-    private let guideLabel = UILabel().then {
-        $0.text = StringLiteral.noAccountGuideLabelStr
-        $0.font = .pretendard(weight: 600, size: 14)
-        $0.textColor = .gray62
-    }
-    
-    private let makeNicknameButton = UIButton().then {
-        $0.configuration = .plain()
-        $0.setAttributedTitle(
-            NSAttributedString(
-                string: StringLiteral.makeNicknameButtonStr,
-                attributes: [
-                    .font : UIFont.pretendard(weight: 400, size: 14),
-                    .foregroundColor : UIColor.gray9C,
-                    .underlineStyle : NSUnderlineStyle.single.rawValue
-                ]
-            ),
-            for: .normal
-        )
-    }
-    
-    private lazy var guideButtonStackView = UIStackView(arrangedSubviews: [guideLabel, makeNicknameButton]).then {
-        $0.axis = .horizontal
-        $0.spacing = 30
-        $0.alignment = .center
-        $0.distribution = .equalSpacing
-    }
+    private let loginView = LoginView()
     
     /// Bottom Sheet가 present 될 때 추가되는 어두운 배경 뷰
     private let dimmedView = UIView().then {
         $0.backgroundColor = .black.withAlphaComponent(0.5)
     }
     
-    // MARK: - Set UI
+    // MARK: - Life Cycle
     
-    override func addSubview() {
-        self.view.addSubviews(
-            idLoginLabel,
-            idTextField,
-            idXButton,
-            pwTextField,
-            pwXButton,
-            pwEyeButton,
-            loginButton,
-            findButtonStackView,
-            guideButtonStackView
-        )
-    }
-    
-    override func setLayout() {
-        idLoginLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(90)
-        }
-        idTextField.snp.makeConstraints {
-            $0.top.equalTo(idLoginLabel.snp.bottom).offset(31)
-            $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(52)
-        }
-        idXButton.snp.makeConstraints {
-            $0.centerY.equalTo(idTextField)
-            $0.right.equalTo(idTextField).offset(-20)
-            $0.width.height.equalTo(20)
-        }
-        pwTextField.snp.makeConstraints {
-            $0.top.equalTo(idTextField.snp.bottom).offset(7)
-            $0.left.right.equalTo(idTextField)
-            $0.height.equalTo(idTextField)
-        }
-        pwEyeButton.snp.makeConstraints {
-            $0.centerY.equalTo(pwTextField)
-            $0.right.equalTo(pwTextField).offset(-20)
-            $0.width.height.equalTo(20)
-        }
-        pwXButton.snp.makeConstraints {
-            $0.centerY.equalTo(pwEyeButton)
-            $0.right.equalTo(pwEyeButton.snp.left).offset(-16)
-            $0.width.height.equalTo(20)
-        }
-        loginButton.snp.makeConstraints {
-            $0.top.equalTo(pwTextField.snp.bottom).offset(21)
-            $0.left.right.equalTo(pwTextField)
-            $0.height.equalTo(pwTextField)
-        }
-        findButtonStackView.snp.makeConstraints {
-            $0.top.equalTo(loginButton.snp.bottom).offset(31)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(22)
-        }
-        guideButtonStackView.snp.makeConstraints {
-            $0.top.equalTo(findButtonStackView.snp.bottom).offset(28)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(22)
-        }
+    override func loadView() {
+        self.view = loginView
     }
     
     // MARK: - bindViewModel
@@ -187,62 +39,62 @@ final class LoginViewController: BaseViewController<LoginViewModel> {
         let input = LoginViewModel.Input(
             textFieldBeginEditingEvent:
                 Observable.merge(
-                    idTextField.rx.controlEvent(.editingDidBegin).map { self.idTextField },
-                    pwTextField.rx.controlEvent(.editingDidBegin).map { self.pwTextField }
+                    loginView.idTextField.rx.controlEvent(.editingDidBegin).map { self.loginView.idTextField },
+                    loginView.pwTextField.rx.controlEvent(.editingDidBegin).map { self.loginView.pwTextField }
                 ),
             textFieldIsEditingEvent:
                 Observable.merge(
-                    idTextField.rx.controlEvent(.editingChanged).map { self.idTextField },
-                    pwTextField.rx.controlEvent(.editingChanged).map { self.pwTextField }
+                    loginView.idTextField.rx.controlEvent(.editingChanged).map { self.loginView.idTextField },
+                    loginView.pwTextField.rx.controlEvent(.editingChanged).map { self.loginView.pwTextField }
                 ),
             textFieldDidEndEditingEvent:
                 Observable.merge(
-                    idTextField.rx.controlEvent(.editingDidEnd).map { self.idTextField },
-                    pwTextField.rx.controlEvent(.editingDidEnd).map { self.pwTextField }
+                    loginView.idTextField.rx.controlEvent(.editingDidEnd).map { self.loginView.idTextField },
+                    loginView.pwTextField.rx.controlEvent(.editingDidEnd).map { self.loginView.pwTextField }
                 ),
             returnKeyDidTapEvent:
                 Observable.merge(
-                    idTextField.rx.controlEvent(.editingDidEndOnExit).map { self.idTextField },
-                    pwTextField.rx.controlEvent(.editingDidEndOnExit).map { self.pwTextField }
+                    loginView.idTextField.rx.controlEvent(.editingDidEndOnExit).map { [self] in loginView.idTextField },
+                    loginView.pwTextField.rx.controlEvent(.editingDidEndOnExit).map { [self] in loginView.pwTextField }
                 ),
             nicknameDidChangeEvent: nickname.asObservable(),
-            loginButtonDidTapEvent: loginButton.rx.tap.asObservable(),
-            idXButtonDidTapEvent: idXButton.rx.tap.map { self.idXButton },
-            pwXButtonDidTapEvent: pwXButton.rx.tap.map { self.pwXButton },
-            makeNicknameButtonDidTapEvent: makeNicknameButton.rx.tap.asObservable(),
-            eyeButtonDidTapEvent: pwEyeButton.rx.tap.asObservable()
+            loginButtonDidTapEvent: loginView.loginButton.rx.tap.asObservable(),
+            idXButtonDidTapEvent: loginView.idXButton.rx.tap.map { [self] in loginView.idXButton },
+            pwXButtonDidTapEvent: loginView.pwXButton.rx.tap.map { [self] in loginView.pwXButton },
+            makeNicknameButtonDidTapEvent: loginView.makeNicknameButton.rx.tap.asObservable(),
+            eyeButtonDidTapEvent: loginView.pwEyeButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(from: input, disposeBag: disposeBag)
         
         output.validLoginNickname.subscribe(onNext: { [self] nickname in
-            self.pushToWelcomeVC(id: self.idTextField.text!, nickname: nickname)
+            pushToWelcomeVC(id: loginView.idTextField.text!, nickname: nickname)
         }).disposed(by: disposeBag)
         
         output.noNicknameErr.subscribe(onNext: { [self] _ in
             presentAlert(title: StringLiteral.noNicknameErrTitle, message: StringLiteral.noNicknameErrMsg) {
-                self.clearTextFields()
+                self.loginView.clearTextFields()
             }
         }).disposed(by: disposeBag)
         
         output.regexErr.subscribe(onNext: { [self] _ in
             presentAlert(title: StringLiteral.regexErrTitle, message: StringLiteral.regexErrMsg) {
-                self.clearTextFields()
+                self.loginView.clearTextFields()
             }
         }).disposed(by: disposeBag)
         
         output.clearIdTextField.subscribe { [self] _ in
-            idTextField.text = ""
-            idTextField.sendActions(for: .editingChanged)
+            loginView.idTextField.text = ""
+            loginView.idTextField.sendActions(for: .editingChanged)
         }.disposed(by: disposeBag)
         
         output.clearPwTextField.subscribe { [self] _ in
-            pwTextField.text = ""
-            pwTextField.sendActions(for: .editingChanged)
+            loginView.pwTextField.text = ""
+            loginView.pwTextField.sendActions(for: .editingChanged)
         }.disposed(by: disposeBag)
         
         output.isLoginButtonActive.subscribe { [self] isActive in
-            loginButton.activateButtonStyle(isActivate: isActive)
+            loginView.loginButton.activateButtonStyle(isActivate: isActive)
         }.disposed(by: disposeBag)
         
         output.presentBottomSheet.subscribe { [self] _ in
@@ -251,12 +103,12 @@ final class LoginViewController: BaseViewController<LoginViewModel> {
         }.disposed(by: disposeBag)
         
         output.changeSecurity.subscribe { [self] _ in
-            pwEyeButton.setImage(pwTextField.isSecureTextEntry ? .eye : .eyeSlash, for: .normal)
-            pwTextField.isSecureTextEntry.toggle()
+            loginView.pwEyeButton.setImage(loginView.pwTextField.isSecureTextEntry ? .eye : .eyeSlash, for: .normal)
+            loginView.pwTextField.isSecureTextEntry.toggle()
         }.disposed(by: disposeBag)
         
         output.isSideButtonVisible.subscribe(onNext: { [self] isVisible, textField in
-            changeSideButtonVisibility(isVisible: isVisible, textField: textField)
+            loginView.changeSideButtonVisibility(isVisible: isVisible, textField: textField)
         }).disposed(by: disposeBag)
         
         output.isBorderVisible.subscribe { isVisible, textField in
@@ -274,16 +126,6 @@ extension LoginViewController {
     
     // MARK: - Helpers
     
-    /// isVisible 값에 따라 텍스트필드 사이드에 있는 X 버튼과 Eye 버튼의 isHidden 값을 변경한다.
-    private func changeSideButtonVisibility(isVisible: Bool, textField: UITextField) {
-        if textField == idTextField {
-            idXButton.isHidden = !isVisible
-        } else {
-            pwXButton.isHidden = !isVisible
-            pwEyeButton.isHidden = !isVisible
-        }
-    }
-    
     /// 배경에 dimmedView를 추가하는 함수
     /// - 1. animate를 통해 서서히 추가되는 것 같은 효과 제공
     /// - 2. animation 끝나면 서브뷰로 추가 및 레이아웃 설정
@@ -296,12 +138,6 @@ extension LoginViewController {
                 $0.edges.equalToSuperview()
             }
         }
-    }
-    
-    /// id, pw 텍스트필드 비워주는 함수
-    private func clearTextFields() {
-        self.idTextField.text = ""
-        self.pwTextField.text = ""
     }
     
     private func pushToWelcomeVC(id: String, nickname: String) {
