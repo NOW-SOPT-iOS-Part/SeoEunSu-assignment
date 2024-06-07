@@ -10,11 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class HeaderView: UICollectionReusableView {
-    
-    // MARK: - Properties
-    
-    static let identifier = "HeaderView"
+final class HeaderView: UICollectionReusableView {
     
     // MARK: - Components
     
@@ -25,13 +21,13 @@ class HeaderView: UICollectionReusableView {
     }
     
     private let fullViewLabel = UILabel().then {
-        $0.text = "전체보기"
+        $0.text = StringLiteral.fullViewStr
         $0.font = .pretendard(weight: 500, size: 11)
         $0.textColor = .gray9C
     }
     
     private let fullViewButton = UIButton().then {
-        $0.setImage(.init(systemName: "chevron.right"), for: .normal)
+        $0.setImage(.init(systemName: StringLiteral.rightArrowImgName), for: .normal)
         $0.tintColor = .gray9C
     }
     
@@ -43,9 +39,10 @@ class HeaderView: UICollectionReusableView {
     }
     
     // MARK: - Init
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setLayout()
     }
     
@@ -53,8 +50,11 @@ class HeaderView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension HeaderView {
     
-    // MARK: - Helpers
+    // MARK: - Set UI
     
     private func setLayout() {
         addSubviews(
@@ -73,6 +73,8 @@ class HeaderView: UICollectionReusableView {
             $0.trailing.equalToSuperview()
         }
     }
+    
+    // MARK: - Helpers
     
     /// 더미 데이터를 뷰에 연결
     func fetchData(_ data: String) {
