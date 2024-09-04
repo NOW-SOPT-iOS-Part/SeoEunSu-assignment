@@ -10,48 +10,28 @@ import UIKit
 import SnapKit
 import Then
 
-class BoxOfficeTableViewCell: UITableViewCell {
-    
-    // MARK: - Properties
-    
-    static let identifier = NSObject.className
+final class BoxOfficeTableViewCell: BaseTableViewCell {
     
     // MARK: - Components
     
-    let rankLabel = UILabel().then {
-        $0.text = "1"
+    private let rankLabel = UILabel().then {
         $0.font = .pretendard(weight: 700, size: 18)
         $0.textColor = .white
     }
     
-    let movieTitleLabel = UILabel().then {
-        $0.text = "범죄도시4"
+    private let movieTitleLabel = UILabel().then {
         $0.font = .pretendard(weight: 500, size: 15)
         $0.textColor = .white
     }
     
-    let openDateLabel = UILabel().then {
-        $0.text = "개봉일: 2024-04-24"
+    private let openDateLabel = UILabel().then {
         $0.font = .pretendard(weight: 400, size: 15)
         $0.textColor = .white
     }
     
-    // MARK: - Init
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        contentView.backgroundColor = .black
-        setLayout()
-    }
+    // MARK: - Set UI
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Helpers
-    
-    private func setLayout() {
+    override func setLayout() {
         contentView.addSubviews(
             rankLabel,
             movieTitleLabel,
@@ -72,9 +52,10 @@ class BoxOfficeTableViewCell: UITableViewCell {
     }
 }
 
-// MARK: - Extension
-
 extension BoxOfficeTableViewCell {
+    
+    // MARK: - Helpers
+    
     func dataBind(_ boxOfficeData: DailyBoxOffice) {
         rankLabel.text = boxOfficeData.rank
         movieTitleLabel.text = boxOfficeData.movieNm

@@ -11,11 +11,7 @@ import SnapKit
 import Then
 
 /// 상단의 탭(홈, 실시간, ...) 컬렉션뷰
-final class TabControlCollectionViewCell: UICollectionViewCell {
-    
-    // MARK: - Properties
-    
-    static let identifier = "TabControlCollectionViewCell"
+final class TabControlCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Components
     
@@ -47,22 +43,25 @@ final class TabControlCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Helpers
+    // MARK: - Set UI
     
-    private func setLayout() {
+    override func setLayout() {
         contentView.addSubviews(
             tabNameLabel,
             bottomView
         )
+        
         tabNameLabel.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
+            $0.top.leading.equalToSuperview()
         }
         bottomView.snp.makeConstraints {
             $0.top.equalTo(tabNameLabel.snp.bottom).offset(10)
-            $0.horizontalEdges.equalToSuperview()
+            $0.horizontalEdges.equalTo(tabNameLabel)
             $0.height.equalTo(3)
         }
     }
+    
+    // MARK: - Helpers
     
     /// 더미 데이터를 뷰에 연결
     func fetchData(model: Tab) {
@@ -74,7 +73,7 @@ final class TabControlCollectionViewCell: UICollectionViewCell {
     
     /// 홈 말고 다른 애들 바텀 밑줄 뷰 숨기기
     func hideOtherTabs() {
-        if tabNameLabel.text != "홈" {
+        if tabNameLabel.text != StringLiteral.homeStr {
             bottomView.isHidden = true
         }
     }

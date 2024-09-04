@@ -11,11 +11,7 @@ import SnapKit
 import Then
 
 /// PageControl이 있는 첫번째 섹션의 푸터뷰
-class FooterView: UICollectionReusableView {
-    
-    // MARK: - Properties
-    
-    static let identifier = "FooterView"
+final class FooterView: UICollectionReusableView {
     
     // MARK: - Components
     
@@ -26,7 +22,7 @@ class FooterView: UICollectionReusableView {
     }
     
     // MARK: - Init
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -37,8 +33,11 @@ class FooterView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension FooterView {
     
-    // MARK: - Helpers
+    // MARK: - Set UI
     
     private func setLayout() {
         addSubviews(pageControl)
@@ -48,6 +47,8 @@ class FooterView: UICollectionReusableView {
             $0.leading.equalToSuperview().offset(-24)
         }
     }
+    
+    // MARK: - Helpers
     
     func config(num: Int) {
         pageControl.numberOfPages = num

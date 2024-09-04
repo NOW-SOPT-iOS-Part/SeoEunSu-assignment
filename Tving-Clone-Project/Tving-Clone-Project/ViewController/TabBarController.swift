@@ -7,30 +7,6 @@
 
 import UIKit
 
-/// 탭바 타이틀 타입
-enum TabBarTitleType: String {
-    case home = "홈"
-    case soon = "공개예정"
-    case search = "검색"
-    case record = "기록"
-}
-
-/// 탭바 클릭 안 됐을 때 이미지 타입
-enum TabBarUnselectedImgNameType: String {
-    case home = "house"
-    case soon = "video"
-    case search = "magnifyingglass"
-    case record = "clock"
-}
-
-/// 탭바 클릭됐을 때 이미지 타입
-enum TabBarselectedImgNameType: String {
-    case home = "house.fill"
-    case soon = "video.fill"
-    case search = "magnifyingglass"
-    case record = "clock.fill"
-}
-
 /// 하단 탭바
 final class TabBarController: UITabBarController {
     
@@ -48,50 +24,50 @@ final class TabBarController: UITabBarController {
     /// 티빙의 기본 하단 탭바를 생성
     /// 홈, 공개예정, 검색, 기록 총 4개의 탭바로 구성
     private func createDefaultTabBar() {
-        let mainVC = MainViewController()
+        let homeVC = HomeViewController(viewModel: HomeViewModel())
         configTabBar(
-            title: .home,
-            tabImgName: .home,
-            tabUnselectedImgName: .home,
-            vc: mainVC
+            title: StringLiteral.homeStr,
+            tabImgName: StringLiteral.homeImgName,
+            tabUnselectedImgName: StringLiteral.homeUnselectedImgName,
+            vc: homeVC
         )
-        let boxOfficeVC = BoxOfficeViewController()
+        let boxOfficeVC = BoxOfficeViewController(viewModel: BoxOfficeViewModel())
         configTabBar(
-            title: .soon,
-            tabImgName: .soon,
-            tabUnselectedImgName: .soon,
+            title: StringLiteral.soonStr,
+            tabImgName: StringLiteral.soonImgName,
+            tabUnselectedImgName: StringLiteral.soonUnselectedImgName,
             vc: boxOfficeVC
         )
         let thirdVC = UIViewController()
         configTabBar(
-            title: .search,
-            tabImgName: .search,
-            tabUnselectedImgName: .search,
+            title: StringLiteral.searchStr,
+            tabImgName: StringLiteral.searchImgName,
+            tabUnselectedImgName: StringLiteral.searchImgName,
             vc: thirdVC
         )
         let fourthVC = UIViewController()
         configTabBar(
-            title: .record,
-            tabImgName: .record,
-            tabUnselectedImgName: .record,
+            title: StringLiteral.recordStr,
+            tabImgName: StringLiteral.recordImgName,
+            tabUnselectedImgName: StringLiteral.recordUnselectedImgName,
             vc: fourthVC
         )
         
-        self.viewControllers = [mainVC, boxOfficeVC, thirdVC, fourthVC]
+        self.viewControllers = [homeVC, boxOfficeVC, thirdVC, fourthVC]
     }
     
     /// 탭바 설정
     private func configTabBar(
-        title: TabBarTitleType,
-        tabImgName: TabBarselectedImgNameType,
-        tabUnselectedImgName: TabBarUnselectedImgNameType,
+        title: String,
+        tabImgName: String,
+        tabUnselectedImgName: String,
         vc: UIViewController
     ) {
-        vc.title = title.rawValue
+        vc.title = title
         vc.tabBarItem = UITabBarItem(
-            title: title.rawValue,
-            image: UIImage(systemName: tabImgName.rawValue),
-            selectedImage: UIImage(systemName: tabImgName.rawValue)
+            title: title,
+            image: UIImage(systemName: tabImgName),
+            selectedImage: UIImage(systemName: tabImgName)
         )
     }
 }

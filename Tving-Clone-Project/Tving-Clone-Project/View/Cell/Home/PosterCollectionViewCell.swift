@@ -11,37 +11,22 @@ import SnapKit
 import Then
 
 /// 프로그램 포스터 컬렉션뷰 셀
-final class PosterCollectionViewCell: UICollectionViewCell {
-    
-    // MARK: - Properties
-    
-    static let identifier = "PosterCollectionViewCell"
+final class PosterCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Components
     
     private let posterImageView = UIImageView().then {
         $0.layer.cornerRadius = 3
     }
+    
     private lazy var posterTitleLabel = UILabel().then {
         $0.textColor = .gray9C
         $0.font = .pretendard(weight: 500, size: 10)
     }
     
-    // MARK: - Init
+    // MARK: - Set UI
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Helpers
-    
-    private func setLayout() {
+    override func setLayout() {
         contentView.addSubviews(
             posterImageView,
             posterTitleLabel
@@ -56,6 +41,11 @@ final class PosterCollectionViewCell: UICollectionViewCell {
             $0.leading.equalToSuperview()
         }
     }
+}
+
+extension PosterCollectionViewCell {
+    
+    // MARK: - Helpers
     
     /// 더미 데이터를 뷰에 연결
     func fetchData(model: Poster) {
